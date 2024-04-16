@@ -1,0 +1,239 @@
+---
+title: "Hands-on Exercise 1"
+author: "Zou Jiaxun"
+---
+
+# Getting Started
+
+## Install and launching R packages
+
+The code chunk below uses p-load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+## Importing the data
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+# Plotting a simple bar chart
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = RACE)) + 
+  geom_bar()
+```
+
+# Plotting kinds of chart by geometric objects
+
+## Dotplot(with y-axis)
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = ENGLISH)) +
+  geom_dotplot(dotsize = 0.5)
+```
+
+## Dotplot(turn-off y-axis)
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = ENGLISH)) +
+  geom_dotplot(binwidth = 2.5,
+               dotsize = 0.5) +
+  scale_y_continuous(NULL,
+                     breaks = NULL)
+```
+
+## Histogram (default bin is 30)
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = ENGLISH)) +
+  geom_histogram()
+```
+
+## Histogram (changeing geom())
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = ENGLISH)) +
+  geom_histogram(bins = 20,
+                 color = "black",
+                 fill = "light blue")
+```
+
+## Histogram (changeing aes())
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = ENGLISH,
+           fill = GENDER)) +
+  geom_histogram(bins = 20,
+                 color = "grey30")
+```
+
+## Density
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = ENGLISH,
+           color = CLASS)) +
+  geom_density()
+```
+
+## Boxplot (with notch)
+
+```{r}
+ggplot(data = exam_data,
+       aes(y = ENGLISH,
+           x = GENDER)) +
+  geom_boxplot(notch = TRUE)
+```
+
+## Violin (Comparing multiple data distribution)
+
+```{r}
+ggplot(data = exam_data,
+       aes(y = ENGLISH,
+           x = GENDER)) +
+  geom_violin()
+```
+
+## Point
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = ENGLISH,
+           y = MATHS)) +
+  geom_point()
+```
+
+## Combine ("jitter" refers to a technique used to add small random bariation to data points)
+
+```{r}
+ggplot(data = exam_data,
+       aes(y = ENGLISH,
+           x = GENDER)) +
+  geom_boxplot() +
+  geom_point(position = "jitter",
+             size = 0.5)
+```
+
+# Stat (Before)
+
+```{r}
+ggplot(data = exam_data,
+       aes(y = ENGLISH, x = GENDER)) +
+  geom_boxplot()
+```
+
+## Stat (After)
+
+```{r}
+ggplot(data = exam_data,
+       aes(y = ENGLISH,
+           x = GENDER)) +
+  geom_boxplot() +
+  stat_summary(geom = "point",
+               fun.y = "mean",
+               colour = "red",
+               size = 4)
+```
+
+## Add curve on a scatterplot
+
+```{r}
+ggplot(data = exam_data,
+       aes(y = ENGLISH, x = MATHS)) +
+  geom_point() +
+  geom_smooth(size = 0.5)
+```
+
+## Facet_wrap
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = MATHS)) +
+  geom_histogram(bins = 20) +
+  facet_wrap(~ CLASS)
+```
+
+## Facet_grid
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = MATHS)) +
+  geom_histogram(bins = 20) +
+  facet_grid(~ CLASS)
+```
+
+# Working with coordinate (before)
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar()
+```
+
+## Working with coordinate (after)
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip()
+```
+
+## Changing the y- and x-axis range (before)
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = MATHS, y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm, size=0.5)
+```
+
+## Changing the y- and x-axis range (after)
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = MATHS, y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm, size=0.5) +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100))
+```
+
+# Theme
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_gray()
+```
+
+## Classic
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_classic()
+```
+
+## Minimal
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_minimal()
+```
