@@ -1,0 +1,15 @@
+---
+title: "Take-home Exercise 1"
+---
+
+# 1 Overview
+
+## 1.1 Background
+
+There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly household income less than or equal to S\$14,000. For families with monthly household income more than S\$14,000, they need to turn to the private residential market.
+
+We will go to prepare minimum two and maximum three data visualisation to reveal the private residential market and sub-markets of Singapore for the 1st quarter of 2024.
+
+## 1.2 The Data
+
+![](Data%20Picture.jpg)

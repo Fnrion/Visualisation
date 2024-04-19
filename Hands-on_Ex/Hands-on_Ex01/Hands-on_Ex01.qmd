@@ -1,32 +1,5 @@
 ---
-website:
-  title: "Hands-on Exercise 1"
-  navbar:
-    left:
-      - text: "Hands-on Exercise"
-        menu:
-          - text: "Hands-on Exercise 1"
-            href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
-      - text: "In-class Exercise"  
-        menu: 
-          - text: "In-class Exercise 1"
-            href: "In-class_Ex/In-class_Ex01/In-class_Ex01.html" # Correct the href for In-class Exercise 1
-      - text: "Take-home Exercise"  
-        menu: 
-          - text: "Take-home Exercise 1"
-            href: "Take-Home_Ex/Take-home_Ex01/Take-home_Ex01.html"
-    right:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-
-format: 
-  html: 
-    theme: morph
-    css: styles.css
-    toc: true
-
-editor: visual
+title: "Hands-on Exercise 1"
 ---
 
 # Getting Started
