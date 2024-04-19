@@ -12,4 +12,13 @@ We will go to prepare minimum two and maximum three data visualisation to reveal
 
 ## 1.2 The Data
 
+##### Their are five files in the folder. Each file provde transacion data for a quarter. The study period is from 1st January 2023 until 31st March 2024. 
+
 ![](Data%20Picture.jpg)
+
+```{r}
+transaction_data <- read.csv(date-2/2023Q1.csv)
+```
+##### *upload the csv file first*
+
+##
