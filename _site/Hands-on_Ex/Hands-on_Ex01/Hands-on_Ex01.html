@@ -175,42 +175,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-layered-grammar-of-graphics-ggplot2-methods" id="toc-a-layered-grammar-of-graphics-ggplot2-methods" class="nav-link active" data-scroll-target="#a-layered-grammar-of-graphics-ggplot2-methods">A Layered Grammar of Graphics: ggplot2 methods</a>
+  <li><a href="#a-layered-grammar-of-graphics-ggplot2-methods" id="toc-a-layered-grammar-of-graphics-ggplot2-methods" class="nav-link active" data-scroll-target="#a-layered-grammar-of-graphics-ggplot2-methods">1 A Layered Grammar of Graphics: ggplot2 methods</a>
   <ul class="collapse">
-  <li><a href="#install-and-launching-r-packages" id="toc-install-and-launching-r-packages" class="nav-link" data-scroll-target="#install-and-launching-r-packages">Install and launching R packages</a></li>
-  <li><a href="#importing-the-data" id="toc-importing-the-data" class="nav-link" data-scroll-target="#importing-the-data">Importing the data</a></li>
+  <li><a href="#install-and-launching-r-packages" id="toc-install-and-launching-r-packages" class="nav-link" data-scroll-target="#install-and-launching-r-packages">1.1 Install and launching R packages</a></li>
+  <li><a href="#mporting-the-data" id="toc-mporting-the-data" class="nav-link" data-scroll-target="#mporting-the-data">1.2 mporting the data</a></li>
   </ul></li>
-  <li><a href="#plotting-a-simple-bar-chart" id="toc-plotting-a-simple-bar-chart" class="nav-link" data-scroll-target="#plotting-a-simple-bar-chart">Plotting a simple bar chart</a></li>
-  <li><a href="#plotting-kinds-of-chart-by-geometric-objects" id="toc-plotting-kinds-of-chart-by-geometric-objects" class="nav-link" data-scroll-target="#plotting-kinds-of-chart-by-geometric-objects">Plotting kinds of chart by geometric objects</a>
+  <li><a href="#plotting-a-simple-bar-chart" id="toc-plotting-a-simple-bar-chart" class="nav-link" data-scroll-target="#plotting-a-simple-bar-chart">2 Plotting a simple bar chart</a></li>
+  <li><a href="#plotting-kinds-of-chart-by-geometric-objects" id="toc-plotting-kinds-of-chart-by-geometric-objects" class="nav-link" data-scroll-target="#plotting-kinds-of-chart-by-geometric-objects">3 Plotting kinds of chart by geometric objects</a>
   <ul class="collapse">
-  <li><a href="#dotplotwith-y-axis" id="toc-dotplotwith-y-axis" class="nav-link" data-scroll-target="#dotplotwith-y-axis">Dotplot(with y-axis)</a></li>
-  <li><a href="#dotplotturn-off-y-axis" id="toc-dotplotturn-off-y-axis" class="nav-link" data-scroll-target="#dotplotturn-off-y-axis">Dotplot(turn-off y-axis)</a></li>
-  <li><a href="#histogram-default-bin-is-30" id="toc-histogram-default-bin-is-30" class="nav-link" data-scroll-target="#histogram-default-bin-is-30">Histogram (default bin is 30)</a></li>
-  <li><a href="#histogram-changeing-geom" id="toc-histogram-changeing-geom" class="nav-link" data-scroll-target="#histogram-changeing-geom">Histogram (changeing geom())</a></li>
-  <li><a href="#histogram-changeing-aes" id="toc-histogram-changeing-aes" class="nav-link" data-scroll-target="#histogram-changeing-aes">Histogram (changeing aes())</a></li>
-  <li><a href="#density" id="toc-density" class="nav-link" data-scroll-target="#density">Density</a></li>
-  <li><a href="#boxplot-with-notch" id="toc-boxplot-with-notch" class="nav-link" data-scroll-target="#boxplot-with-notch">Boxplot (with notch)</a></li>
-  <li><a href="#violin-comparing-multiple-data-distribution" id="toc-violin-comparing-multiple-data-distribution" class="nav-link" data-scroll-target="#violin-comparing-multiple-data-distribution">Violin (Comparing multiple data distribution)</a></li>
-  <li><a href="#point" id="toc-point" class="nav-link" data-scroll-target="#point">Point</a></li>
-  <li><a href="#combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" id="toc-combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" class="nav-link" data-scroll-target="#combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points">Combine (“jitter” refers to a technique used to add small random bariation to data points)</a></li>
+  <li><a href="#dotplotwith-y-axis" id="toc-dotplotwith-y-axis" class="nav-link" data-scroll-target="#dotplotwith-y-axis">3.1 Dotplot(with y-axis)</a></li>
+  <li><a href="#dotplotturn-off-y-axis" id="toc-dotplotturn-off-y-axis" class="nav-link" data-scroll-target="#dotplotturn-off-y-axis">3.2 Dotplot(turn-off y-axis)</a></li>
+  <li><a href="#histogram-default-bin-is-30" id="toc-histogram-default-bin-is-30" class="nav-link" data-scroll-target="#histogram-default-bin-is-30">3.3 Histogram (default bin is 30)</a></li>
+  <li><a href="#histogram-changeing-geom" id="toc-histogram-changeing-geom" class="nav-link" data-scroll-target="#histogram-changeing-geom">3.4 Histogram (changeing geom())</a></li>
+  <li><a href="#histogram-changeing-aes" id="toc-histogram-changeing-aes" class="nav-link" data-scroll-target="#histogram-changeing-aes">3.5 Histogram (changeing aes())</a></li>
+  <li><a href="#density" id="toc-density" class="nav-link" data-scroll-target="#density">3.6 Density</a></li>
+  <li><a href="#boxplot-with-notch" id="toc-boxplot-with-notch" class="nav-link" data-scroll-target="#boxplot-with-notch">3.7 Boxplot (with notch)</a></li>
+  <li><a href="#violin-comparing-multiple-data-distribution" id="toc-violin-comparing-multiple-data-distribution" class="nav-link" data-scroll-target="#violin-comparing-multiple-data-distribution">3.8 Violin (Comparing multiple data distribution)</a></li>
+  <li><a href="#point" id="toc-point" class="nav-link" data-scroll-target="#point">3.9 Point</a></li>
+  <li><a href="#combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" id="toc-combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" class="nav-link" data-scroll-target="#combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points">3.10 Combine (“jitter” refers to a technique used to add small random bariation to data points)</a></li>
   </ul></li>
-  <li><a href="#stat-before" id="toc-stat-before" class="nav-link" data-scroll-target="#stat-before">Stat (Before)</a>
+  <li><a href="#stat" id="toc-stat" class="nav-link" data-scroll-target="#stat">4 Stat</a>
   <ul class="collapse">
-  <li><a href="#stat-after" id="toc-stat-after" class="nav-link" data-scroll-target="#stat-after">Stat (After)</a></li>
-  <li><a href="#add-curve-on-a-scatterplot" id="toc-add-curve-on-a-scatterplot" class="nav-link" data-scroll-target="#add-curve-on-a-scatterplot">Add curve on a scatterplot</a></li>
-  <li><a href="#facet_wrap" id="toc-facet_wrap" class="nav-link" data-scroll-target="#facet_wrap">Facet_wrap</a></li>
-  <li><a href="#facet_grid" id="toc-facet_grid" class="nav-link" data-scroll-target="#facet_grid">Facet_grid</a></li>
+  <li><a href="#before" id="toc-before" class="nav-link" data-scroll-target="#before">4.1 (Before)</a></li>
+  <li><a href="#stat-after" id="toc-stat-after" class="nav-link" data-scroll-target="#stat-after">4.2 Stat (After)</a></li>
+  <li><a href="#add-curve-on-a-scatterplot" id="toc-add-curve-on-a-scatterplot" class="nav-link" data-scroll-target="#add-curve-on-a-scatterplot">4.3 Add curve on a scatterplot</a></li>
+  <li><a href="#facet_wrap" id="toc-facet_wrap" class="nav-link" data-scroll-target="#facet_wrap">4.4 Facet_wrap</a></li>
+  <li><a href="#facet_grid" id="toc-facet_grid" class="nav-link" data-scroll-target="#facet_grid">4.5 Facet_grid</a></li>
   </ul></li>
-  <li><a href="#working-with-coordinate-before" id="toc-working-with-coordinate-before" class="nav-link" data-scroll-target="#working-with-coordinate-before">Working with coordinate (before)</a>
+  <li><a href="#working-with-coordinate" id="toc-working-with-coordinate" class="nav-link" data-scroll-target="#working-with-coordinate">5 Working with coordinate</a>
   <ul class="collapse">
-  <li><a href="#working-with-coordinate-after" id="toc-working-with-coordinate-after" class="nav-link" data-scroll-target="#working-with-coordinate-after">Working with coordinate (after)</a></li>
-  <li><a href="#changing-the-y--and-x-axis-range-before" id="toc-changing-the-y--and-x-axis-range-before" class="nav-link" data-scroll-target="#changing-the-y--and-x-axis-range-before">Changing the y- and x-axis range (before)</a></li>
-  <li><a href="#changing-the-y--and-x-axis-range-after" id="toc-changing-the-y--and-x-axis-range-after" class="nav-link" data-scroll-target="#changing-the-y--and-x-axis-range-after">Changing the y- and x-axis range (after)</a></li>
+  <li><a href="#before-1" id="toc-before-1" class="nav-link" data-scroll-target="#before-1">5.1 (before)</a></li>
+  <li><a href="#working-with-coordinate-after" id="toc-working-with-coordinate-after" class="nav-link" data-scroll-target="#working-with-coordinate-after">5.2 Working with coordinate (after)</a></li>
+  <li><a href="#changing-the-y--and-x-axis-range-before" id="toc-changing-the-y--and-x-axis-range-before" class="nav-link" data-scroll-target="#changing-the-y--and-x-axis-range-before">5.3 Changing the y- and x-axis range (before)</a></li>
+  <li><a href="#changing-the-y--and-x-axis-range-after" id="toc-changing-the-y--and-x-axis-range-after" class="nav-link" data-scroll-target="#changing-the-y--and-x-axis-range-after">5.4 Changing the y- and x-axis range (after)</a></li>
   </ul></li>
-  <li><a href="#theme" id="toc-theme" class="nav-link" data-scroll-target="#theme">Theme</a>
+  <li><a href="#theme" id="toc-theme" class="nav-link" data-scroll-target="#theme">6 Theme</a>
   <ul class="collapse">
-  <li><a href="#classic" id="toc-classic" class="nav-link" data-scroll-target="#classic">Classic</a></li>
-  <li><a href="#minimal" id="toc-minimal" class="nav-link" data-scroll-target="#minimal">Minimal</a></li>
+  <li><a href="#classic" id="toc-classic" class="nav-link" data-scroll-target="#classic">6.1 Classic</a></li>
+  <li><a href="#minimal" id="toc-minimal" class="nav-link" data-scroll-target="#minimal">6.2 Minimal</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -236,16 +238,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <section id="a-layered-grammar-of-graphics-ggplot2-methods" class="level1">
-<h1>A Layered Grammar of Graphics: ggplot2 methods</h1>
+<h1>1 A Layered Grammar of Graphics: ggplot2 methods</h1>
 <section id="install-and-launching-r-packages" class="level2">
-<h2 class="anchored" data-anchor-id="install-and-launching-r-packages">Install and launching R packages</h2>
+<h2 class="anchored" data-anchor-id="install-and-launching-r-packages">1.1 Install and launching R packages</h2>
 <p>The code chunk below uses p-load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="importing-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="importing-the-data">Importing the data</h2>
+<section id="mporting-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="mporting-the-data">1.2 mporting the data</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exam_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Exam_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -262,7 +264,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </section>
 </section>
 <section id="plotting-a-simple-bar-chart" class="level1">
-<h1>Plotting a simple bar chart</h1>
+<h1>2 Plotting a simple bar chart</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span> </span>
@@ -273,9 +275,9 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="plotting-kinds-of-chart-by-geometric-objects" class="level1">
-<h1>Plotting kinds of chart by geometric objects</h1>
+<h1>3 Plotting kinds of chart by geometric objects</h1>
 <section id="dotplotwith-y-axis" class="level2">
-<h2 class="anchored" data-anchor-id="dotplotwith-y-axis">Dotplot(with y-axis)</h2>
+<h2 class="anchored" data-anchor-id="dotplotwith-y-axis">3.1 Dotplot(with y-axis)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
@@ -290,7 +292,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="dotplotturn-off-y-axis" class="level2">
-<h2 class="anchored" data-anchor-id="dotplotturn-off-y-axis">Dotplot(turn-off y-axis)</h2>
+<h2 class="anchored" data-anchor-id="dotplotturn-off-y-axis">3.2 Dotplot(turn-off y-axis)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
@@ -304,7 +306,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="histogram-default-bin-is-30" class="level2">
-<h2 class="anchored" data-anchor-id="histogram-default-bin-is-30">Histogram (default bin is 30)</h2>
+<h2 class="anchored" data-anchor-id="histogram-default-bin-is-30">3.3 Histogram (default bin is 30)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
@@ -318,7 +320,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="histogram-changeing-geom" class="level2">
-<h2 class="anchored" data-anchor-id="histogram-changeing-geom">Histogram (changeing geom())</h2>
+<h2 class="anchored" data-anchor-id="histogram-changeing-geom">3.4 Histogram (changeing geom())</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
@@ -331,7 +333,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="histogram-changeing-aes" class="level2">
-<h2 class="anchored" data-anchor-id="histogram-changeing-aes">Histogram (changeing aes())</h2>
+<h2 class="anchored" data-anchor-id="histogram-changeing-aes">3.5 Histogram (changeing aes())</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH,</span>
@@ -344,7 +346,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="density" class="level2">
-<h2 class="anchored" data-anchor-id="density">Density</h2>
+<h2 class="anchored" data-anchor-id="density">3.6 Density</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH,</span>
@@ -356,7 +358,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="boxplot-with-notch" class="level2">
-<h2 class="anchored" data-anchor-id="boxplot-with-notch">Boxplot (with notch)</h2>
+<h2 class="anchored" data-anchor-id="boxplot-with-notch">3.7 Boxplot (with notch)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH,</span>
@@ -368,7 +370,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="violin-comparing-multiple-data-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="violin-comparing-multiple-data-distribution">Violin (Comparing multiple data distribution)</h2>
+<h2 class="anchored" data-anchor-id="violin-comparing-multiple-data-distribution">3.8 Violin (Comparing multiple data distribution)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH,</span>
@@ -380,7 +382,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="point" class="level2">
-<h2 class="anchored" data-anchor-id="point">Point</h2>
+<h2 class="anchored" data-anchor-id="point">3.9 Point</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH,</span>
@@ -392,7 +394,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" class="level2">
-<h2 class="anchored" data-anchor-id="combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points">Combine (“jitter” refers to a technique used to add small random bariation to data points)</h2>
+<h2 class="anchored" data-anchor-id="combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points">3.10 Combine (“jitter” refers to a technique used to add small random bariation to data points)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH,</span>
@@ -406,8 +408,10 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 </section>
-<section id="stat-before" class="level1">
-<h1>Stat (Before)</h1>
+<section id="stat" class="level1">
+<h1>4 Stat</h1>
+<section id="before" class="level2">
+<h2 class="anchored" data-anchor-id="before">4.1 (Before)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH, <span class="at">x =</span> GENDER)) <span class="sc">+</span></span>
@@ -416,8 +420,9 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 <p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
 <section id="stat-after" class="level2">
-<h2 class="anchored" data-anchor-id="stat-after">Stat (After)</h2>
+<h2 class="anchored" data-anchor-id="stat-after">4.2 Stat (After)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH,</span>
@@ -437,7 +442,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="add-curve-on-a-scatterplot" class="level2">
-<h2 class="anchored" data-anchor-id="add-curve-on-a-scatterplot">Add curve on a scatterplot</h2>
+<h2 class="anchored" data-anchor-id="add-curve-on-a-scatterplot">4.3 Add curve on a scatterplot</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH, <span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
@@ -456,7 +461,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="facet_wrap" class="level2">
-<h2 class="anchored" data-anchor-id="facet_wrap">Facet_wrap</h2>
+<h2 class="anchored" data-anchor-id="facet_wrap">4.4 Facet_wrap</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
@@ -468,7 +473,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="facet_grid" class="level2">
-<h2 class="anchored" data-anchor-id="facet_grid">Facet_grid</h2>
+<h2 class="anchored" data-anchor-id="facet_grid">4.5 Facet_grid</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
@@ -480,8 +485,10 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 </section>
-<section id="working-with-coordinate-before" class="level1">
-<h1>Working with coordinate (before)</h1>
+<section id="working-with-coordinate" class="level1">
+<h1>5 Working with coordinate</h1>
+<section id="before-1" class="level2">
+<h2 class="anchored" data-anchor-id="before-1">5.1 (before)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
@@ -490,8 +497,9 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 <p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
 <section id="working-with-coordinate-after" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-coordinate-after">Working with coordinate (after)</h2>
+<h2 class="anchored" data-anchor-id="working-with-coordinate-after">5.2 Working with coordinate (after)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
@@ -503,7 +511,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="changing-the-y--and-x-axis-range-before" class="level2">
-<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range-before">Changing the y- and x-axis range (before)</h2>
+<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range-before">5.3 Changing the y- and x-axis range (before)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS, <span class="at">y =</span> ENGLISH)) <span class="sc">+</span></span>
@@ -518,7 +526,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="changing-the-y--and-x-axis-range-after" class="level2">
-<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range-after">Changing the y- and x-axis range (after)</h2>
+<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range-after">5.4 Changing the y- and x-axis range (after)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS, <span class="at">y =</span> ENGLISH)) <span class="sc">+</span></span>
@@ -536,7 +544,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </section>
 </section>
 <section id="theme" class="level1">
-<h1>Theme</h1>
+<h1>6 Theme</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span></span>
@@ -548,7 +556,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 <section id="classic" class="level2">
-<h2 class="anchored" data-anchor-id="classic">Classic</h2>
+<h2 class="anchored" data-anchor-id="classic">6.1 Classic</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span></span>
@@ -561,7 +569,7 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 <section id="minimal" class="level2">
-<h2 class="anchored" data-anchor-id="minimal">Minimal</h2>
+<h2 class="anchored" data-anchor-id="minimal">6.2 Minimal</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span></span>

@@ -2,9 +2,9 @@
 title: "Hands-on Exercise 1"
 ---
 
-# A Layered Grammar of Graphics: ggplot2 methods
+# 1 A Layered Grammar of Graphics: ggplot2 methods
 
-## Install and launching R packages
+## 1.1 Install and launching R packages
 
 The code chunk below uses p-load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.
 
@@ -12,13 +12,13 @@ The code chunk below uses p-load() of pacman package to check if tidyverse packa
 pacman::p_load(tidyverse)
 ```
 
-## Importing the data
+## 1.2 mporting the data
 
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
-# Plotting a simple bar chart
+# 2 Plotting a simple bar chart
 
 ```{r}
 ggplot(data = exam_data,
@@ -26,9 +26,9 @@ ggplot(data = exam_data,
   geom_bar()
 ```
 
-# Plotting kinds of chart by geometric objects
+# 3 Plotting kinds of chart by geometric objects
 
-## Dotplot(with y-axis)
+## 3.1 Dotplot(with y-axis)
 
 ```{r}
 ggplot(data = exam_data,
@@ -36,7 +36,7 @@ ggplot(data = exam_data,
   geom_dotplot(dotsize = 0.5)
 ```
 
-## Dotplot(turn-off y-axis)
+## 3.2 Dotplot(turn-off y-axis)
 
 ```{r}
 ggplot(data = exam_data,
@@ -47,7 +47,7 @@ ggplot(data = exam_data,
                      breaks = NULL)
 ```
 
-## Histogram (default bin is 30)
+## 3.3 Histogram (default bin is 30)
 
 ```{r}
 ggplot(data = exam_data,
@@ -55,7 +55,7 @@ ggplot(data = exam_data,
   geom_histogram()
 ```
 
-## Histogram (changeing geom())
+## 3.4 Histogram (changeing geom())
 
 ```{r}
 ggplot(data = exam_data,
@@ -65,7 +65,7 @@ ggplot(data = exam_data,
                  fill = "light blue")
 ```
 
-## Histogram (changeing aes())
+## 3.5 Histogram (changeing aes())
 
 ```{r}
 ggplot(data = exam_data,
@@ -75,7 +75,7 @@ ggplot(data = exam_data,
                  color = "grey30")
 ```
 
-## Density
+## 3.6 Density
 
 ```{r}
 ggplot(data = exam_data,
@@ -84,7 +84,7 @@ ggplot(data = exam_data,
   geom_density()
 ```
 
-## Boxplot (with notch)
+## 3.7 Boxplot (with notch)
 
 ```{r}
 ggplot(data = exam_data,
@@ -93,7 +93,7 @@ ggplot(data = exam_data,
   geom_boxplot(notch = TRUE)
 ```
 
-## Violin (Comparing multiple data distribution)
+## 3.8 Violin (Comparing multiple data distribution)
 
 ```{r}
 ggplot(data = exam_data,
@@ -102,7 +102,7 @@ ggplot(data = exam_data,
   geom_violin()
 ```
 
-## Point
+## 3.9 Point
 
 ```{r}
 ggplot(data = exam_data,
@@ -111,7 +111,7 @@ ggplot(data = exam_data,
   geom_point()
 ```
 
-## Combine ("jitter" refers to a technique used to add small random bariation to data points)
+## 3.10 Combine ("jitter" refers to a technique used to add small random bariation to data points)
 
 ```{r}
 ggplot(data = exam_data,
@@ -122,7 +122,9 @@ ggplot(data = exam_data,
              size = 0.5)
 ```
 
-# Stat (Before)
+# 4 Stat 
+
+## 4.1 (Before)
 
 ```{r}
 ggplot(data = exam_data,
@@ -130,7 +132,7 @@ ggplot(data = exam_data,
   geom_boxplot()
 ```
 
-## Stat (After)
+## 4.2 Stat (After)
 
 ```{r}
 ggplot(data = exam_data,
@@ -143,7 +145,7 @@ ggplot(data = exam_data,
                size = 4)
 ```
 
-## Add curve on a scatterplot
+## 4.3 Add curve on a scatterplot
 
 ```{r}
 ggplot(data = exam_data,
@@ -152,7 +154,7 @@ ggplot(data = exam_data,
   geom_smooth(size = 0.5)
 ```
 
-## Facet_wrap
+## 4.4 Facet_wrap
 
 ```{r}
 ggplot(data = exam_data,
@@ -161,7 +163,7 @@ ggplot(data = exam_data,
   facet_wrap(~ CLASS)
 ```
 
-## Facet_grid
+## 4.5 Facet_grid
 
 ```{r}
 ggplot(data = exam_data,
@@ -170,7 +172,9 @@ ggplot(data = exam_data,
   facet_grid(~ CLASS)
 ```
 
-# Working with coordinate (before)
+# 5 Working with coordinate 
+
+## 5.1 (before)
 
 ```{r}
 ggplot(data=exam_data, 
@@ -178,7 +182,7 @@ ggplot(data=exam_data,
   geom_bar()
 ```
 
-## Working with coordinate (after)
+## 5.2 Working with coordinate (after)
 
 ```{r}
 ggplot(data=exam_data, 
@@ -187,7 +191,7 @@ ggplot(data=exam_data,
   coord_flip()
 ```
 
-## Changing the y- and x-axis range (before)
+## 5.3 Changing the y- and x-axis range (before)
 
 ```{r}
 ggplot(data = exam_data,
@@ -196,7 +200,7 @@ ggplot(data = exam_data,
   geom_smooth(method = lm, size=0.5)
 ```
 
-## Changing the y- and x-axis range (after)
+## 5.4 Changing the y- and x-axis range (after)
 
 ```{r}
 ggplot(data = exam_data,
@@ -207,7 +211,7 @@ ggplot(data = exam_data,
                   ylim = c(0,100))
 ```
 
-# Theme
+# 6 Theme
 
 ```{r}
 ggplot(data = exam_data,
@@ -217,7 +221,7 @@ ggplot(data = exam_data,
   theme_gray()
 ```
 
-## Classic
+## 6.1 Classic
 
 ```{r}
 ggplot(data = exam_data,
@@ -227,7 +231,7 @@ ggplot(data = exam_data,
   theme_classic()
 ```
 
-## Minimal
+## 6.2 Minimal
 
 ```{r}
 ggplot(data = exam_data,
