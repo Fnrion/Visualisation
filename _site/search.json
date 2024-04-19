@@ -1,10 +1,52 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
+    "title": "Hands-on Exercise 2",
     "section": "",
-    "text": "About this site\n\n### This is about but no about"
+    "text": "pacman::p_load(ggrepel, patchwork, ggthemes,\n               hrbrthemes, tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-library",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-library",
+    "title": "Hands-on Exercise 2",
+    "section": "",
+    "text": "pacman::p_load(ggrepel, patchwork, ggthemes,\n               hrbrthemes, tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
+    "title": "Hands-on Exercise 2",
+    "section": "Importing data",
+    "text": "Importing data\n\nexam_data &lt;- read.csv(\"data/Exam_data.csv\")\n\n\nreader is one of the tidyverse package"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-annotationggrepel",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-annotationggrepel",
+    "title": "Hands-on Exercise 2",
+    "section": "Beyond ggplot2 Annotation:ggrepel",
+    "text": "Beyond ggplot2 Annotation:ggrepel\n\nggplot(data = exam_data,\n       aes(x = MATHS, y = ENGLISH)) +\n  geom_point() +\n  geom_smooth(method = lm, size = 0.5) +\n  geom_label(aes(label = ID),\n             hjust = 0.5,\n             vjust = -.5) +\n  coord_cartesian(xlim = c(0,100),\n                  ylim = c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\norignal plot\n\nggplot(data = exam_data,\n       aes(x = MATHS, y = ENGLISH)) +\n  geom_point() +\n  geom_smooth(method = lm, size = 0.5) +\n  geom_label_repel(aes(label = ID),\n             hjust = 0.5,\n             vjust = -.5) +\n  coord_cartesian(xlim = c(0,100),\n                  ylim = c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: ggrepel: 318 unlabeled data points (too many overlaps). Consider\nincreasing max.overlaps\n\n\n\n\n\n\n\nusing ggrepel"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-themes",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-themes",
+    "title": "Hands-on Exercise 2",
+    "section": "Beyond ggplot2 Themes",
+    "text": "Beyond ggplot2 Themes\n\neight built_in themes: theme_gray(), theme_bw(), theme_classic(), theme_dark(), theme_light(), theme_linedraw(), theme_minimal(), and theme_void()\n\n\ntheme_gray\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_gray() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_bw\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_bw() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_classic\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_classic() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_dark\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_dark() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_light\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_light() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_linedraw\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_linedraw() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_minimal\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_minimal() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_void\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_void() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\nWorking with ggtheme package\n\nEconomist theme\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_economist()"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "title": "Take-home Exercise 1",
+    "section": "",
+    "text": "There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly household income less than or equal to S$14,000. For families with monthly household income more than S$14,000, they need to turn to the private residential market.\nWe will go to prepare minimum two and maximum three data visualisation to reveal the private residential market and sub-markets of Singapore for the 1st quarter of 2024."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#background",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#background",
+    "title": "Take-home Exercise 1",
+    "section": "",
+    "text": "There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly household income less than or equal to S$14,000. For families with monthly household income more than S$14,000, they need to turn to the private residential market.\nWe will go to prepare minimum two and maximum three data visualisation to reveal the private residential market and sub-markets of Singapore for the 1st quarter of 2024."
   },
   {
     "objectID": "index.html",
@@ -168,52 +210,10 @@
     "text": "Minimal\n\nggplot(data = exam_data,\n       aes(x = RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_minimal()"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
-    "title": "Hands-on Exercise 2",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "pacman::p_load(ggrepel, patchwork, ggthemes,\n               hrbrthemes, tidyverse)\nlibrary(ggplot2)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-library",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-library",
-    "title": "Hands-on Exercise 2",
-    "section": "",
-    "text": "pacman::p_load(ggrepel, patchwork, ggthemes,\n               hrbrthemes, tidyverse)\nlibrary(ggplot2)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
-    "title": "Hands-on Exercise 2",
-    "section": "Importing data",
-    "text": "Importing data\n\nexam_data &lt;- read.csv(\"data/Exam_data.csv\")\n\n\nreader is one of the tidyverse package"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-annotationggrepel",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-annotationggrepel",
-    "title": "Hands-on Exercise 2",
-    "section": "Beyond ggplot2 Annotation:ggrepel",
-    "text": "Beyond ggplot2 Annotation:ggrepel\n\nggplot(data = exam_data,\n       aes(x = MATHS, y = ENGLISH)) +\n  geom_point() +\n  geom_smooth(method = lm, size = 0.5) +\n  geom_label(aes(label = ID),\n             hjust = 0.5,\n             vjust = -.5) +\n  coord_cartesian(xlim = c(0,100),\n                  ylim = c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\norignal plot\n\nggplot(data = exam_data,\n       aes(x = MATHS, y = ENGLISH)) +\n  geom_point() +\n  geom_smooth(method = lm, size = 0.5) +\n  geom_label_repel(aes(label = ID),\n             hjust = 0.5,\n             vjust = -.5) +\n  coord_cartesian(xlim = c(0,100),\n                  ylim = c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: ggrepel: 318 unlabeled data points (too many overlaps). Consider\nincreasing max.overlaps\n\n\n\n\n\n\n\nusing ggrepel"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-themes",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-themes",
-    "title": "Hands-on Exercise 2",
-    "section": "Beyond ggplot2 Themes",
-    "text": "Beyond ggplot2 Themes\n\neight built_in themes: theme_gray(), theme_bw(), theme_classic(), theme_dark(), theme_light(), theme_linedraw(), theme_minimal(), and theme_void()\n\n\ntheme_gray\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_gray() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_bw\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_bw() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_classic\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_classic() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_dark\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_dark() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_light\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_light() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_linedraw\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_linedraw() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_minimal\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_minimal() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\ntheme_void\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  theme_void() +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\nWorking with ggtheme package\n\nEconomist theme\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, boundary = 100, color = \"grey25\",\n                 fill = \"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_economist()"
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
-    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
-    "title": "Take-home Exercise 1",
-    "section": "",
-    "text": "There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly household income less than or equal to S$14,000. For families with monthly household income more than S$14,000, they need to turn to the private residential market.\nWe will go to prepare minimum two and maximum three data visualisation to reveal the private residential market and sub-markets of Singapore for the 1st quarter of 2024."
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#background",
-    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#background",
-    "title": "Take-home Exercise 1",
-    "section": "",
-    "text": "There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly household income less than or equal to S$14,000. For families with monthly household income more than S$14,000, they need to turn to the private residential market.\nWe will go to prepare minimum two and maximum three data visualisation to reveal the private residential market and sub-markets of Singapore for the 1st quarter of 2024."
+    "text": "About this site\n\n### This is about but no about"
   }
 ]
