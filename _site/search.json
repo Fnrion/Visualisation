@@ -4,7 +4,7 @@
     "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
     "title": "Take-home Exercise 1",
     "section": "",
-    "text": "There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly household income less than or equal to S$14,000. For families with monthly household income more than S$14,000, they need to turn to the private residential market.\nWe will go to prepare minimum two and maximum three data visualisation to reveal the private residential market and sub-markets of Singapore for the 1st quarter of 2024."
+    "text": "There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly household income less than or equal to S$14,000. For families with monthly household income more than S$14,000, they need to turn to the private residential market.\nWe will go to prepare minimum two and maximum three data visualisation to reveal the private residential market and sub-markets of Singapore for the 1st quarter of 2024.\n\n\n\n\n\n\n\ntransaction_data_2024Q1 &lt;- read.csv(\"data-2/2024Q1.csv\")\n\n\n\n\n\n\n\n\nAccording to the transaction_data_2024Q1, there are 4722 obs. of 21 variables before we make a data cleaning."
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#background",
@@ -250,5 +250,19 @@
     "title": "Hands-on Exercise 2",
     "section": "",
     "text": "p1 + p2\n\n\n\n\n\n\n\n\n(p1/p2)|p3\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n(p1/p2)|p3 +\n  plot_annotation(tag_levels = \"I\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\np3 + inset_element(p2,\n                   left = 0.02,\n                   bottom = 0.7,\n                   right = 0.5,\n                   top = 1)\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\npatchwork &lt;- (p1/p2)|p3 \npatchwork & theme_economist()\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-import",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-import",
+    "title": "Take-home Exercise 1",
+    "section": "",
+    "text": "transaction_data_2024Q1 &lt;- read.csv(\"data-2/2024Q1.csv\")"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-check",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-check",
+    "title": "Take-home Exercise 1",
+    "section": "",
+    "text": "According to the transaction_data_2024Q1, there are 4722 obs. of 21 variables before we make a data cleaning."
   }
 ]

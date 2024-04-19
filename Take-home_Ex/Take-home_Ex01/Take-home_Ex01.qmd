@@ -10,15 +10,20 @@ There are two major residential property market in Singapore, namely public and 
 
 We will go to prepare minimum two and maximum three data visualisation to reveal the private residential market and sub-markets of Singapore for the 1st quarter of 2024.
 
-## 1.2 The Data
+## 1.2 Data Import
 
-##### Their are five files in the folder. Each file provde transacion data for a quarter. The study period is from 1st January 2023 until 31st March 2024. 
+##### Their are five files in the folder. Each file provde transacion data for a quarter. The study period is from 1st January 2023 until 31st March 2024.
 
 ![](Data%20Picture.jpg)
 
 ```{r}
-transaction_data <- read.csv(date-2/2023Q1.csv)
+transaction_data_2024Q1 <- read.csv("data-2/2024Q1.csv")
 ```
-##### *upload the csv file first*
 
-##
+##### *import the csv. file using read.csv() first, and now you can use Data in Environment to see the general!*
+
+## 1.3 Data check
+
+According to the transaction_data_2024Q1, there are 4722 obs. of 21 variables before we make a data cleaning.
+
+![](Data Picture 2.jpg)
