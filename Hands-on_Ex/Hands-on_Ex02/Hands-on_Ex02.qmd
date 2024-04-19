@@ -2,6 +2,8 @@
 title: "Hands-on Exercise 2"
 ---
 
+# Beyond ggplot2 Fundamentals
+
 ## Installing and Loading the required library
 
 ### check the required packages: ggrepel, ggthemes, hrbrthemes, patchwork
@@ -9,7 +11,6 @@ title: "Hands-on Exercise 2"
 ```{r}
 pacman::p_load(ggrepel, patchwork, ggthemes,
                hrbrthemes, tidyverse)
-library(ggplot2)
 ```
 
 ## Importing data

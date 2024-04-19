@@ -2,7 +2,7 @@
 title: "Hands-on Exercise 1"
 ---
 
-# Getting Started
+# A Layered Grammar of Graphics: ggplot2 methods
 
 ## Install and launching R packages
 
