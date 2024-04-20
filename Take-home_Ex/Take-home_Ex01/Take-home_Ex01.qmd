@@ -14,7 +14,7 @@ We will go to prepare minimum two and maximum three data visualisation to reveal
 
 ##### Their are five files in the folder. Each file provde transacion data for a quarter. The study period is from 1st January 2023 until 31st March 2024.
 
-![](Data%20Picture%201.jpg)
+![](Data Picture 1.jpg)
 
 ```{r}
 transaction_data_2024Q1 <- read.csv("data-2/2024Q1.csv")
@@ -26,7 +26,7 @@ transaction_data_2024Q1 <- read.csv("data-2/2024Q1.csv")
 
 According to the transaction_data_2024Q1, there are 4722 obs. of 21 variables before we make a data cleaning.
 
-![](Data%20Picture%202.jpg)
+![](Data Picture 2.jpg)
 
 Now we need to check the duplicate.
 
@@ -62,3 +62,12 @@ there is no
 | Planning Area               | Column content | Column content | Column content |
 
 ## 1.5 Handling missinh
+
+
+
+
+```{r}
+pacman::p_load(ggrepel, patchwork, ggthemes,
+               hrbrthemes, tidyverse, lubridata)
+library(ggplot2)
+```

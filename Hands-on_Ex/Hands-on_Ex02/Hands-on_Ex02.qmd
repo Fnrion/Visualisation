@@ -6,12 +6,11 @@ title: "Hands-on Exercise 2"
 
 ## 1 Installing and Loading the required library
 
-### 1.1 check the required packages: ggrepel, ggthemes, hrbrthemes, patchwork
+### 1.1 check the required packages: ggrepel, ggthemes, hrbrthemes, patchwork, ggplot2
 
 ```{r}
 pacman::p_load(ggrepel, patchwork, ggthemes,
-               hrbrthemes, tidyverse)
-library(ggplot2)
+               hrbrthemes, tidyverse, ggplot2)
 ```
 
 ## 2 Importing data

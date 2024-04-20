@@ -1,0 +1,80 @@
+---
+title: "In-class_Ex02 Demo"
+author: "Zou Jiaxun"
+date: "April 20, 2024"
+data-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+# Getting Started
+
+## 1 Load package
+
+```{r}
+pacman::p_load(ggrepel, patchwork, ggthemes,
+               hrbrthemes, tidyverse, ggplot2)
+```
+
+## 2 Import Data
+
+```{r}
+exam_df <- read.csv("data/Exam_data.csv")
+```
+
+## 3 Draw
+
+### 3.1 Histogram
+
+```{r}
+ggplot(data = exam_df,
+       aes(x = ENGLISH)) +
+  geom_histogram()
+```
+
+### 3.2 Density
+
+```{r}
+ggplot(data = exam_df,
+       aes(x = ENGLISH,
+           color = CLASS)) +
+  geom_density(color = "#1696d2",
+  adjust = .65,
+  alpha = .6)
+```
+
+### 3.3 Compare
+
+```{r}
+median_eng <- median(exam_df$ENGLISH)
+mean_eng <- mean(exam_df$ENGLISH)
+std_eng <- sd(exam_df$ENGLISH)
+
+ggplot(exam_df,
+       aes(x = ENGLISH,
+           color = CLASS)) +
+  geom_density(color = "#1696d2",
+  adjust = .65,
+  alpha = .6) +
+  stat_function(
+    fun = dnorm,
+    args = list(mean = mean_eng,
+                sd = std_eng),
+    col = "grey30",
+    size = .8) +
+  geom_vline(
+    aes(xintercept = mean_eng),
+    colour = "#4d5887",
+    linewidth = .6,
+    linetype = "dashed" +
+      annotate(geom = "text",
+               x = mean_eng - 8,
+               y = 0.04,
+               label = paste0("Mean ENGLISH: ",
+                              round((mean_eng), 2)),
+               color = "$4d5887") + 
+      geom_
+```
