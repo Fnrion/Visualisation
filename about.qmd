@@ -8,12 +8,3 @@ About this site
 ### This is about but no about
 ```
 
-::: {.panel-tabset group="language"}
-## plot
-
-Tab content
-
-## Code
-
-Tab content
-:::

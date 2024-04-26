@@ -177,12 +177,15 @@ Upon analysis, it is evident that the market for detached houses, semi-detached 
 
 Furthermore, our findings reveal noteworthy trends across different regions. In the North Region, Executive Condominiums emerge as the most sought-after property type, boasting the highest number of transactions compared to other regions. Similarly, in the West Region, Executive Condominiums exhibit robust trading activity.
 
-Across most regions, Apartments and Condominiums consistently dominate the market as preferred sale properties, with the exception of the North Region, where unique market dynamics are observed.![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
+Across most regions, Apartments and Condominiums consistently dominate the market as preferred sale properties, with the exception of the North Region, where unique market dynamics are observed.
+
+![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
 :::
 
 ## 2.2 Quarterly Boxplot of Transacted Price & Area
 
 ::: {.panel-tabset group="language"}
+
 ```{r}
 combined_data <- combined_data %>%
   mutate(Sale_Date = dmy(`Sale Date`))
@@ -262,7 +265,9 @@ P3
 ::: {.alert .alert-dismissible .alert-primary style="width: 84%;"}
 After thorough analysis, it becomes apparent that each quarter exhibits a comparable range of transacted prices, with Q1 2024 demonstrating a notably higher transacted price compared to Q1 2023.
 
-Moreover, the distribution of transacted prices and areas across all transactions reveals that 99% of deals fall within the range of 300 to 1,500 square feet, with corresponding prices ranging from 1,100 to 3,750 thousand SGD. This distribution underscores the prevailing market trends and preferences within the real estate landscape.![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
+Moreover, the distribution of transacted prices and areas across all transactions reveals that 99% of deals fall within the range of 300 to 1,500 square feet, with corresponding prices ranging from 1,100 to 3,750 thousand SGD. This distribution underscores the prevailing market trends and preferences within the real estate landscape.
+
+![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
 :::
 
 ## 2.4 Unit Price Analysis
@@ -321,7 +326,9 @@ ggplot(filtered_data, aes(x = Month_Sale_Data, y = `Unit Price ($ PSF)`, color =
 :::
 
 ::: {.alert .alert-dismissible .alert-primary style="width: 84%;"}
-Upon examination of the violin plots, a clear disparity emerges between the average unit prices of condominiums and apartments, standing at approximately $1,500 and $2,000, respectively, for the period spanning January to March. Noteworthy is the discernible uptick in both unit price and transaction volume from January to March 2024. Despite an overall reduction in total transactions vis-a-vis the preceding year, there is an unmistakable trend towards growth within specific sub-markets, suggesting an increasing inclination towards higher-value properties ![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
+Upon examination of the violin plots, a clear disparity emerges between the average unit prices of condominiums and apartments, standing at approximately $1,500 and $2,000, respectively, for the period spanning January to March. Noteworthy is the discernible uptick in both unit price and transaction volume from January to March 2024. Despite an overall reduction in total transactions vis-a-vis the preceding year, there is an unmistakable trend towards growth within specific sub-markets, suggesting an increasing inclination towards higher-value properties 
+
+![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
 :::
 
 # 3 Summary
