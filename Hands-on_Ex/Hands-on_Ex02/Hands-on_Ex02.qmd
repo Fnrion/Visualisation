@@ -266,7 +266,7 @@ p3 + inset_element(p2,
                    top = 1)
 ```
 
-### 6.5 Creating a compostie figure by using patchwork and ggtheme
+### 6.5 Creating acompostie figure by using patchwork and ggtheme
 
 ```{r}
 patchwork <- (p1/p2)|p3 
