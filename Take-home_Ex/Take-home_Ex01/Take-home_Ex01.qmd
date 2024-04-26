@@ -1,5 +1,17 @@
 ---
 title: "Take-home Exercise 1"
+author: "Zou Jiaxun"
+date: "April 13, 2024"
+data-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
 ---
 
 # 1 Overview
@@ -12,62 +24,308 @@ We will go to prepare minimum two and maximum three data visualisation to reveal
 
 ## 1.2 Data Import
 
-##### Their are five files in the folder. Each file provde transacion data for a quarter. The study period is from 1st January 2023 until 31st March 2024.
+##### There are five files in the folder. Each file provdes transacion data for a quarter. The study period is from 1st January 2023 until 31st March 2024.
 
-![](Data Picture 1.jpg)
+![](Data%20Picture%201.jpg)
+
+##### First, let us merge the csv files.
 
 ```{r}
-transaction_data_2024Q1 <- read.csv("data-2/2024Q1.csv")
-```
+pacman::p_load(dplyr, purrr, readr,
+               ggplot2, lubridate, ggrepel,
+               patchwork, ggthemes, hrbrthemes, tidyverse)
+data_dir <- "data-2"
+file_paths <- file.path(data_dir,
+                        c("2023Q1.csv",
+                          "2023Q2.csv",
+                          "2023Q3.csv",
+                          "2023Q4.csv",
+                          "2024Q1.csv"))
+combined_data <- purrr::map_df(file_paths, readr::read_csv)
+head(combined_data)
+str(combined_data)
+readr::write_csv(combined_data,
+                 file.path(data_dir,"merged_transaction_data.csv"))
 
-##### *import the csv. file using read.csv() first, and now you can use Data in Environment to see the general!*
+```
 
 ## 1.3 Data check
 
-According to the transaction_data_2024Q1, there are 4722 obs. of 21 variables before we make a data cleaning.
+According to the combined_data, there are 26,806 observation of 21 variables before we make a data cleaning.
 
-![](Data Picture 2.jpg)
+![](Data%20Picture%202.png)
 
 Now we need to check the duplicate.
 
 ```{r}
-
+duplicate <- combined_data %>% 
+  group_by_all() %>% 
+  filter(n()>1) %>% 
+  ungroup()
+  
+duplicate
 ```
 
-there is no 
+Congratulation, there is no duplicate according to our find!
 
 ## 1.4 Variable Selection
 
-| Category                    | Description    | Column heading | Column heading |
-|-----------------|-----------------|-------------------|-------------------|
-| Project.Name                | Project Name   | Column content | Column content |
-| Transacted Price (\$)       | Column content | Column content | Column content |
-| Area (SQFT)                 | Column content | Column content | Column content |
-| Unit Price (\$ PSF)         | Column content | Column content | Column content |
-| Sale Data                   | Column content | Column content | Column content |
-| Address                     | Column content | Column content | Column content |
-| Type of sale                | Column content | Column content | Column content |
-| Area (SQM)                  | Column content | Column content | Column content |
-| Unit Price (\$ PSM)         | Column content | Column content | Column content |
-| Nett Price (\$)             | Column content | Column content | Column content |
-| Property Type               | Column content | Column content | Column content |
-| Number of Units             | Column content | Column content | Column content |
-| Tenure                      | Column content | Column content | Column content |
-| Completion Data             | Column content | Column content | Column content |
-| Purchaser Address Indicator | Column content | Column content | Column content |
-| Postal Code                 | Column content | Column content | Column content |
-| Postal District             | Column content | Column content | Column content |
-| Postal Sector               | Column content | Column content | Column content |
-| Planning Region             | Column content | Column content | Column content |
-| Planning Area               | Column content | Column content | Column content |
+| Category                    | Sample Description              | Type | Choose or not |
+|------------------|------------------|------------------|------------------|
+| Project.Name                | "THE REEF AT KING'S DOCK"       | chr  | Not Choose    |
+| Transacted Price (\$)       | "2317000"                       | num  | Choose        |
+| Area (SQFT)                 | "883"                           | num  | Choose        |
+| Unit Price (\$ PSF)         | "2625 = 2317000/883"            | num  | Choose        |
+| Sale Data                   | "01 Jan 2023"                   | chr  | Choose        |
+| Address                     | "12 HARBOURFRONT AVENUE #05-32" | chr  | Not Choose    |
+| Type of sale                | "New Sale"                      | chr  | Choose        |
+| Area (SQM)                  | "Strata"                        | num  | Not Choose    |
+| Unit Price (\$ PSM)         | “82”                            | num  | Not Choose    |
+| Nett Price (\$)             | “-”                             | chr  | Not Choose    |
+| Property Type               | "Condominium"                   | chr  | Choose        |
+| Number of Units             | “1”                             | num  | Choose Choose |
+| Tenure                      | “99 yrs from 12/01/2021”        | chr  | Not Choose    |
+| Completion Data             | "Uncompleted"                   | chr  | Not Choose    |
+| Purchaser Address Indicator | "HDB"                           | chr  | Choose        |
+| Postal Code                 | "097996"                        | chr  | Not Choose    |
+| Postal District             | "04"                            | chr  | Not Choose    |
+| Postal Sector               | "09"                            | chr  | Not Choose    |
+| Planning Region             | "Central Region"                | chr  | Choose        |
+| Planning Area               | "Bukit Merah"                   | chr  | Not Choose    |
 
-## 1.5 Handling missinh
+##### We choose "Transacted Price (\$)", "Area (SQFT)", "Unit Price (\$ PSF)", "Sale Data", "Type of sale", "Property Type", "Purchaser Address Indicator", and "Planning Region" as our values.
 
+## 1.5 Missing Values
 
+##### Now we need to check the missing values, since too many N/A will influence certain calculations.
 
+::: {.panel-tabset group="language"}
+##### *Transacted Price (\$)*
 
 ```{r}
-pacman::p_load(ggrepel, patchwork, ggthemes,
-               hrbrthemes, tidyverse, lubridata)
-library(ggplot2)
+sum(is.na(combined_data$`Transacted Price ($)`))
 ```
+
+##### *Area (SQFT)*
+
+```{r}
+sum(is.na(combined_data$`Area (SQFT)`))
+```
+
+##### *Unit Price (\$ PSF)*
+
+```{r}
+sum(is.na(combined_data$`Unit Price ($ PSF)`))
+```
+
+##### *Sale Data*
+
+```{r}
+sum(is.na(combined_data$`Sale Date`))
+```
+
+##### *Type of sale*
+
+```{r}
+sum(is.na(combined_data$`Type of Sale`))
+```
+
+##### *Property Type*
+
+```{r}
+sum(is.na(combined_data$`Property Type`))
+```
+
+##### *Purchaser Address Indicator*
+
+```{r}
+sum(is.na(combined_data$`Purchaser Address Indicator`))
+```
+
+##### *Planning Region*
+
+```{r}
+sum(is.na(combined_data$`Planning Region`))
+```
+:::
+
+Congratulation, there is no missing data according to our find!
+
+# 2. Problem Solveing
+
+To solve this problem, we will make a visualization.
+
+## 2.1 Property Type & Planning Region
+
+First, we want to know which property type is popular in private residential market and sub-markets of Singapore, and how the resident located in Singapore.
+
+```{r}
+F1 <- ggplot(combined_data, aes(x = `Property Type`)) + 
+    geom_bar(aes(fill = `Planning Region`), position = "dodge") +  
+    labs(x = "Property Type", y = "Frequency",
+         title = "Frequency of Property Types by Planning Region") +
+    facet_wrap(~ `Planning Region`, scales = "free") +
+    theme_stata(base_size = 2.5)
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+F1
+```
+
+::: {.alert .alert-dismissible .alert-primary style="width: 84%;"}
+We have now acquired transaction data pertaining to six distinct property types: Apartment, Condominium, Terrace House, Executive Condominium, Detached House, and Semi-Detached House. These properties are situated across five planning regions: Central Region, East Region, North East Region, North Region, and West Region.
+
+Upon analysis, it is evident that the market for detached houses, semi-detached houses, and terrace houses is considerably limited, with minimal activity observed.
+
+Furthermore, our findings reveal noteworthy trends across different regions. In the North Region, Executive Condominiums emerge as the most sought-after property type, boasting the highest number of transactions compared to other regions. Similarly, in the West Region, Executive Condominiums exhibit robust trading activity.
+
+Across most regions, Apartments and Condominiums consistently dominate the market as preferred sale properties, with the exception of the North Region, where unique market dynamics are observed.![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
+:::
+
+## 2.2 Quarterly Boxplot of Transacted Price & Area
+
+::: {.panel-tabset group="language"}
+```{r}
+combined_data <- combined_data %>%
+  mutate(Sale_Date = dmy(`Sale Date`))
+
+filtered_data <- combined_data %>%
+  filter((year(Sale_Date) == 2023 & 
+          month(Sale_Date) %in% 1:12) |
+         (year(Sale_Date) == 2024 & 
+          month(Sale_Date) %in% 1:3)) %>%
+  mutate(Quarter_Sale_Data = case_when(
+    between(Sale_Date, as.Date("2023-01-01"), as.Date("2023-03-31")) ~ "Q1_2023",
+    between(Sale_Date, as.Date("2023-04-01"), as.Date("2023-06-30")) ~ "Q2_2023",
+    between(Sale_Date, as.Date("2023-07-01"), as.Date("2023-09-30")) ~ "Q3_2023",
+    between(Sale_Date, as.Date("2023-10-01"), as.Date("2023-12-31")) ~ "Q4_2023",
+    between(Sale_Date, as.Date("2024-01-01"), as.Date("2024-03-31")) ~ "Q1_2024",
+    TRUE ~ NA_character_
+  )) %>%
+  filter(!is.na(Quarter_Sale_Data))
+
+filtered_data$Quarter_Sale_Data <- 
+  factor(filtered_data$Quarter_Sale_Data,
+         levels = c("Q1_2023", "Q2_2023", "Q3_2023", "Q4_2023", "Q1_2024"))
+
+Boxplot_Q_TP <- ggplot(data = filtered_data, aes(x = Quarter_Sale_Data, y = `Transacted Price ($)`, fill = Quarter_Sale_Data)) +
+  geom_boxplot(alpha = 0.7, color = "black") +  
+  labs(x = "Quarter", y = "Transacted Price ($ thousands)",
+       title = "Boxplot of Transacted Price by Quarter") +
+  scale_fill_manual(values = c("Q1_2023" = "grey", "Q2_2023" = "grey", 
+                                "Q3_2023" = "grey", "Q4_2023" = "grey", 
+                                "Q1_2024" = "orange")) +  
+  theme_light(base_size = 8) + 
+  theme(legend.position = "none")  
+
+Boxplot_Q_A <- ggplot(data = filtered_data, aes(x = Quarter_Sale_Data, y = `Area (SQFT)`, fill = Quarter_Sale_Data)) +
+geom_boxplot(alpha = 0.7, color = "black") +  
+  labs(x = "Quarter", y = "Area (SQFT)",
+       title = "Boxplot of Area by Quarter") +
+  scale_fill_manual(values = c("Q1_2023" = "grey", "Q2_2023" = "grey", 
+                                "Q3_2023" = "grey", "Q4_2023" = "grey", 
+                                "Q1_2024" = "orange")) + 
+
+  theme_light(base_size = 8) + 
+  theme(legend.position = "none")  
+```
+
+## Transacted Price
+
+```{r}
+P1 <- Boxplot_Q_TP + coord_cartesian(ylim = c(0, 3000000)) +  
+  scale_y_continuous(labels = scales::comma_format(scale = 1e-3))
+P1
+```
+
+## Area
+
+```{r}
+P2 <- Boxplot_Q_A + coord_cartesian(ylim = c(0, 2000))
+P2
+```
+:::
+
+## 2.3 Scatter Plot of Transacted Price vs. Area
+
+```{r}
+sampled_data <- combined_data[sample(nrow(combined_data), 500), ]
+sampled_data$`Transacted Price ($)` <- sampled_data$`Transacted Price ($)` / 1000
+P3 <- ggplot(data = sampled_data, aes(x = `Area (SQFT)`, y = `Transacted Price ($)`)) +
+  geom_point() +
+  geom_smooth() +
+  scale_x_continuous(limits = c(0, 3000)) + 
+  scale_y_continuous(limits = c(0, 10000)) +
+  labs(x = "Area (SQFT)", y = "Transacted Price ($ thousands)",
+       title = "Scatter Plot of Transacted Price vs. Area")
+P3
+```
+
+::: {.alert .alert-dismissible .alert-primary style="width: 84%;"}
+After thorough analysis, it becomes apparent that each quarter exhibits a comparable range of transacted prices, with Q1 2024 demonstrating a notably higher transacted price compared to Q1 2023.
+
+Moreover, the distribution of transacted prices and areas across all transactions reveals that 99% of deals fall within the range of 300 to 1,500 square feet, with corresponding prices ranging from 1,100 to 3,750 thousand SGD. This distribution underscores the prevailing market trends and preferences within the real estate landscape.![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
+:::
+
+## 2.4 Unit Price Analysis
+
+As we mentioned about the individual market is focus on the apartment and condominium above, and we know the distribution of total preoperty, what about the first quarter unit price of these two popular goods?
+
+::: {.panel-tabset group="language"}
+## Jan-Mar 2024
+
+```{r}
+filtered_data <- combined_data %>%
+  mutate(Sale_Date = dmy(`Sale Date`)) %>%
+  filter((year(Sale_Date) == 2023 & 
+          month(Sale_Date) %in% 1:12) |
+         (year(Sale_Date) == 2024 & 
+          month(Sale_Date) %in% 1:3)) %>%
+  mutate(Quarter_Sale_Data = case_when(
+    between(Sale_Date, as.Date("2023-01-01"), as.Date("2023-03-31")) ~ "Q1_2023",
+    between(Sale_Date, as.Date("2023-04-01"), as.Date("2023-06-30")) ~ "Q2_2023",
+    between(Sale_Date, as.Date("2023-07-01"), as.Date("2023-09-30")) ~ "Q3_2023",
+    between(Sale_Date, as.Date("2023-10-01"), as.Date("2023-12-31")) ~ "Q4_2023",
+    between(Sale_Date, as.Date("2024-01-01"), as.Date("2024-03-31")) ~ "Q1_2024",
+    TRUE ~ NA_character_
+  )) %>%
+  filter(!is.na(Quarter_Sale_Data)) %>%
+  mutate(Month_Sale_Data = paste0(year(Sale_Date), "-", month(Sale_Date)))
+
+filtered_data <- filtered_data %>%
+  filter(`Property Type` %in% c("Apartment", "Condominium"))
+
+ggplot(filtered_data, aes(x = Month_Sale_Data, y = `Unit Price ($ PSF)`, color = `Property Type`)) +
+  geom_violin() +
+  geom_point(position = "jitter",
+             size = 0.1) +
+  labs(title = "Unit Price per Square Foot for Apartments and Condominiums",
+       x = "Month",
+       y = "Unit Price ($ PSF)") +
+  theme_light(base_size = 6) +
+  xlim(c("2024-1","2024-2","2024-3"))
+
+```
+
+## Jan-Mar 2023
+
+```{r}
+ggplot(filtered_data, aes(x = Month_Sale_Data, y = `Unit Price ($ PSF)`, color = `Property Type`)) +
+  geom_violin() +
+  geom_point(position = "jitter",
+             size = 0.1) +
+  labs(title = "Unit Price per Square Foot for Apartments and Condominiums",
+       x = "Month",
+       y = "Unit Price ($ PSF)") +
+  theme_light(base_size = 6) +
+  xlim(c("2023-1","2023-2","2023-3"))
+```
+:::
+
+::: {.alert .alert-dismissible .alert-primary style="width: 84%;"}
+Upon examination of the violin plots, a clear disparity emerges between the average unit prices of condominiums and apartments, standing at approximately $1,500 and $2,000, respectively, for the period spanning January to March. Noteworthy is the discernible uptick in both unit price and transaction volume from January to March 2024. Despite an overall reduction in total transactions vis-a-vis the preceding year, there is an unmistakable trend towards growth within specific sub-markets, suggesting an increasing inclination towards higher-value properties ![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
+:::
+
+# 3 Summary
+
+Through this exercise, we illustrated the situation of current private residential market and sub-markets of Singapore. The current private residential market in Singapore showcases diverse property types distributed across different planning regions. While Apartments and Condominiums remain popular choices in most areas, Executive Condominiums demonstrate significant demand, particularly in the North and West Regions. Detached houses, semi-detached houses, and terrace houses, however, exhibit minimal activity in the market. These trends underscore a nuanced landscape within the Singaporean real estate sector, reflecting varying preferences and dynamics across different sub-markets.
+
+-   

@@ -7,3 +7,13 @@ About this site
 ```{r}
 ### This is about but no about
 ```
+
+::: {.panel-tabset group="language"}
+## plot
+
+Tab content
+
+## Code
+
+Tab content
+:::

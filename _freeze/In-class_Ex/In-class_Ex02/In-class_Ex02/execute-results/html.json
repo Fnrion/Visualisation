@@ -1,0 +1,16 @@
+{
+  "hash": "021eb8b3ba8889086b94dc52396bad0c",
+  "result": {
+    "markdown": "---\ntitle: \"In-class_Ex02 Demo\"\nauthor: \"Zou Jiaxun\"\ndate: \"April 20, 2024\"\ndata-modified: \"last-modified\"\nexecute: \n  eval: true\n  echo: true\n  warning: false\n  freeze: true\n---\n\n\n# Getting Started\n\n## 1 Load package\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(ggrepel, patchwork, ggthemes,\n               hrbrthemes, tidyverse, ggplot2)\n```\n:::\n\n\n## 2 Import Data\n\n\n::: {.cell}\n\n```{.r .cell-code}\nexam_df <- read.csv(\"data/Exam_data.csv\")\n```\n:::\n\n\n## 3 Draw\n\n### 3.1 Histogram\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data = exam_df,\n       aes(x = ENGLISH)) +\n  geom_histogram()\n```\n\n::: {.cell-output-display}\n![](In-class_Ex02_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n\n### 3.2 Density\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data = exam_df,\n       aes(x = ENGLISH,\n           color = CLASS)) +\n  geom_density(color = \"#1696d2\",\n  adjust = .65,\n  alpha = .6)\n```\n\n::: {.cell-output-display}\n![](In-class_Ex02_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n\n\n### 3.3 Compare\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# median_eng <- median(exam_df$ENGLISH)\n# mean_eng <- mean(exam_df$ENGLISH)\n# std_eng <- sd(exam_df$ENGLISH)\n# \n# ggplot(exam_df,\n#        aes(x = ENGLISH,\n#            color = CLASS)) +\n#   geom_density(color = \"#1696d2\",\n#   adjust = .65,\n#   alpha = .6) +\n#   stat_function(\n#     fun = dnorm,\n#     args = list(mean = mean_eng,\n#                 sd = std_eng),\n#     col = \"grey30\",\n#     size = .8) +\n#   geom_vline(\n#     aes(xintercept = mean_eng),\n#     colour = \"#4d5887\",\n#     linewidth = .6,\n#     linetype = \"dashed\" +\n#       annotate(geom = \"text\",\n#                x = mean_eng - 8,\n#                y = 0.04,\n#                label = paste0(\"Mean ENGLISH: \",\n#                               round((mean_eng), 2)),\n#                color = \"$4d5887\") + \n```\n:::",
+    "supporting": [
+      "In-class_Ex02_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
