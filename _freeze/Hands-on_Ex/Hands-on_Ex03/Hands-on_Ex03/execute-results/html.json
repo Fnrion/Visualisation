@@ -1,0 +1,14 @@
+{
+  "hash": "3116735bb1a9f10747afe5de385a7353",
+  "result": {
+    "markdown": "---\ntitle: \"Hands-on Exercise 3\"\nauthor: \"Zou Jiaxun\"\ndate: \"April 27, 2024\"\ndata-modified: \"last-modified\"\nexecute: \n  eval: true\n  echo: true\n  warning: false\n  freeze: true\n---\n\n\n# 1 Install and launch packages\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(ggiraph, plotly, \n               patchwork, DT, tidyverse)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n\nThe downloaded binary packages are in\n\t/var/folders/k6/m28nhmy16gq06mch2hprzgfw0000gn/T//RtmpMFWMLp/downloaded_packages\n\nThe downloaded binary packages are in\n\t/var/folders/k6/m28nhmy16gq06mch2hprzgfw0000gn/T//RtmpMFWMLp/downloaded_packages\n```\n:::\n:::\n\n\n# 2 Importing Data\n\n\n::: {.cell}\n\n```{.r .cell-code}\nexam_data <- read_csv(\"Data/Exam_data.csv\")\n```\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
