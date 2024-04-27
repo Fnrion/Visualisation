@@ -99,7 +99,7 @@ Congratulation, there is no duplicate according to our find!
 
 ##### Now we need to check the missing values, since too many N/A will influence certain calculations.
 
-::: {.panel-tabset group="language"}
+::: panel-tabset
 ##### *Transacted Price (\$)*
 
 ```{r}
@@ -184,7 +184,7 @@ Across most regions, Apartments and Condominiums consistently dominate the marke
 
 ## 2.2 Quarterly Boxplot of Transacted Price & Area
 
-::: {.panel-tabset group="language"}
+::: panel-tabset
 
 ```{r}
 combined_data <- combined_data %>%
