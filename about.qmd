@@ -8,3 +8,11 @@ About this site
 ### This is about but no about
 ```
 
+::::: {#special .sidebar}
+
+::: {.warning}
+Here is a warning.
+:::
+
+More content.
+:::::

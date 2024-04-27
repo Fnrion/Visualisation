@@ -274,7 +274,7 @@ Moreover, the distribution of transacted prices and areas across all transaction
 
 As we mentioned about the individual market is focus on the apartment and condominium above, and we know the distribution of total preoperty, what about the first quarter unit price of these two popular goods?
 
-::: {.panel-tabset group="language"}
+::: panel-tabset
 ## Jan-Mar 2024
 
 ```{r}
