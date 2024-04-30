@@ -42,8 +42,7 @@ file_paths <- file.path(data_dir,
                           "2023Q4.csv",
                           "2024Q1.csv"))
 combined_data <- purrr::map_df(file_paths, readr::read_csv)
-head(combined_data)
-str(combined_data)
+glimpse(combined_data)
 readr::write_csv(combined_data,
                  file.path(data_dir,"merged_transaction_data.csv"))
 
@@ -71,7 +70,7 @@ Congratulation, there is no duplicate according to our find!
 ## 1.4 Variable Selection
 
 | Category                    | Sample Description              | Type | Choose or not |
-|------------------|------------------|------------------|------------------|
+|-----------------------------|---------------------------------|------|---------------|
 | Project.Name                | "THE REEF AT KING'S DOCK"       | chr  | Not Choose    |
 | Transacted Price (\$)       | "2317000"                       | num  | Choose        |
 | Area (SQFT)                 | "883"                           | num  | Choose        |
@@ -185,7 +184,6 @@ Across most regions, Apartments and Condominiums consistently dominate the marke
 ## 2.2 Quarterly Boxplot of Transacted Price & Area
 
 ::: panel-tabset
-
 ```{r}
 combined_data <- combined_data %>%
   mutate(Sale_Date = dmy(`Sale Date`))
@@ -326,7 +324,7 @@ ggplot(filtered_data, aes(x = Month_Sale_Data, y = `Unit Price ($ PSF)`, color =
 :::
 
 ::: {.alert .alert-dismissible .alert-primary style="width: 84%;"}
-Upon examination of the violin plots, a clear disparity emerges between the average unit prices of condominiums and apartments, standing at approximately $1,500 and $2,000, respectively, for the period spanning January to March. Noteworthy is the discernible uptick in both unit price and transaction volume from January to March 2024. Despite an overall reduction in total transactions vis-a-vis the preceding year, there is an unmistakable trend towards growth within specific sub-markets, suggesting an increasing inclination towards higher-value properties 
+Upon examination of the violin plots, a clear disparity emerges between the average unit prices of condominiums and apartments, standing at approximately \$1,500 and \$2,000, respectively, for the period spanning January to March. Noteworthy is the discernible uptick in both unit price and transaction volume from January to March 2024. Despite an overall reduction in total transactions vis-a-vis the preceding year, there is an unmistakable trend towards growth within specific sub-markets, suggesting an increasing inclination towards higher-value properties
 
 ![](JIYIKAWA-30*30.png){fig-align="right" width="80"}
 :::
