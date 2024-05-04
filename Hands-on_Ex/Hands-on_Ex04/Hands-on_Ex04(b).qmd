@@ -47,7 +47,7 @@ devtools::install_github("wilkelab/ungeviz")
 ```{r}
 pacman::p_load(ungeviz, plotly, crosstalk,
                DT, ggdist, ggridges,
-               colorspace, gganimate, tidyverse, ggplot2)
+               colorspace, gganimate, tidyverse)
 ```
 
 ### **2.2 Data import**

@@ -1,0 +1,111 @@
+---
+title: "In-class_Exercise 4"
+author: "Zou Jiaxun"
+date: "May 4, 2024"
+data-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+```{r}
+pacman::p_load(tidyverse, ggstatsplot,readxl)
+```
+
+```{r}
+exam <- read_csv("data/Exam_data.csv")
+```
+
+```{r}
+set.seed(1234)
+
+gghistostats(
+  data = exam,
+  x = ENGLISH,
+  type = "np",
+  #type = "parametric",
+  test.value = 60,
+  bin.args = list(color = "black",
+                  fill = "grey50",
+                  alpha = 0.7),
+  normal.curve = FALSE,
+  normal.curve.args = list(linewidth = 2),
+  xlab = "English scores"
+)
+```
+
+
+```{r}
+set.seed(1234)
+
+p <- gghistostats(
+  data = exam,
+  x = ENGLISH,
+  type = "np",
+  #type = "parametric",
+  #type = "robust",
+  #type = "bayes",
+  test.value = 60,
+  bin.args = list(color = "black",
+                  fill = "grey50",
+                  alpha = 0.7),
+  normal.curve = FALSE,
+  #normal.curve = TRUE, #(show the normal distribution)
+  normal.curve.args = list(linewidth = 2),
+  xlab = "English scores"
+)
+```
+
+```{r}
+extract_stats(p)
+```
+
+```{r}
+ggdotplotstats(
+  data = exam,
+  x = ENGLISH,
+  y = CLASS,
+  title = "",
+  xlab = ""
+)
+```
+
+```{r}
+exam_long <- exam %>%
+  pivot_longer(
+    cols = ENGLISH:SCIENCE,
+    names_to = "SUBJECT",
+    values_to = "SCORES") %>%
+ filter(CLASS == "3A")
+```
+
+```{r}
+ggwithinstats(data = filter(exam_long,
+                            SUBJECT %in% c("ENGLISH", "SCIENCE")),
+              x = "SUBJECT",
+              y = "SCORES",
+              type = "p")
+```
+
+```{r}
+ggscatterstats(data = exam,
+               x = MATHS,
+               y = ENGLISH,
+               marginal = TRUE,
+               label.var = ID,
+               label.expression = ENGLISH > 90 & MATHS > 90,
+  
+)
+```
+
+```{r}
+t <- parameters(model1)
+view(t)
+```
+
+```{r}
+ggcoefstats(model1,
+            output = "Plot")
+```
