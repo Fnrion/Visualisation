@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 2"
+title: "Hands-on Exercise 2: Beyond ggplot2 Fundamentals"
 author: "Zou Jiaxun"
 date: "April 13, 2024"
 data-modified: "last-modified"
@@ -8,9 +8,13 @@ execute:
   echo: true
   warning: false
   freeze: true
+format:
+  html:
+    code-fold: true
+    code-summary: "Click to view code"
 ---
 
-# Beyond ggplot2 Fundamentals
+![](images/unnamed-chunk-24-1.png)
 
 ## 1 Installing and Loading the required library
 

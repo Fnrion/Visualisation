@@ -1,33 +1,30 @@
 ---
 title: "ISSS608-VAA"
 listing:
-  type: default
-  max-items: 6
-  contents:
-    - text: "Hands-on Exercise 1"
-      href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
-    - text: "Hands-on Exercise 2"
-      href: "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html"
-    - text: "Hands-on Exercise 3(a)"
-      href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03(a).html"
-    - text: "Hands-on Exercise 3(b)"
-      href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03(b).html"
-    - text: "Hands-on Exercise 4(a)"
-      href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04(a).html"
-    - text: "Hands-on Exercise 4(b)"
-      href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04(b).html"
-    - text: "Hands-on Exercise 4(c)"
-      href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04(c).html"
-    - text: "In-class Exercise 1"
-      href: "In-class_Ex/In-class_Ex01/In-class_Ex01.html"
-    - text: "In-class Exercise 2"
-      href: "In-class_Ex/In-class_Ex02/In-class_Ex02.html"
-    - text: "Take-home Exercise 1"
-      href: "Take-Home_Ex/Take-home_Ex01/Take-home_Ex01.html"
-  sort:
-    - "date desc"
 
-#### **A Feature of My Latest Works:**
+  - id: Hands-on_Exercise
+    contents: 
+      - "Hands-on_Ex/*/*.qmd"
+    sort:
+      - "title"
+    type: grid
+    fields: [image, date, title, author]
+    
+  - id: In-class_Exercise
+    contents: 
+      - "In-class_Ex/*/*.qmd"
+    sort:
+      - "title"
+    type: grid
+    fields: [image, date, title, author]
+
+  - id: Take-home_Exercise
+    contents: 
+      - "Take-home_Ex/*/*.qmd"
+    sort:
+      - "title"
+    type: grid
+    fields: [image, date, title, author]
 ---
 
 Welcome to **ISSS608 Visual Analytics and Applications** homepage. In this website, you will find my coursework prepared for this course.

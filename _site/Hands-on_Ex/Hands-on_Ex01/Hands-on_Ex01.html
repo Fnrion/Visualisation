@@ -9,7 +9,7 @@
 <meta name="author" content="Zou Jiaxun">
 <meta name="dcterms.date" content="2024-04-13">
 
-<title>ISSS608-VAA - Hands-on Exercise 1</title>
+<title>Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,10 +71,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -113,8 +115,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">ISSS608-VAA</span>
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../Picture/Logo.png" alt="" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -137,23 +139,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Hands-on Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03(a).html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03(a)/Hands-on_Ex03(a).html">
  <span class="dropdown-text">Hands-on Exercise 3(a)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03(b).html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03(b)/Hands-on_Ex03(b).html">
  <span class="dropdown-text">Hands-on Exercise 3(b)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04(a).html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04(a)/Hands-on_Ex04(a).html">
  <span class="dropdown-text">Hands-on Exercise 4(a)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04(b).html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04(b)/Hands-on_Ex04(b).html">
  <span class="dropdown-text">Hands-on Exercise 4(b)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04(c).html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04(c)/Hands-on_Ex04(c).html">
  <span class="dropdown-text">Hands-on Exercise 4(c)</span></a>
   </li>  
     </ul>
@@ -186,21 +188,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../../Take-Home_Ex/Take-home_Ex01/Take-home_Ex01.html">
  <span class="dropdown-text">Take-home Exercise 1</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../Take-Home_Ex/Take-home_Ex02/Take-home_Ex02.html">
+ <span class="dropdown-text">Take-home Exercise 2</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools tools-wide">
+    <a href="https://twitter.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://code.com">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://bugs.com">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -214,44 +233,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-layered-grammar-of-graphics-ggplot2-methods" id="toc-a-layered-grammar-of-graphics-ggplot2-methods" class="nav-link active" data-scroll-target="#a-layered-grammar-of-graphics-ggplot2-methods">1 A Layered Grammar of Graphics: ggplot2 methods</a>
+  <li><a href="#learning-outcome" id="toc-learning-outcome" class="nav-link active" data-scroll-target="#learning-outcome">1 <strong>Learning Outcome</strong></a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2 <strong>Getting Started</strong></a></li>
+  <li><a href="#introducing-ggplot" id="toc-introducing-ggplot" class="nav-link" data-scroll-target="#introducing-ggplot">3 Introducing ggplot</a></li>
+  <li><a href="#plotting-kinds-of-chart-by-geometric-objects" id="toc-plotting-kinds-of-chart-by-geometric-objects" class="nav-link" data-scroll-target="#plotting-kinds-of-chart-by-geometric-objects">4 Plotting kinds of chart by geometric objects</a>
   <ul class="collapse">
-  <li><a href="#install-and-launching-r-packages" id="toc-install-and-launching-r-packages" class="nav-link" data-scroll-target="#install-and-launching-r-packages">1.1 Install and launching R packages</a></li>
-  <li><a href="#mporting-the-data" id="toc-mporting-the-data" class="nav-link" data-scroll-target="#mporting-the-data">1.2 mporting the data</a></li>
+  <li><a href="#dotplotwith-y-axis" id="toc-dotplotwith-y-axis" class="nav-link" data-scroll-target="#dotplotwith-y-axis">4.1 Dotplot(with y-axis)</a></li>
+  <li><a href="#dotplotturn-off-y-axis" id="toc-dotplotturn-off-y-axis" class="nav-link" data-scroll-target="#dotplotturn-off-y-axis">4.2 Dotplot(turn-off y-axis)</a></li>
+  <li><a href="#histogram-default-bin-is-30" id="toc-histogram-default-bin-is-30" class="nav-link" data-scroll-target="#histogram-default-bin-is-30">4.3 Histogram (default bin is 30)</a></li>
+  <li><a href="#histogram-changeing-geom" id="toc-histogram-changeing-geom" class="nav-link" data-scroll-target="#histogram-changeing-geom">4.4 Histogram (changeing geom())</a></li>
+  <li><a href="#histogram-changeing-aes" id="toc-histogram-changeing-aes" class="nav-link" data-scroll-target="#histogram-changeing-aes">4.5 Histogram (changeing aes())</a></li>
+  <li><a href="#density" id="toc-density" class="nav-link" data-scroll-target="#density">4.6 Density</a></li>
+  <li><a href="#boxplot-with-notch" id="toc-boxplot-with-notch" class="nav-link" data-scroll-target="#boxplot-with-notch">4.7 Boxplot (with notch)</a></li>
+  <li><a href="#violin-comparing-multiple-data-distribution" id="toc-violin-comparing-multiple-data-distribution" class="nav-link" data-scroll-target="#violin-comparing-multiple-data-distribution">4.8 Violin (Comparing multiple data distribution)</a></li>
+  <li><a href="#point" id="toc-point" class="nav-link" data-scroll-target="#point">4.9 Point</a></li>
+  <li><a href="#combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" id="toc-combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" class="nav-link" data-scroll-target="#combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points">4.10 Combine (“jitter” refers to a technique used to add small random bariation to data points)</a></li>
   </ul></li>
-  <li><a href="#plotting-a-simple-bar-chart" id="toc-plotting-a-simple-bar-chart" class="nav-link" data-scroll-target="#plotting-a-simple-bar-chart">2 Plotting a simple bar chart</a></li>
-  <li><a href="#plotting-kinds-of-chart-by-geometric-objects" id="toc-plotting-kinds-of-chart-by-geometric-objects" class="nav-link" data-scroll-target="#plotting-kinds-of-chart-by-geometric-objects">3 Plotting kinds of chart by geometric objects</a>
+  <li><a href="#stat" id="toc-stat" class="nav-link" data-scroll-target="#stat">5 Stat</a>
   <ul class="collapse">
-  <li><a href="#dotplotwith-y-axis" id="toc-dotplotwith-y-axis" class="nav-link" data-scroll-target="#dotplotwith-y-axis">3.1 Dotplot(with y-axis)</a></li>
-  <li><a href="#dotplotturn-off-y-axis" id="toc-dotplotturn-off-y-axis" class="nav-link" data-scroll-target="#dotplotturn-off-y-axis">3.2 Dotplot(turn-off y-axis)</a></li>
-  <li><a href="#histogram-default-bin-is-30" id="toc-histogram-default-bin-is-30" class="nav-link" data-scroll-target="#histogram-default-bin-is-30">3.3 Histogram (default bin is 30)</a></li>
-  <li><a href="#histogram-changeing-geom" id="toc-histogram-changeing-geom" class="nav-link" data-scroll-target="#histogram-changeing-geom">3.4 Histogram (changeing geom())</a></li>
-  <li><a href="#histogram-changeing-aes" id="toc-histogram-changeing-aes" class="nav-link" data-scroll-target="#histogram-changeing-aes">3.5 Histogram (changeing aes())</a></li>
-  <li><a href="#density" id="toc-density" class="nav-link" data-scroll-target="#density">3.6 Density</a></li>
-  <li><a href="#boxplot-with-notch" id="toc-boxplot-with-notch" class="nav-link" data-scroll-target="#boxplot-with-notch">3.7 Boxplot (with notch)</a></li>
-  <li><a href="#violin-comparing-multiple-data-distribution" id="toc-violin-comparing-multiple-data-distribution" class="nav-link" data-scroll-target="#violin-comparing-multiple-data-distribution">3.8 Violin (Comparing multiple data distribution)</a></li>
-  <li><a href="#point" id="toc-point" class="nav-link" data-scroll-target="#point">3.9 Point</a></li>
-  <li><a href="#combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" id="toc-combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" class="nav-link" data-scroll-target="#combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points">3.10 Combine (“jitter” refers to a technique used to add small random bariation to data points)</a></li>
+  <li><a href="#stat-before" id="toc-stat-before" class="nav-link" data-scroll-target="#stat-before">5.1 Stat (Before)</a></li>
+  <li><a href="#stat-after" id="toc-stat-after" class="nav-link" data-scroll-target="#stat-after">5.2 Stat (After)</a></li>
+  <li><a href="#add-curve-on-a-scatterplot" id="toc-add-curve-on-a-scatterplot" class="nav-link" data-scroll-target="#add-curve-on-a-scatterplot">5.3 Add curve on a scatterplot</a></li>
+  <li><a href="#facet_wrap" id="toc-facet_wrap" class="nav-link" data-scroll-target="#facet_wrap">5.4 Facet_wrap</a></li>
+  <li><a href="#facet_grid" id="toc-facet_grid" class="nav-link" data-scroll-target="#facet_grid">5.5 Facet_grid</a></li>
   </ul></li>
-  <li><a href="#stat" id="toc-stat" class="nav-link" data-scroll-target="#stat">4 Stat</a>
+  <li><a href="#working-with-coordinate" id="toc-working-with-coordinate" class="nav-link" data-scroll-target="#working-with-coordinate">6 Working with coordinate</a>
   <ul class="collapse">
-  <li><a href="#before" id="toc-before" class="nav-link" data-scroll-target="#before">4.1 (Before)</a></li>
-  <li><a href="#stat-after" id="toc-stat-after" class="nav-link" data-scroll-target="#stat-after">4.2 Stat (After)</a></li>
-  <li><a href="#add-curve-on-a-scatterplot" id="toc-add-curve-on-a-scatterplot" class="nav-link" data-scroll-target="#add-curve-on-a-scatterplot">4.3 Add curve on a scatterplot</a></li>
-  <li><a href="#facet_wrap" id="toc-facet_wrap" class="nav-link" data-scroll-target="#facet_wrap">4.4 Facet_wrap</a></li>
-  <li><a href="#facet_grid" id="toc-facet_grid" class="nav-link" data-scroll-target="#facet_grid">4.5 Facet_grid</a></li>
+  <li><a href="#before" id="toc-before" class="nav-link" data-scroll-target="#before">6.1 (before)</a></li>
+  <li><a href="#working-with-coordinate-after" id="toc-working-with-coordinate-after" class="nav-link" data-scroll-target="#working-with-coordinate-after">6.2 Working with coordinate (after)</a></li>
+  <li><a href="#changing-the-y--and-x-axis-range-before" id="toc-changing-the-y--and-x-axis-range-before" class="nav-link" data-scroll-target="#changing-the-y--and-x-axis-range-before">6.3 Changing the y- and x-axis range (before)</a></li>
+  <li><a href="#changing-the-y--and-x-axis-range-after" id="toc-changing-the-y--and-x-axis-range-after" class="nav-link" data-scroll-target="#changing-the-y--and-x-axis-range-after">6.4 Changing the y- and x-axis range (after)</a></li>
   </ul></li>
-  <li><a href="#working-with-coordinate" id="toc-working-with-coordinate" class="nav-link" data-scroll-target="#working-with-coordinate">5 Working with coordinate</a>
+  <li><a href="#theme" id="toc-theme" class="nav-link" data-scroll-target="#theme">7 Theme</a>
   <ul class="collapse">
-  <li><a href="#before-1" id="toc-before-1" class="nav-link" data-scroll-target="#before-1">5.1 (before)</a></li>
-  <li><a href="#working-with-coordinate-after" id="toc-working-with-coordinate-after" class="nav-link" data-scroll-target="#working-with-coordinate-after">5.2 Working with coordinate (after)</a></li>
-  <li><a href="#changing-the-y--and-x-axis-range-before" id="toc-changing-the-y--and-x-axis-range-before" class="nav-link" data-scroll-target="#changing-the-y--and-x-axis-range-before">5.3 Changing the y- and x-axis range (before)</a></li>
-  <li><a href="#changing-the-y--and-x-axis-range-after" id="toc-changing-the-y--and-x-axis-range-after" class="nav-link" data-scroll-target="#changing-the-y--and-x-axis-range-after">5.4 Changing the y- and x-axis range (after)</a></li>
-  </ul></li>
-  <li><a href="#theme" id="toc-theme" class="nav-link" data-scroll-target="#theme">6 Theme</a>
-  <ul class="collapse">
-  <li><a href="#classic" id="toc-classic" class="nav-link" data-scroll-target="#classic">6.1 Classic</a></li>
-  <li><a href="#minimal" id="toc-minimal" class="nav-link" data-scroll-target="#minimal">6.2 Minimal</a></li>
+  <li><a href="#classic" id="toc-classic" class="nav-link" data-scroll-target="#classic">7.1 Classic</a></li>
+  <li><a href="#minimal" id="toc-minimal" class="nav-link" data-scroll-target="#minimal">7.2 Minimal</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -261,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hands-on Exercise 1</h1>
+<h1 class="title">Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods</h1>
 </div>
 
 
@@ -290,28 +306,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="a-layered-grammar-of-graphics-ggplot2-methods" class="level1">
-<h1>1 A Layered Grammar of Graphics: ggplot2 methods</h1>
-<section id="install-and-launching-r-packages" class="level2">
-<h2 class="anchored" data-anchor-id="install-and-launching-r-packages">1.1 Install and launching R packages</h2>
+<p><img src="images/clipboard-3394629017.png" class="img-fluid"></p>
+<section id="learning-outcome" class="level1">
+<h1>1 <strong>Learning Outcome</strong></h1>
+<p>In this chapter, we will learn the basic principles and essential components of ggplot2. At the same time, we will gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics. By then end of this chapter we will be able to apply the essential graphical elements provided by ggplot2 to create elegant and yet functional statistical graphic</p>
+</section>
+<section id="getting-started" class="level1">
+<h1>2 <strong>Getting Started</strong></h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Installing and loading the required libraries</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Importing the data</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>The code chunk below uses p-load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-</section>
-<section id="mporting-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="mporting-the-data">1.2 mporting the data</h2>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ul>
+<li><p>The code chunk below imports&nbsp;<em>exam_data.csv</em>&nbsp;into R environment by using&nbsp;<a href="https://readr.tidyverse.org/reference/read_delim.html"><em>read_csv()</em></a>function of&nbsp;<a href="https://readr.tidyverse.org/"><strong>readr</strong></a>&nbsp;package.</p></li>
+<li><p><strong>readr</strong>&nbsp;is one of the tidyverse package.</p></li>
+</ul>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exam_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Exam_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li><p>Year end examination grades of a cohort of primary 3 students from a local school.</p></li>
+<li><p>There are a total of seven attributes. Four of them are categorical data type and the other three are in continuous data type.</p>
+<ul>
+<li><p>The categorical attributes are: ID, CLASS, GENDER and RACE.</p></li>
+<li><p>The continuous attributes are: MATHS, ENGLISH and SCIENCE.</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
 </div>
 </section>
-</section>
-<section id="plotting-a-simple-bar-chart" class="level1">
-<h1>2 Plotting a simple bar chart</h1>
+<section id="introducing-ggplot" class="level1">
+<h1>3 Introducing ggplot</h1>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span> </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -322,13 +367,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="plotting-kinds-of-chart-by-geometric-objects" class="level1">
-<h1>3 Plotting kinds of chart by geometric objects</h1>
+<h1>4 Plotting kinds of chart by geometric objects</h1>
 <section id="dotplotwith-y-axis" class="level2">
-<h2 class="anchored" data-anchor-id="dotplotwith-y-axis">3.1 Dotplot(with y-axis)</h2>
+<h2 class="anchored" data-anchor-id="dotplotwith-y-axis">4.1 Dotplot(with y-axis)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">dotsize =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -339,14 +387,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="dotplotturn-off-y-axis" class="level2">
-<h2 class="anchored" data-anchor-id="dotplotturn-off-y-axis">3.2 Dotplot(turn-off y-axis)</h2>
+<h2 class="anchored" data-anchor-id="dotplotturn-off-y-axis">4.2 Dotplot(turn-off y-axis)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">binwidth =</span> <span class="fl">2.5</span>,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">dotsize =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -357,11 +408,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="histogram-default-bin-is-30" class="level2">
-<h2 class="anchored" data-anchor-id="histogram-default-bin-is-30">3.3 Histogram (default bin is 30)</h2>
+<h2 class="anchored" data-anchor-id="histogram-default-bin-is-30">4.3 Histogram (default bin is 30)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -372,13 +426,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="histogram-changeing-geom" class="level2">
-<h2 class="anchored" data-anchor-id="histogram-changeing-geom">3.4 Histogram (changeing geom())</h2>
+<h2 class="anchored" data-anchor-id="histogram-changeing-geom">4.4 Histogram (changeing geom())</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>,</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"black"</span>,</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">"light blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -389,13 +446,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="histogram-changeing-aes" class="level2">
-<h2 class="anchored" data-anchor-id="histogram-changeing-aes">3.5 Histogram (changeing aes())</h2>
+<h2 class="anchored" data-anchor-id="histogram-changeing-aes">4.5 Histogram (changeing aes())</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> GENDER)) <span class="sc">+</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>,</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"grey30"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -406,12 +466,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="density" class="level2">
-<h2 class="anchored" data-anchor-id="density">3.6 Density</h2>
+<h2 class="anchored" data-anchor-id="density">4.6 Density</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> CLASS)) <span class="sc">+</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -422,12 +485,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="boxplot-with-notch" class="level2">
-<h2 class="anchored" data-anchor-id="boxplot-with-notch">3.7 Boxplot (with notch)</h2>
+<h2 class="anchored" data-anchor-id="boxplot-with-notch">4.7 Boxplot (with notch)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> GENDER)) <span class="sc">+</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">notch =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -438,12 +504,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="violin-comparing-multiple-data-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="violin-comparing-multiple-data-distribution">3.8 Violin (Comparing multiple data distribution)</h2>
+<h2 class="anchored" data-anchor-id="violin-comparing-multiple-data-distribution">4.8 Violin (Comparing multiple data distribution)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> GENDER)) <span class="sc">+</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -454,12 +523,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="point" class="level2">
-<h2 class="anchored" data-anchor-id="point">3.9 Point</h2>
+<h2 class="anchored" data-anchor-id="point">4.9 Point</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH,</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -470,14 +542,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points" class="level2">
-<h2 class="anchored" data-anchor-id="combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points">3.10 Combine (“jitter” refers to a technique used to add small random bariation to data points)</h2>
+<h2 class="anchored" data-anchor-id="combine-jitter-refers-to-a-technique-used-to-add-small-random-bariation-to-data-points">4.10 Combine (“jitter” refers to a technique used to add small random bariation to data points)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> GENDER)) <span class="sc">+</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="st">"jitter"</span>,</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -489,13 +564,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="stat" class="level1">
-<h1>4 Stat</h1>
-<section id="before" class="level2">
-<h2 class="anchored" data-anchor-id="before">4.1 (Before)</h2>
+<h1>5 Stat</h1>
+<section id="stat-before" class="level2">
+<h2 class="anchored" data-anchor-id="stat-before">5.1 Stat (Before)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH, <span class="at">x =</span> GENDER)) <span class="sc">+</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -506,8 +584,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="stat-after" class="level2">
-<h2 class="anchored" data-anchor-id="stat-after">4.2 Stat (After)</h2>
+<h2 class="anchored" data-anchor-id="stat-after">5.2 Stat (After)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> GENDER)) <span class="sc">+</span></span>
@@ -516,6 +596,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y =</span> <span class="st">"mean"</span>,</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> <span class="st">"red"</span>,</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -526,12 +607,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="add-curve-on-a-scatterplot" class="level2">
-<h2 class="anchored" data-anchor-id="add-curve-on-a-scatterplot">4.3 Add curve on a scatterplot</h2>
+<h2 class="anchored" data-anchor-id="add-curve-on-a-scatterplot">5.3 Add curve on a scatterplot</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> ENGLISH, <span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">size =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -542,12 +626,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="facet_wrap" class="level2">
-<h2 class="anchored" data-anchor-id="facet_wrap">4.4 Facet_wrap</h2>
+<h2 class="anchored" data-anchor-id="facet_wrap">5.4 Facet_wrap</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> CLASS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -558,12 +645,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="facet_grid" class="level2">
-<h2 class="anchored" data-anchor-id="facet_grid">4.5 Facet_grid</h2>
+<h2 class="anchored" data-anchor-id="facet_grid">5.5 Facet_grid</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> CLASS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -575,13 +665,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="working-with-coordinate" class="level1">
-<h1>5 Working with coordinate</h1>
-<section id="before-1" class="level2">
-<h2 class="anchored" data-anchor-id="before-1">5.1 (before)</h2>
+<h1>6 Working with coordinate</h1>
+<section id="before" class="level2">
+<h2 class="anchored" data-anchor-id="before">6.1 (before)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -592,12 +685,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="working-with-coordinate-after" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-coordinate-after">5.2 Working with coordinate (after)</h2>
+<h2 class="anchored" data-anchor-id="working-with-coordinate-after">6.2 Working with coordinate (after)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -608,12 +704,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="changing-the-y--and-x-axis-range-before" class="level2">
-<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range-before">5.3 Changing the y- and x-axis range (before)</h2>
+<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range-before">6.3 Changing the y- and x-axis range (before)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS, <span class="at">y =</span> ENGLISH)) <span class="sc">+</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -624,14 +723,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="changing-the-y--and-x-axis-range-after" class="level2">
-<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range-after">5.4 Changing the y- and x-axis range (after)</h2>
+<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range-after">6.4 Changing the y- and x-axis range (after)</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS, <span class="at">y =</span> ENGLISH)) <span class="sc">+</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">size=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -643,13 +745,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="theme" class="level1">
-<h1>6 Theme</h1>
+<h1>7 Theme</h1>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -659,13 +764,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <section id="classic" class="level2">
-<h2 class="anchored" data-anchor-id="classic">6.1 Classic</h2>
+<h2 class="anchored" data-anchor-id="classic">7.1 Classic</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -676,13 +784,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="minimal" class="level2">
-<h2 class="anchored" data-anchor-id="minimal">6.2 Minimal</h2>
+<h2 class="anchored" data-anchor-id="minimal">7.2 Minimal</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click to view code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -717,6 +828,150 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

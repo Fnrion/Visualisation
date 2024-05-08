@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 1"
+title: "Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods"
 author: "Zou Jiaxun"
 date: "April 13, 2024"
 data-modified: "last-modified"
@@ -8,11 +8,22 @@ execute:
   echo: true
   warning: false
   freeze: true
+format:
+  html:
+    code-fold: true
+    code-summary: "Click to view code"
 ---
 
-# 1 A Layered Grammar of Graphics: ggplot2 methods
+![](images/clipboard-3394629017.png)
 
-## 1.1 Install and launching R packages
+# 1 **Learning Outcome**
+
+In this chapter, we will learn the basic principles and essential components of ggplot2. At the same time, we will gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics. By then end of this chapter we will be able to apply the essential graphical elements provided by ggplot2 to create elegant and yet functional statistical graphic
+
+# 2 **Getting Started**
+
+::: panel-tabset
+## Installing and loading the required libraries
 
 The code chunk below uses p-load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.
 
@@ -20,13 +31,26 @@ The code chunk below uses p-load() of pacman package to check if tidyverse packa
 pacman::p_load(tidyverse)
 ```
 
-## 1.2 mporting the data
+## Importing the data
+
+-   The code chunk below imports *exam_data.csv* into R environment by using [*read_csv()*](https://readr.tidyverse.org/reference/read_delim.html)function of [**readr**](https://readr.tidyverse.org/) package.
+
+-   **readr** is one of the tidyverse package.
 
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
-# 2 Plotting a simple bar chart
+-   Year end examination grades of a cohort of primary 3 students from a local school.
+
+-   There are a total of seven attributes. Four of them are categorical data type and the other three are in continuous data type.
+
+    -   The categorical attributes are: ID, CLASS, GENDER and RACE.
+
+    -   The continuous attributes are: MATHS, ENGLISH and SCIENCE.
+:::
+
+# 3 Introducing ggplot
 
 ```{r}
 ggplot(data = exam_data,
@@ -34,9 +58,9 @@ ggplot(data = exam_data,
   geom_bar()
 ```
 
-# 3 Plotting kinds of chart by geometric objects
+# 4 Plotting kinds of chart by geometric objects
 
-## 3.1 Dotplot(with y-axis)
+## 4.1 Dotplot(with y-axis)
 
 ```{r}
 ggplot(data = exam_data,
@@ -44,7 +68,7 @@ ggplot(data = exam_data,
   geom_dotplot(dotsize = 0.5)
 ```
 
-## 3.2 Dotplot(turn-off y-axis)
+## 4.2 Dotplot(turn-off y-axis)
 
 ```{r}
 ggplot(data = exam_data,
@@ -55,7 +79,7 @@ ggplot(data = exam_data,
                      breaks = NULL)
 ```
 
-## 3.3 Histogram (default bin is 30)
+## 4.3 Histogram (default bin is 30)
 
 ```{r}
 ggplot(data = exam_data,
@@ -63,7 +87,7 @@ ggplot(data = exam_data,
   geom_histogram()
 ```
 
-## 3.4 Histogram (changeing geom())
+## 4.4 Histogram (changeing geom())
 
 ```{r}
 ggplot(data = exam_data,
@@ -73,7 +97,7 @@ ggplot(data = exam_data,
                  fill = "light blue")
 ```
 
-## 3.5 Histogram (changeing aes())
+## 4.5 Histogram (changeing aes())
 
 ```{r}
 ggplot(data = exam_data,
@@ -83,7 +107,7 @@ ggplot(data = exam_data,
                  color = "grey30")
 ```
 
-## 3.6 Density
+## 4.6 Density
 
 ```{r}
 ggplot(data = exam_data,
@@ -92,7 +116,7 @@ ggplot(data = exam_data,
   geom_density()
 ```
 
-## 3.7 Boxplot (with notch)
+## 4.7 Boxplot (with notch)
 
 ```{r}
 ggplot(data = exam_data,
@@ -101,7 +125,7 @@ ggplot(data = exam_data,
   geom_boxplot(notch = TRUE)
 ```
 
-## 3.8 Violin (Comparing multiple data distribution)
+## 4.8 Violin (Comparing multiple data distribution)
 
 ```{r}
 ggplot(data = exam_data,
@@ -110,7 +134,7 @@ ggplot(data = exam_data,
   geom_violin()
 ```
 
-## 3.9 Point
+## 4.9 Point
 
 ```{r}
 ggplot(data = exam_data,
@@ -119,7 +143,7 @@ ggplot(data = exam_data,
   geom_point()
 ```
 
-## 3.10 Combine ("jitter" refers to a technique used to add small random bariation to data points)
+## 4.10 Combine ("jitter" refers to a technique used to add small random bariation to data points)
 
 ```{r}
 ggplot(data = exam_data,
@@ -130,9 +154,9 @@ ggplot(data = exam_data,
              size = 0.5)
 ```
 
-# 4 Stat 
+# 5 Stat
 
-## 4.1 (Before)
+## 5.1 Stat (Before)
 
 ```{r}
 ggplot(data = exam_data,
@@ -140,7 +164,7 @@ ggplot(data = exam_data,
   geom_boxplot()
 ```
 
-## 4.2 Stat (After)
+## 5.2 Stat (After)
 
 ```{r}
 ggplot(data = exam_data,
@@ -153,7 +177,7 @@ ggplot(data = exam_data,
                size = 4)
 ```
 
-## 4.3 Add curve on a scatterplot
+## 5.3 Add curve on a scatterplot
 
 ```{r}
 ggplot(data = exam_data,
@@ -162,7 +186,7 @@ ggplot(data = exam_data,
   geom_smooth(size = 0.5)
 ```
 
-## 4.4 Facet_wrap
+## 5.4 Facet_wrap
 
 ```{r}
 ggplot(data = exam_data,
@@ -171,7 +195,7 @@ ggplot(data = exam_data,
   facet_wrap(~ CLASS)
 ```
 
-## 4.5 Facet_grid
+## 5.5 Facet_grid
 
 ```{r}
 ggplot(data = exam_data,
@@ -180,9 +204,9 @@ ggplot(data = exam_data,
   facet_grid(~ CLASS)
 ```
 
-# 5 Working with coordinate 
+# 6 Working with coordinate
 
-## 5.1 (before)
+## 6.1 (before)
 
 ```{r}
 ggplot(data=exam_data, 
@@ -190,7 +214,7 @@ ggplot(data=exam_data,
   geom_bar()
 ```
 
-## 5.2 Working with coordinate (after)
+## 6.2 Working with coordinate (after)
 
 ```{r}
 ggplot(data=exam_data, 
@@ -199,7 +223,7 @@ ggplot(data=exam_data,
   coord_flip()
 ```
 
-## 5.3 Changing the y- and x-axis range (before)
+## 6.3 Changing the y- and x-axis range (before)
 
 ```{r}
 ggplot(data = exam_data,
@@ -208,7 +232,7 @@ ggplot(data = exam_data,
   geom_smooth(method = lm, size=0.5)
 ```
 
-## 5.4 Changing the y- and x-axis range (after)
+## 6.4 Changing the y- and x-axis range (after)
 
 ```{r}
 ggplot(data = exam_data,
@@ -219,7 +243,7 @@ ggplot(data = exam_data,
                   ylim = c(0,100))
 ```
 
-# 6 Theme
+# 7 Theme
 
 ```{r}
 ggplot(data = exam_data,
@@ -229,7 +253,7 @@ ggplot(data = exam_data,
   theme_gray()
 ```
 
-## 6.1 Classic
+## 7.1 Classic
 
 ```{r}
 ggplot(data = exam_data,
@@ -239,7 +263,7 @@ ggplot(data = exam_data,
   theme_classic()
 ```
 
-## 6.2 Minimal
+## 7.2 Minimal
 
 ```{r}
 ggplot(data = exam_data,
