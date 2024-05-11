@@ -175,48 +175,6 @@
     "text": "4 Importing Multiple Text Files from Multiple Folders\n\n4.1 Reading in all the messages from the 20news folder\n\n\nClick to view code\nraw_text &lt;- tibble(folder = dir(news20, full.names = TRUE)) %&gt;%\n  mutate(folder_out = map(folder, read_folder)) %&gt;%\n  unnest(cols = c(folder_out)) %&gt;%\n  transmute(newsgroup = basename(folder), id, text)\nwrite_rds(raw_text, \"data/rds/news20.rd\")\n\n\n\nread_lines()map()unnest()mutate()transmute()read_rds()\n\n\nread_lines() of readr package is used to read up to n_max lines from a file.\n\n\nmap() of purrr package is used to transform their input by applying a function to each element of a list and returning an object of the same length as the input.\n\n\nunnest() of dplyr package is used to flatten a list-column of data frames back out into regular columns.\n\n\nmutate() of dplyr is used to add new variables and preserves existing ones;\n\n\ntransmute() of dplyr is used to add new variables and drops existing ones.\n\n\nread_rds() is used to save the extracted and combined data frame as rds file for future use.\n\n\n\n5 Initial EDA\nFigure below shows the frequency of messages by newsgroup.\nhttps://r4va.netlify.app/chap29_files/figure-html/unnamed-chunk-6-1.png\nThe code chunk:"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#read_lines",
-    "href": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#read_lines",
-    "title": "Hands-on_Exercise 5: Visualising and Analysing Text Data with R: tidytext methods",
-    "section": "1 read_lines()",
-    "text": "1 read_lines()\nread_lines() of readr package is used to read up to n_max lines from a file."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#map",
-    "href": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#map",
-    "title": "Hands-on_Exercise 5: Visualising and Analysing Text Data with R: tidytext methods",
-    "section": "2 map()",
-    "text": "2 map()\nmap() of purrr package is used to transform their input by applying a function to each element of a list and returning an object of the same length as the input."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#unnest",
-    "href": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#unnest",
-    "title": "Hands-on_Exercise 5: Visualising and Analysing Text Data with R: tidytext methods",
-    "section": "3 unnest()",
-    "text": "3 unnest()\nunnest() of dplyr package is used to flatten a list-column of data frames back out into regular columns."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#mutate",
-    "href": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#mutate",
-    "title": "Hands-on_Exercise 5: Visualising and Analysing Text Data with R: tidytext methods",
-    "section": "4 mutate()",
-    "text": "4 mutate()\nmutate() of dplyr is used to add new variables and preserves existing ones;"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#transmute",
-    "href": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#transmute",
-    "title": "Hands-on_Exercise 5: Visualising and Analysing Text Data with R: tidytext methods",
-    "section": "5 transmute()",
-    "text": "5 transmute()\ntransmute() of dplyr is used to add new variables and drops existing ones."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#read_rds",
-    "href": "Hands-on_Ex/Hands-on_Ex05/\bHands-on_Ex05.html#read_rds",
-    "title": "Hands-on_Exercise 5: Visualising and Analysing Text Data with R: tidytext methods",
-    "section": "6 read_rds()",
-    "text": "6 read_rds()\nread_rds() is used to save the extracted and combined data frame as rds file for future use."
-  },
-  {
     "objectID": "Hands-on_Ex/Hands-on_Ex03(b)/Hands-on_Ex03(b).html#building-a-static-population-bubble-plot",
     "href": "Hands-on_Ex/Hands-on_Ex03(b)/Hands-on_Ex03(b).html#building-a-static-population-bubble-plot",
     "title": "Hands-on Exercise 3(b): Programming Animated Statistical Graphics with R",
