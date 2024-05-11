@@ -1,0 +1,100 @@
+---
+title: "In-class_Ex05"
+author: "Zou Jiaxun"
+date: "May 11, 2024"
+data-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+
+---
+Put all data into one tibular dataframe. 
+
+```{r}
+pacman::p_load(tidyverse, readtext,
+               quanteda, tidytext)
+```
+
+```{r}
+data_folder <- "data/MC1/articles"
+```
+Text sensing to extract text
+
+
+```{r}
+text_data <- readtext(paste0("data/MC1/articles",
+                "/*"))
+```
+OR
+
+
+```{r}
+text_data <- readtext("data/MC1/articles")
+```
+
+Basic tokenisation
+
+```{r}
+usenet_words <- text_data %>%
+  unnest_tokens(word, text) %>%  #reading the text data
+  filter(str_detect(word, "[a-z']$"),
+         !word %in% stop_words$word) #remove stop words
+```
+
+```{r}
+usenet_words %>%
+  count(word, sort = TRUE)
+```
+
+Observations- Most common words are: fishing, sustainable, company
+
+```{r}
+temp_table <- usenet_words %>%
+  count(word, sort = TRUE)
+```
+
+Creating a table to observe word counts
+
+```{r}
+corpus_text <- corpus(text_data)
+summary(corpus_text, 5)
+```
+
+To separate the data; with 2 columns X & Y.  Some text are "1" hence the split does not occur
+
+```{r}
+text_data_splitted <- text_data %>%
+  separate_wider_delim("doc_id",
+                       delim = "__0__",
+                       names = c("X", "Y"),
+                       too_few = "align_end")
+```
+
+
+
+
+```{r}
+pacman::p_load(jsonlite, tidyverse)
+```
+
+
+```{r}
+##pacman::p_load(jsonlite, tidygraph,
+##ggraph, tidyverse, readtext,
+               ##quanteda, tidytext)
+```
+
+
+
+In the code chunk below, fromJSON() of jsonlite package is used to import *MC3.json* into R environment.
+
+```{r}
+mc1_data <- fromJSON("data/MC1/mc1.json")
+```
+
+
+mc2_data <- fromJSON("data/MC2/mc2.json")
+
+mc3_data <- fromJSON("data/MC3/mc3.json")
