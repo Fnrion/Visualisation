@@ -4,6 +4,5 @@ title: "About"
 
 About this site
 
-```{r}
 ### This is about but no about
-```
+
