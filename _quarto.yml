@@ -22,6 +22,8 @@ website:
             href: "Hands-on_Ex/Hands-on_Ex04(b)/Hands-on_Ex04(b).html"
           - text: "Hands-on Exercise 4(c)"
             href: "Hands-on_Ex/Hands-on_Ex04(c)/Hands-on_Ex04(c).html"
+          - text: "Hands-on Exercise 5"
+            href: "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html"
       - text: "In-class Exercise"  
         menu: 
           - text: "In-class Exercise 1"
@@ -44,7 +46,7 @@ website:
       - icon: github
         menu:
           - text: Source Code
-            href:  https://code.com
+            href:  https://github.com/Fnrion/jiaxun.zou
           - text: Report a Bug
             href:  https://bugs.com
 format:
@@ -55,6 +57,7 @@ format:
     toc: true
     fontsize: 0.9em
     linestretch: 1.6
+    backgroundcolor: ivory
     light: flatly
     dark: darkly
 editor: visual

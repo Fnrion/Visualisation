@@ -16,7 +16,7 @@ format:
 
 # Getting Started
 
-## 1 Load package
+## 1 Load Package
 
 ```{r}
 pacman::p_load(ggrepel, patchwork, ggthemes,

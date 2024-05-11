@@ -304,13 +304,13 @@ p_combined
 ```
 :::
 
-## **3.Conclusion**
+# **3.Conclusion**
 
 The data from the first quarter of 2024 shows that “Sol Acres” significantly leads in resale volumes, hinting at its market desirability, possibly due to a balance of affordability and attractive amenities. This project’s success may be a key indicator for those seeking value-for-money investments. In contrast, luxury segments like “The Sail \@ Marina Bay” exhibit a wide price range, indicating a market for buyers with a taste for exclusivity and willingness to pay a premium for distinctive features.
 
 For Consumers: Buyers should align their choices with their priorities: affordability may lead them to high-volume projects, while unique, high-quality features could draw them towards premium segments. When considering investment, a diversified approach that includes stable, high-volume properties and selective, high-value opportunities may offer balanced returns.
 
-## **4.Reference**
+# **4.Reference**
 
 -   [URA releases flash estimate of 1st Quarter 2024 private residential property price index](https://www.ura.gov.sg/Corporate/Media-Room/Media-Releases/pr24-11)
 
