@@ -126,7 +126,7 @@ write_rds(raw_text, "data/news20.rds")
 
 Figure below shows the frequency of messages by newsgroup.
 
-```{r echo=False, results='hold'}
+```{r echo=FALSE, results='hold'}
 raw_text <- read_rds("data/news20.rds")
 raw_text %>%
   group_by(newsgroup) %>%
@@ -138,7 +138,7 @@ raw_text %>%
 
 The code chunk:
 
-```{r echo=True, results='hide'}
+```{r echo=TRUE, results='hide'}
 raw_text <- read_rds("data/news20.rds")
 raw_text %>%
   group_by(newsgroup) %>%
