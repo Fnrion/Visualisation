@@ -95,20 +95,20 @@ ggridges package provides two main geom to plot gridgeline plots, they are: [`g
 For this particular dataset, it is more appropriate to use [`geom_density_ridges()`](https://wilkelab.org/ggridges/reference/geom_density_ridges.html) as we need to plot the distribution of students’ English score. If we had tallied and aggregated the number of students who scores within score ranges, [`geom_ridgeline()`](https://wilkelab.org/ggridges/reference/geom_ridgeline.html) might be appropriate but it isn’t the case.
 
 ```{r}
-ggplot(exam_df, 
-       aes(x = ENGLISH, 
-           y = CLASS)) +
-  geom_density_ridges(
-    scale = 3,
-    rel_min_height = 0.01,
-    bandwidth = 3.4,
-    fill = lighten("#7097BB", .3),
-    color = "white"
-  ) +
-  scale_x_continuous(
-    name = "English grades",
-    expand = c(0, 0)
-    ) +
-  scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +
-  theme_ridges()
+# ggplot(exam_df, 
+#        aes(x = ENGLISH, 
+#            y = CLASS)) +
+#   geom_density_ridges(
+#     scale = 3,
+#     rel_min_height = 0.01,
+#     bandwidth = 3.4,
+#     fill = lighten("#7097BB", .3),
+#     color = "white"
+#   ) +
+#   scale_x_continuous(
+#     name = "English grades",
+#     expand = c(0, 0)
+#     ) +
+#   scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +
+#   theme_ridges()
 ```

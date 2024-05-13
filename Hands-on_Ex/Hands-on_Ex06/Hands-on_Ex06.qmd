@@ -1,0 +1,69 @@
+---
+title: "Hands-on Exercise 6: Modelling, Visualising and Analysing Network Data with R"
+author: "Zou Jiaxun"
+date: "April 27, 2024"
+data-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+format:
+  html:
+    code-fold: true
+    code-summary: "Click to view code"
+---
+
+## **1 Overview**
+
+In this hands-on exercise, you will learn how to model, analyse and visualise network data using R.
+
+By the end of this hands-on exercise, you will be able to:
+
+-   create graph object data frames, manipulate them using appropriate functions of *dplyr*, *lubridate*, and *tidygraph*,
+
+-   build network graph visualisation using appropriate functions of *ggraph*,
+
+-   compute network geometrics using *tidygraph*,
+
+-   build advanced graph visualisation by incorporating the network geometrics, and
+
+-   build interactive network visualisation using *visNetwork* package.
+
+## **2 Getting Started**
+
+### **2.1 Installing and launching R packages**
+
+In this hands-on exercise, four network data modelling and visualisation packages will be installed and launched. They are igraph, tidygraph, ggraph and visNetwork. Beside these four packages, tidyverse and [lubridate](https://lubridate.tidyverse.org/), an R package specially designed to handle and wrangling time data will be installed and launched too.
+
+The code chunk:
+
+```{r}
+pacman::p_load(igraph, tidygraph, ggraph, visNetwork,
+               lubridate, clock, tidyverse, graphlayouts)
+```
+
+## **3 The Data**
+
+The data sets used in this hands-on exercise is from an oil exploration and extraction company. There are two data sets. One contains the nodes data and the other contains the edges (also know as link) data.
+
+### **3.1 The edges data**
+
+-   *GAStech-email_edges.csv* which consists of two weeks of 9063 emails correspondances between 55 employees.
+
+![](images/clipboard-3706199038.png)
+
+### **3.2 The nodes data**
+
+-   *GAStech_email_nodes.csv* which consist of the names, department and title of the 55 employees.
+
+![](images/clipboard-4031529884.png)
+
+### **3.3 Importing network data from files**
+
+In this step, you will import GAStech_email_node.csv and GAStech_email_edges-v2.csv into RStudio environment by using `read_csv()` of **readr** package.
+
+```{r}
+GAStech_nodes <- read_csv("data/GAStech_email_node.csv")
+GAStech_edges <- read_csv("data/GAStech_email_edge-v2.csv")
+```

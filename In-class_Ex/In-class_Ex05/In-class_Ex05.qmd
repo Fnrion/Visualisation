@@ -95,6 +95,4 @@ mc1_data <- fromJSON("data/MC1/mc1.json")
 ```
 
 
-mc2_data <- fromJSON("data/MC2/mc2.json")
 
-mc3_data <- fromJSON("data/MC3/mc3.json")
