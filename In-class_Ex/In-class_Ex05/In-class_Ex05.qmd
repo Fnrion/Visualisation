@@ -8,9 +8,9 @@ execute:
   echo: true
   warning: false
   freeze: true
-
 ---
-Put all data into one tibular dataframe. 
+
+Put all data into one tibular dataframe.
 
 ```{r}
 pacman::p_load(tidyverse, readtext,
@@ -20,15 +20,15 @@ pacman::p_load(tidyverse, readtext,
 ```{r}
 data_folder <- "data/MC1/articles"
 ```
-Text sensing to extract text
 
+Text sensing to extract text
 
 ```{r}
 text_data <- readtext(paste0("data/MC1/articles",
                 "/*"))
 ```
-OR
 
+OR
 
 ```{r}
 text_data <- readtext("data/MC1/articles")
@@ -62,7 +62,7 @@ corpus_text <- corpus(text_data)
 summary(corpus_text, 5)
 ```
 
-To separate the data; with 2 columns X & Y.  Some text are "1" hence the split does not occur
+To separate the data; with 2 columns X & Y. Some text are "1" hence the split does not occur
 
 ```{r}
 text_data_splitted <- text_data %>%
@@ -72,13 +72,9 @@ text_data_splitted <- text_data %>%
                        too_few = "align_end")
 ```
 
-
-
-
 ```{r}
 pacman::p_load(jsonlite, tidyverse)
 ```
-
 
 ```{r}
 ##pacman::p_load(jsonlite, tidygraph,
@@ -86,13 +82,8 @@ pacman::p_load(jsonlite, tidyverse)
                ##quanteda, tidytext)
 ```
 
-
-
 In the code chunk below, fromJSON() of jsonlite package is used to import *MC3.json* into R environment.
 
 ```{r}
 mc1_data <- fromJSON("data/MC1/mc1.json")
 ```
-
-
-
