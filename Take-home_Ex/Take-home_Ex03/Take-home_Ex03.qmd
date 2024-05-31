@@ -1,0 +1,30 @@
+---
+title: "Take_home_Ex03"
+author: "Zou Jiaxun"
+date: "May 11, 2024"
+data-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+```{r}
+pacman::p_load(tidyverse, readtext,
+               quanteda, tidytext)
+```
+
+```{r}
+data_folder <- "data/MC3/articles"
+```
+
+Text sensing to extract text
+
+```{r}
+# Identifying the beginning and end of the Bible / stripping PJ metadata
+ # (technique borrowed from https://quanteda.io/articles/pkgdown/replication/digital-humanities.html).
+start_v <- stri_locate_first_fixed(bible, "The First Book of Moses: Called Genesis")[1]
+end_v <- stri_locate_last_fixed(bible, "Amen.")[2]
+bible <- stri_sub(bible, start_v, end_v)
+```
