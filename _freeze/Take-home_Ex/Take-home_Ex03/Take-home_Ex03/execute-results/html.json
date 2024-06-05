@@ -1,0 +1,17 @@
+{
+  "hash": "41cf1482ccfbef1a96b63f64e60ee7a1",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Take_home_Ex03\"\nauthor: \"Zou Jiaxun\"\ndate: \"May 11, 2024\"\ndata-modified: \"last-modified\"\nexecute: \n  eval: true\n  echo: true\n  warning: false\n  freeze: true\n---\n\n\n## Data Preparation\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(tidyverse, readtext,\n               quanteda, tidytext, jsonlite, tidyr, tidygraph, ggraph)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nmc3_data <- fromJSON(\"data/MC3/mc3 1.json\")\nclass(mc3_data)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] \"list\"\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nmc3_edges <- as_tibble(mc3_data$link) %>%\n  distinct() %>%\n  mutate(source = as.character(source),\n         target = as.character(target),\n         type = as.character(type)) %>%\n  group_by(source, target) %>%\n  summarise(weights = n(), .groups = 'drop') %>%\n  filter(source != target)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nnames(mc3_data$nodes)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n [1] \"type\"              \"country\"           \"ProductServices\"  \n [4] \"PointOfContact\"    \"HeadOfOrg\"         \"founding_date\"    \n [7] \"revenue\"           \"TradeDescription\"  \"_last_edited_by\"  \n[10] \"_last_edited_date\" \"_date_added\"       \"_raw_source\"      \n[13] \"_algorithm\"        \"id\"                \"dob\"              \n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nmc3_nodes <- as_tibble(mc3_data$nodes) %>%\n  mutate(country = as.character(country), \n         id = as.character(id), \n         product_services = as.character(ProductServices), \n         revenue_omu = as.numeric(as.character(revenue)), \n         type = as.character(type)) %>%\n  select(id, country, product_services, revenue_omu, type)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nid1 <- mc3_edges %>%\n  select(source) %>%\n  rename(id = source)\nid2 <- mc3_edges %>%\n  select(target) %>%\n  rename(id = target)\nmc3_nodes1 <- rbind(id1, id2) %>%\n  distinct() %>%\n  left_join(mc3_nodes,\n            unmatched = \"drop\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nmc3_graph <- tbl_graph(nodes = mc3_nodes1,\n                       edges = mc3_edges,\n                       directed = FALSE) %>%\n  mutate(betweenness_centrality = centrality_betweenness(), closeness_centrality = centrality_closeness())\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nmc3_graph %>%\n  filter(betweenness_centrality >= 300000) %>%\n  ggraph(layout = 'fr') + geom_edge_link(aes(alpha = 0.5)) +\n  geom_node_point(aes(\n    size = betweenness_centrality,\n    colors = \"lightblue\",\n    alpha = 0.1)) +\n  scale_size_continuous(range=c(1,10))+\n  theme_graph()\n```\n\n::: {.cell-output-display}\n![](Take-home_Ex03_files/figure-html/unnamed-chunk-8-1.png){width=672}\n:::\n:::\n\nText sensing to extract text\n\n## MC3 Tasks(3) Develop a visual approach",
+    "supporting": [
+      "Take-home_Ex03_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

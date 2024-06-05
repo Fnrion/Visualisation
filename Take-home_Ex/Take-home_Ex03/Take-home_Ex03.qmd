@@ -10,21 +10,73 @@ execute:
   freeze: true
 ---
 
+## Data Preparation
 ```{r}
 pacman::p_load(tidyverse, readtext,
-               quanteda, tidytext)
+               quanteda, tidytext, jsonlite, tidyr, tidygraph, ggraph)
 ```
 
 ```{r}
-data_folder <- "data/MC3/articles"
+mc3_data <- fromJSON("data/MC3/mc3 1.json")
+class(mc3_data)
 ```
 
+```{r}
+mc3_edges <- as_tibble(mc3_data$link) %>%
+  distinct() %>%
+  mutate(source = as.character(source),
+         target = as.character(target),
+         type = as.character(type)) %>%
+  group_by(source, target) %>%
+  summarise(weights = n(), .groups = 'drop') %>%
+  filter(source != target)
+```
+
+```{r}
+names(mc3_data$nodes)
+```
+
+```{r}
+mc3_nodes <- as_tibble(mc3_data$nodes) %>%
+  mutate(country = as.character(country), 
+         id = as.character(id), 
+         product_services = as.character(ProductServices), 
+         revenue_omu = as.numeric(as.character(revenue)), 
+         type = as.character(type)) %>%
+  select(id, country, product_services, revenue_omu, type)
+```
+
+```{r}
+id1 <- mc3_edges %>%
+  select(source) %>%
+  rename(id = source)
+id2 <- mc3_edges %>%
+  select(target) %>%
+  rename(id = target)
+mc3_nodes1 <- rbind(id1, id2) %>%
+  distinct() %>%
+  left_join(mc3_nodes,
+            unmatched = "drop")
+```
+
+```{r}
+mc3_graph <- tbl_graph(nodes = mc3_nodes1,
+                       edges = mc3_edges,
+                       directed = FALSE) %>%
+  mutate(betweenness_centrality = centrality_betweenness(), closeness_centrality = centrality_closeness())
+```
+
+```{r}
+mc3_graph %>%
+  filter(betweenness_centrality >= 300000) %>%
+  ggraph(layout = 'fr') + geom_edge_link(aes(alpha = 0.5)) +
+  geom_node_point(aes(
+    size = betweenness_centrality,
+    colors = "lightblue",
+    alpha = 0.1)) +
+  scale_size_continuous(range=c(1,10))+
+  theme_graph()
+```
 Text sensing to extract text
 
-```{r}
-# Identifying the beginning and end of the Bible / stripping PJ metadata
- # (technique borrowed from https://quanteda.io/articles/pkgdown/replication/digital-humanities.html).
-start_v <- stri_locate_first_fixed(bible, "The First Book of Moses: Called Genesis")[1]
-end_v <- stri_locate_last_fixed(bible, "Amen.")[2]
-bible <- stri_sub(bible, start_v, end_v)
-```
+## MC3 Tasks(3) Develop a visual approach
