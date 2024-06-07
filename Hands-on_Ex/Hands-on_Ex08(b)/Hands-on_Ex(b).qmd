@@ -1,0 +1,11 @@
+---
+title: "Hands-on_Ex08(b)"
+author: "Zou Jiaxun"
+date: "Jun 7, 2024"
+data-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
