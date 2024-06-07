@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zou Jiaxun">
-<meta name="dcterms.date" content="2024-05-11">
+<meta name="dcterms.date" content="2024-06-07">
 
 <title>Take_home_Ex03</title>
 <style>
@@ -170,6 +170,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
  <span class="dropdown-text">Hands-on Exercise 7</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08(a).html">
+ <span class="dropdown-text">Hands-on Exercise 8(a)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08(b).html">
+ <span class="dropdown-text">Hands-on Exercise 8(b)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08(c).html">
+ <span class="dropdown-text">Hands-on Exercise 8(c)</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -253,8 +265,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link active" data-scroll-target="#data-preparation">Data Preparation</a></li>
-  <li><a href="#mc3-tasks3-develop-a-visual-approach" id="toc-mc3-tasks3-develop-a-visual-approach" class="nav-link" data-scroll-target="#mc3-tasks3-develop-a-visual-approach">MC3 Tasks(3) Develop a visual approach</a></li>
+  <li><a href="#package-preparation" id="toc-package-preparation" class="nav-link active" data-scroll-target="#package-preparation">Package Preparation</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a>
+  <ul class="collapse">
+  <li><a href="#data-load" id="toc-data-load" class="nav-link" data-scroll-target="#data-load">Data Load</a></li>
+  <li><a href="#data-check" id="toc-data-check" class="nav-link" data-scroll-target="#data-check">Data Check</a></li>
+  </ul></li>
+  <li><a href="#mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have" id="toc-mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have" class="nav-link" data-scroll-target="#mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have"><em>MC3 Task(3) Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?</em></a></li>
+  <li><a href="#mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions." id="toc-mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions." class="nav-link" data-scroll-target="#mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions.">MC3 Task(4) Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.</a></li>
   </ul>
 </nav>
     </div>
@@ -280,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 11, 2024</p>
+      <p class="date">June 7, 2024</p>
     </div>
   </div>
   
@@ -292,12 +310,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="data-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
+<section id="package-preparation" class="level3">
+<h3 class="anchored" data-anchor-id="package-preparation">Package Preparation</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, readtext,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               quanteda, tidytext, jsonlite, tidyr, tidygraph, ggraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               quanteda, tidytext, jsonlite,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               tidyr, tidygraph, ggraph, igraph,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               visNetwork, ggplot2, gganimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="data-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
+<section id="data-load" class="level3">
+<h3 class="anchored" data-anchor-id="data-load">Data Load</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mc3_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"data/MC3/mc3 1.json"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mc3_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -305,75 +330,128 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] "list"</code></pre>
 </div>
 </div>
+</section>
+<section id="data-check" class="level3">
+<h3 class="anchored" data-anchor-id="data-check">Data Check</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mc3_edges <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mc3_data<span class="sc">$</span>link) <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">source =</span> <span class="fu">as.character</span>(source),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">target =</span> <span class="fu">as.character</span>(target),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">type =</span> <span class="fu">as.character</span>(type)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(source, target) <span class="sc">%&gt;%</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weights =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(source <span class="sc">!=</span> target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mc3_data<span class="sc">$</span>nodes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mc3_edges <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mc3_data<span class="sc">$</span>link)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mc3_edges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "type"              "country"           "ProductServices"  
- [4] "PointOfContact"    "HeadOfOrg"         "founding_date"    
- [7] "revenue"           "TradeDescription"  "_last_edited_by"  
-[10] "_last_edited_date" "_date_added"       "_raw_source"      
-[13] "_algorithm"        "id"                "dob"              </code></pre>
+<pre><code>Rows: 75,817
+Columns: 11
+$ start_date          &lt;chr&gt; "2016-10-29T00:00:00", "2035-06-03T00:00:00", "202…
+$ type                &lt;chr&gt; "Event.Owns.Shareholdership", "Event.Owns.Sharehol…
+$ `_last_edited_by`   &lt;chr&gt; "Pelagia Alethea Mordoch", "Niklaus Oberon", "Pela…
+$ `_last_edited_date` &lt;chr&gt; "2035-01-01T00:00:00", "2035-07-15T00:00:00", "203…
+$ `_date_added`       &lt;chr&gt; "2035-01-01T00:00:00", "2035-07-15T00:00:00", "203…
+$ `_raw_source`       &lt;chr&gt; "Existing Corporate Structure Data", "Oceanus Corp…
+$ `_algorithm`        &lt;chr&gt; "Automatic Import", "Manual Entry", "Automatic Imp…
+$ source              &lt;chr&gt; "Avery Inc", "Berger-Hayes", "Bowers Group", "Bowm…
+$ target              &lt;chr&gt; "Allen, Nichols and Thompson", "Jensen, Morris and…
+$ key                 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ end_date            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#   distinct() %&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(source = as.character(source),</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#          target = as.character(target),</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#          type = as.character(type)) %&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(source, target) %&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(weights = n(), .groups = 'drop') %&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(source != target)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse(mc3_edges)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mc3_nodes <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mc3_data<span class="sc">$</span>nodes)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mc3_nodes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 60,520
+Columns: 15
+$ type                &lt;chr&gt; "Entity.Organization.Company", "Entity.Organizatio…
+$ country             &lt;chr&gt; "Uziland", "Mawalara", "Uzifrica", "Islavaragon", …
+$ ProductServices     &lt;chr&gt; "Unknown", "Furniture and home accessories", "Food…
+$ PointOfContact      &lt;chr&gt; "Rebecca Lewis", "Michael Lopez", "Steven Robertso…
+$ HeadOfOrg           &lt;chr&gt; "Émilie-Susan Benoit", "Honoré Lemoine", "Jules La…
+$ founding_date       &lt;chr&gt; "1954-04-24T00:00:00", "2009-06-12T00:00:00", "202…
+$ revenue             &lt;dbl&gt; 5994.73, 71766.67, 0.00, 0.00, 4746.67, 46566.67, …
+$ TradeDescription    &lt;chr&gt; "Unknown", "Abbott-Gomez is a leading manufacturer…
+$ `_last_edited_by`   &lt;chr&gt; "Pelagia Alethea Mordoch", "Pelagia Alethea Mordoc…
+$ `_last_edited_date` &lt;chr&gt; "2035-01-01T00:00:00", "2035-01-01T00:00:00", "203…
+$ `_date_added`       &lt;chr&gt; "2035-01-01T00:00:00", "2035-01-01T00:00:00", "203…
+$ `_raw_source`       &lt;chr&gt; "Existing Corporate Structure Data", "Existing Cor…
+$ `_algorithm`        &lt;chr&gt; "Automatic Import", "Automatic Import", "Automatic…
+$ id                  &lt;chr&gt; "Abbott, Mcbride and Edwards", "Abbott-Gomez", "Ab…
+$ dob                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(country = as.character(country), </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#          id = as.character(id), </span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#          product_services = as.character(ProductServices), </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#          revenue_omu = as.numeric(as.character(revenue)), </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#          type = as.character(type)) %&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(id, country, product_services, revenue_omu, type)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse(mc3_nodes)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have" class="level2">
+<h2 class="anchored" data-anchor-id="mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have"><em>MC3 Task(3) Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?</em></h2>
+<div class="callout-idea">
+<p>Based on this task, we need to check the inferences, and how the company changes through time, so the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the arrow.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mc3_edges_filt <span class="ot">&lt;-</span> mc3_edges <span class="sc">%&gt;%</span> <span class="fu">select</span>(type, source, target)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mc3_nodes_filt <span class="ot">&lt;-</span> mc3_nodes <span class="sc">%&gt;%</span> <span class="fu">select</span>(type, id)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mc3_edges_filt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 75,817
+Columns: 3
+$ type   &lt;chr&gt; "Event.Owns.Shareholdership", "Event.Owns.Shareholdership", "Ev…
+$ source &lt;chr&gt; "Avery Inc", "Berger-Hayes", "Bowers Group", "Bowman-Howe", "Bo…
+$ target &lt;chr&gt; "Allen, Nichols and Thompson", "Jensen, Morris and Downs", "Bar…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mc3_nodes_filt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 60,520
+Columns: 2
+$ type &lt;chr&gt; "Entity.Organization.Company", "Entity.Organization.Company", "En…
+$ id   &lt;chr&gt; "Abbott, Mcbride and Edwards", "Abbott-Gomez", "Abbott-Harrison",…</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mc3_nodes <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mc3_data<span class="sc">$</span>nodes) <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">as.character</span>(country), </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">id =</span> <span class="fu">as.character</span>(id), </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">product_services =</span> <span class="fu">as.character</span>(ProductServices), </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">revenue_omu =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(revenue)), </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">type =</span> <span class="fu">as.character</span>(type)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, country, product_services, revenue_omu, type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># graph &lt;- frame(d = mc3_edges_filt, vertices = mc3_nodes_filt, directed = TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>id1 <span class="ot">&lt;-</span> mc3_edges <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(source) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id =</span> source)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>id2 <span class="ot">&lt;-</span> mc3_edges <span class="sc">%&gt;%</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(target) <span class="sc">%&gt;%</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id =</span> target)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>mc3_nodes1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(id1, id2) <span class="sc">%&gt;%</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(mc3_nodes,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">unmatched =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mc3_graph &lt;- tbl_graph(nodes = mc3_nodes1,</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                        edges = mc3_edges,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                        directed = FALSE) %&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(betweenness_centrality = centrality_betweenness(), closeness_centrality = centrality_closeness())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mc3_graph <span class="ot">&lt;-</span> <span class="fu">tbl_graph</span>(<span class="at">nodes =</span> mc3_nodes1,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">edges =</span> mc3_edges,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">directed =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">betweenness_centrality =</span> <span class="fu">centrality_betweenness</span>(), <span class="at">closeness_centrality =</span> <span class="fu">centrality_closeness</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mc3_graph <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(betweenness_centrality <span class="sc">&gt;=</span> <span class="dv">300000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">'fr'</span>) <span class="sc">+</span> <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> betweenness_centrality,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> <span class="st">"lightblue"</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.1</span>)) <span class="sc">+</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex03_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mc3_graph %&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(betweenness_centrality &gt;= 300000) %&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggraph(layout = 'fr') + geom_edge_link(aes(alpha = 0.5)) +</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_node_point(aes(</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     size = betweenness_centrality,</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     colors = "lightblue",</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     alpha = 0.1)) +</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_size_continuous(range=c(1,10))+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_graph()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Text sensing to extract text</p>
 </section>
-<section id="mc3-tasks3-develop-a-visual-approach" class="level2">
-<h2 class="anchored" data-anchor-id="mc3-tasks3-develop-a-visual-approach">MC3 Tasks(3) Develop a visual approach</h2>
+<section id="mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions." class="level2">
+<h2 class="anchored" data-anchor-id="mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions.">MC3 Task(4) Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.</h2>
+<div class="callout-idea">
+<p>to check a certain Corp.&nbsp;through a timeline</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Load JSON data</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # Create igraph object</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nodes &lt;- mc3_data$nodes</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># edges &lt;- mc3_data$links</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># g &lt;- graph_from_data_frame(d = edges, vertices = nodes, directed = TRUE)</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># # Basic network plot</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(g, vertex.label = NA, vertex.size = 5, edge.arrow.size = 0.5)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
