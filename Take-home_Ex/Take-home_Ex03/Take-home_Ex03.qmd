@@ -9,7 +9,9 @@ execute:
   warning: false
   freeze: true
 ---
-### Package Preparation
+## 1 Overview
+
+## 2 Package Preparation
 
 ```{r}
 pacman::p_load(tidyverse, readtext,
@@ -18,16 +20,16 @@ pacman::p_load(tidyverse, readtext,
                visNetwork, ggplot2, gganimate)
 ```
 
-## Data Preparation
+## 3 Data Preparation
 
-### Data Load
+### 3.1 Data Load
 
 ```{r}
 mc3_data <- fromJSON("data/MC3/mc3 1.json")
 class(mc3_data)
 ```
 
-### Data Check
+### 3.2 Data Check
 
 ```{r}
 mc3_edges <- as_tibble(mc3_data$link)
@@ -56,7 +58,7 @@ glimpse(mc3_nodes)
 # glimpse(mc3_nodes)
 ```
 
-## *MC3 Task(3) Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?*
+## 4 *MC3 Task(3) Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?*
 
 :::callout-idea
 Based on this task, we need to check the inferences, and how the company changes through time, so the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like  (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the arrow.
@@ -95,7 +97,7 @@ glimpse(mc3_nodes_filt)
 Text sensing to extract text
 
 
-## MC3 Task(4) Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.
+## 5 MC3 Task(4) Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.
 
 :::callout-idea
 to check a certain Corp. through a timeline
