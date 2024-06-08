@@ -277,14 +277,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#package-preparation" id="toc-package-preparation" class="nav-link active" data-scroll-target="#package-preparation">Package Preparation</a></li>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1 Overview</a></li>
+  <li><a href="#package-preparation" id="toc-package-preparation" class="nav-link" data-scroll-target="#package-preparation">2 Package Preparation</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">3 Data Preparation</a>
   <ul class="collapse">
-  <li><a href="#data-load" id="toc-data-load" class="nav-link" data-scroll-target="#data-load">Data Load</a></li>
-  <li><a href="#data-check" id="toc-data-check" class="nav-link" data-scroll-target="#data-check">Data Check</a></li>
+  <li><a href="#data-load" id="toc-data-load" class="nav-link" data-scroll-target="#data-load">3.1 Data Load</a></li>
+  <li><a href="#data-check" id="toc-data-check" class="nav-link" data-scroll-target="#data-check">3.2 Data Check</a></li>
   </ul></li>
-  <li><a href="#mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have" id="toc-mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have" class="nav-link" data-scroll-target="#mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have"><em>MC3 Task(3) Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?</em></a></li>
-  <li><a href="#mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions." id="toc-mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions." class="nav-link" data-scroll-target="#mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions.">MC3 Task(4) Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.</a></li>
+  <li><a href="#mc3-task3" id="toc-mc3-task3" class="nav-link" data-scroll-target="#mc3-task3">4 MC3 Task(3)</a></li>
+  <li><a href="#mc3-task4" id="toc-mc3-task4" class="nav-link" data-scroll-target="#mc3-task4">5 MC3 Task(4)</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -322,8 +324,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="package-preparation" class="level3">
-<h3 class="anchored" data-anchor-id="package-preparation">Package Preparation</h3>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">1 Overview</h2>
+</section>
+<section id="package-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="package-preparation">2 Package Preparation</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, readtext,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               quanteda, tidytext, jsonlite,</span>
@@ -332,9 +337,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="data-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
+<h2 class="anchored" data-anchor-id="data-preparation">3 Data Preparation</h2>
 <section id="data-load" class="level3">
-<h3 class="anchored" data-anchor-id="data-load">Data Load</h3>
+<h3 class="anchored" data-anchor-id="data-load">3.1 Data Load</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mc3_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"data/MC3/mc3 1.json"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mc3_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -344,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="data-check" class="level3">
-<h3 class="anchored" data-anchor-id="data-check">Data Check</h3>
+<h3 class="anchored" data-anchor-id="data-check">3.2 Data Check</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mc3_edges <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mc3_data<span class="sc">$</span>link)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mc3_edges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -404,10 +409,21 @@ $ dob                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 </div>
 </section>
 </section>
-<section id="mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have" class="level2">
-<h2 class="anchored" data-anchor-id="mc3-task3-develop-a-visual-approach-to-examine-inferences.-infer-how-the-influence-of-a-company-changes-through-time.-can-you-infer-ownership-and-influence-that-a-network-may-have"><em>MC3 Task(3) Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?</em></h2>
-<div class="callout-idea">
+<section id="mc3-task3" class="level2">
+<h2 class="anchored" data-anchor-id="mc3-task3">4 MC3 Task(3)</h2>
+<p>Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Based on this task, we need to check the inferences, and how the company changes through time, so the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the arrow.</p>
+</div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mc3_edges_filt <span class="ot">&lt;-</span> mc3_edges <span class="sc">%&gt;%</span> <span class="fu">select</span>(type, source, target)</span>
@@ -450,10 +466,21 @@ $ id   &lt;chr&gt; "Abbott, Mcbride and Edwards", "Abbott-Gomez", "Abbott-Harris
 </div>
 <p>Text sensing to extract text</p>
 </section>
-<section id="mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions." class="level2">
-<h2 class="anchored" data-anchor-id="mc3-task4-identify-the-network-associated-with-southseafood-express-corp-and-visualize-how-this-network-and-competing-businesses-change-as-a-result-of-their-illegal-fishing-behavior.-which-companies-benefited-from-southseafood-express-corp-legal-troubles-are-there-other-suspicious-transactions-that-may-be-related-to-illegal-fishing-provide-visual-evidence-for-your-conclusions.">MC3 Task(4) Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.</h2>
-<div class="callout-idea">
+<section id="mc3-task4" class="level2">
+<h2 class="anchored" data-anchor-id="mc3-task4">5 MC3 Task(4)</h2>
+<p>Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>to check a certain Corp.&nbsp;through a timeline</p>
+</div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Load JSON data</span></span>
@@ -464,6 +491,9 @@ $ id   &lt;chr&gt; "Abbott, Mcbride and Edwards", "Abbott-Gomez", "Abbott-Harris
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># # Basic network plot</span></span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(g, vertex.label = NA, vertex.size = 5, edge.arrow.size = 0.5)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 
 
 </section>

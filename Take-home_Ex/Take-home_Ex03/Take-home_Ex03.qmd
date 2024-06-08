@@ -9,6 +9,7 @@ execute:
   warning: false
   freeze: true
 ---
+
 ## 1 Overview
 
 ## 2 Package Preparation
@@ -58,10 +59,11 @@ glimpse(mc3_nodes)
 # glimpse(mc3_nodes)
 ```
 
-## 4 *MC3 Task(3) Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?*
+## 4 MC3 Task(3) 
+Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?
 
-:::callout-idea
-Based on this task, we need to check the inferences, and how the company changes through time, so the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like  (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the arrow.
+::: callout-tip
+Based on this task, we need to check the inferences, and how the company changes through time, so the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the arrow.
 :::
 
 ```{r}
@@ -70,7 +72,6 @@ mc3_nodes_filt <- mc3_nodes %>% select(type, id)
 glimpse(mc3_edges_filt)
 glimpse(mc3_nodes_filt)
 ```
-
 
 ```{r}
 # graph <- frame(d = mc3_edges_filt, vertices = mc3_nodes_filt, directed = TRUE)
@@ -94,12 +95,14 @@ glimpse(mc3_nodes_filt)
 #   scale_size_continuous(range=c(1,10))+
 #   theme_graph()
 ```
+
 Text sensing to extract text
 
+## 5 MC3 Task(4)
 
-## 5 MC3 Task(4) Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.
+Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.
 
-:::callout-idea
+::: callout-tip
 to check a certain Corp. through a timeline
 :::
 
@@ -116,3 +119,5 @@ to check a certain Corp. through a timeline
 # # Basic network plot
 # plot(g, vertex.label = NA, vertex.size = 5, edge.arrow.size = 0.5)
 ```
+
+## Conclusion
