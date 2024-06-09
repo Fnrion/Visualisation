@@ -15,7 +15,7 @@ In this challenge, I will attempt to do the following:
 
 - 1. Use visual analytics to identify the relationship of current fish companies 
 
-- 2. Based on the visualization on Network, pick the most famous conpmay
+- 2. Based on the visualization on Network, infer ownership or influence that a network
 
 ## 1 Getting Start
 
@@ -179,8 +179,11 @@ mc3_nodes_select <- mc3_nodes_clean %>%
 #### 3.3.2 Extract edges related to organization nodes
 
 ```{r}
-mc3_nodes_select <- mc3_nodes_clean %>%
-  filter(grepl("Entity\\.Organization", type, ignore.case = TRUE))
+mc3_edges_select <- mc3_edges_clean %>%
+  filter(source %in% mc3_nodes_select$id | target %in% mc3_nodes_select$id) %>%
+  distinct() %>%
+  rename(from = source,
+         to = target)
 ```
 
 #### 3.3.3 Extract edges with high connection
@@ -189,7 +192,7 @@ mc3_nodes_select <- mc3_nodes_clean %>%
 mc3_edges_select_high <- mc3_edges_select %>%
   group_by(from) %>%
   mutate(count = n()) %>%
-  filter(count >= 40) %>%
+  filter(count >= 8) %>%
   ungroup()
 ```
 
