@@ -10,105 +10,152 @@ execute:
   freeze: true
 ---
 
-## 1 Overview
+## 1 Getting Start
 
-## 2 Package Preparation
+### 1.1 Package Preparation
 
 ```{r}
-pacman::p_load(tidyverse, readtext,
-               quanteda, tidytext, jsonlite,
+pacman::p_load(tidyverse, readtext, skimr, knitr,
+               quanteda, tidytext, jsonlite, dplyr,
                tidyr, tidygraph, ggraph, igraph,
-               visNetwork, ggplot2, gganimate)
+               visNetwork, ggplot2, gganimate, gridExtra)
 ```
 
-## 3 Data Preparation
+## 2 Data Wangling
 
-### 3.1 Data Load
+### 2.1 Data Import
 
 ```{r}
 mc3_data <- fromJSON("data/MC3/mc3 1.json")
 class(mc3_data)
 ```
 
-### 3.2 Data Check
+### 2.2 Data Check
 
 ```{r}
 mc3_edges <- as_tibble(mc3_data$link)
 glimpse(mc3_edges)
-
-#   distinct() %>%
-#   mutate(source = as.character(source),
-#          target = as.character(target),
-#          type = as.character(type)) %>%
-#   group_by(source, target) %>%
-#   summarise(weights = n(), .groups = 'drop') %>%
-#   filter(source != target)
-# glimpse(mc3_edges)
 ```
 
 ```{r}
 mc3_nodes <- as_tibble(mc3_data$nodes)
 glimpse(mc3_nodes)
-
-#   mutate(country = as.character(country), 
-#          id = as.character(id), 
-#          product_services = as.character(ProductServices), 
-#          revenue_omu = as.numeric(as.character(revenue)), 
-#          type = as.character(type)) %>%
-#   select(id, country, product_services, revenue_omu, type)
-# glimpse(mc3_nodes)
 ```
 
-## 4 MC3 Task(3) 
-Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?
-
-::: callout-tip
-Based on this task, we need to check the inferences, and how the company changes through time, so the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the arrow.
-:::
+### 2.3 Data Filter
 
 ```{r}
 mc3_edges_filt <- mc3_edges %>% select(type, source, target)
-mc3_nodes_filt <- mc3_nodes %>% select(type, id)
 glimpse(mc3_edges_filt)
+```
+
+```{r}
+mc3_nodes_filt <- mc3_nodes %>% select(type, id)
 glimpse(mc3_nodes_filt)
 ```
+### 2.4 Edges & Nodes Explore
 
 ```{r}
-# graph <- frame(d = mc3_edges_filt, vertices = mc3_nodes_filt, directed = TRUE)
+skim(mc3_edges_filt)
 ```
 
 ```{r}
-# mc3_graph <- tbl_graph(nodes = mc3_nodes1,
-#                        edges = mc3_edges,
-#                        directed = FALSE) %>%
-#   mutate(betweenness_centrality = centrality_betweenness(), closeness_centrality = centrality_closeness())
+p1 <- ggplot(data = mc3_edges_filt, aes(x = type, fill = type)) +
+  geom_bar() + theme(axis.text.x = element_text(angle = 60, hjust = 1))
+p1
 ```
 
 ```{r}
-# mc3_graph %>%
-#   filter(betweenness_centrality >= 300000) %>%
-#   ggraph(layout = 'fr') + geom_edge_link(aes(alpha = 0.5)) +
-#   geom_node_point(aes(
-#     size = betweenness_centrality,
-#     colors = "lightblue",
-#     alpha = 0.1)) +
-#   scale_size_continuous(range=c(1,10))+
-#   theme_graph()
+skim(mc3_nodes_filt)
 ```
 
-Text sensing to extract text
+```{r}
+p2 <- ggplot(data = mc3_nodes_filt, aes(x = type, fill = type)) +
+  geom_bar() + theme(axis.text.x = element_text(angle = 60, hjust = 1))
+p2 
+```
 
-## 5 MC3 Task(4)
-
-Identify the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior. Which companies benefited from SouthSeafood Express Corp legal troubles? Are there other suspicious transactions that may be related to illegal fishing? Provide visual evidence for your conclusions.
-
-::: callout-tip
-to check a certain Corp. through a timeline
+:::callout-tip
+According to the VAST2024 - MC3 Data Description, the person node include Entity.Person and Entity.Person.CEO, the other were included in the Company.
 :::
 
-```{r}
+## 3 MC3 Task(3) 
 
+Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?
+
+::: callout-tip
+Based on this task, we need to check the inferences, and how the company changes through time, so the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the "from" and "to".
+:::
+
+### 3.1 Relationship
+
+#### 3.1.1 Nodes
+
+```{r} 
+mc3_nodes_clean <- as_tibble(mc3_data$nodes) %>%
+  mutate(type = as.character(type),
+         id = as.character(id)) %>%
+  select(id, type)
+kable(head(mc3_nodes_clean))
 ```
+
+#### 3.1.2 Edges
+
+```{r}
+mc3_edges_clean <- as_tibble(mc3_data$links) %>% 
+  distinct() %>%
+  mutate(source = as.character(source),
+         target = as.character(target),
+         type = as.character(type)) %>%
+  group_by(source, target, type) %>%
+    summarise(weights = n()) %>%
+  filter(source!=target) %>%
+  ungroup()
+kable(head(mc3_edges_clean))
+```
+
+### 3.2 Visualising network graph
+
+```{r}
+mc3_graph <- tbl_graph(nodes = mc3_nodes_clean,
+                       edges = mc3_edges_clean,
+                       directed = FALSE) %>%
+  mutate(betweenness_centrality = centrality_betweenness(),
+         closeness_centrality = centrality_closeness())
+```
+
+```{r}
+set.seed(1234)
+mc3_graph %>%
+  filter(betweenness_centrality >= 8000000) %>%
+ggraph(layout = "fr") +
+  geom_edge_link(aes(#width= weights,
+                     alpha=0.5)) +
+  geom_node_point(aes(
+    size = betweenness_centrality,
+    color = type,
+    alpha = 0.3)) +
+  geom_node_label(aes(label = id),repel=TRUE, size=2.5, alpha = 0.8) +
+  scale_size_continuous(range=c(1,10)) +
+  theme_graph() +
+  labs(title = 'Initial network visualisation',
+       subtitle = 'Entities with betweenness scores > 8,000,000')
+```
+
+Below is a dataframe showing us the top 10 entities with the highest betweenness scores.
+
+```{r}
+mc3_graph %>%  activate(nodes) %>%  as_tibble() %>% arrange(desc(betweenness_centrality)) %>% slice(1:10) %>% kable() 
+```
+
+### 3.2 Building network model with tidygraph
+
+```{r}
+# mc3_graph <- tbl_graph(nodes = mc3_nodes_filt,
+# edges = mc3)
+```
+
+### 3.3
 
 ```{r}
 # # Load JSON data
@@ -120,4 +167,6 @@ to check a certain Corp. through a timeline
 # plot(g, vertex.label = NA, vertex.size = 5, edge.arrow.size = 0.5)
 ```
 
-## Conclusion
+## 4. Conclusion
+
+## 5. Reference
