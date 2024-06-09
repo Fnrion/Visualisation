@@ -11,11 +11,11 @@ execute:
 ---
 # Vast Challenge 2024 Mini-Challenge 3
 
-In rhis challenge, I will attempt to do the following:
+In this challenge, I will attempt to do the following:
 
-- 1. Use visual analytics to identify the influence of current fish company 
+- 1. Use visual analytics to identify the relationship of current fish companies 
 
-- 2. Based on the vosialization on Network, pick the most famous conpmay
+- 2. Based on the visualization on Network, pick the most famous conpmay
 
 ## 1 Getting Start
 
@@ -129,6 +129,8 @@ kable(head(mc3_edges_clean))
 
 ### 3.2 Visualising network graph
 
+First, create a graph object using tbl_graph() function. Then calculate betweenness and closeness centrality scores.
+
 ```{r}
 mc3_graph <- tbl_graph(nodes = mc3_nodes_clean,
                        edges = mc3_edges_clean,
@@ -136,6 +138,8 @@ mc3_graph <- tbl_graph(nodes = mc3_nodes_clean,
   mutate(betweenness_centrality = centrality_betweenness(),
          closeness_centrality = centrality_closeness())
 ```
+
+We will filter nodes with high betweenness centrality scores (>8,000,000) and visualise them to see the relationships that they have.
 
 ```{r}
 set.seed(1234)
@@ -161,24 +165,76 @@ Below is a dataframe showing us the top 10 entities with the highest betweenness
 mc3_graph %>%  activate(nodes) %>%  as_tibble() %>% arrange(desc(betweenness_centrality)) %>% slice(1:10) %>% kable() 
 ```
 
-### 3.2 Building network model with tidygraph
+The top 10 betweenness entities above are not dealing with relationship between fish companies. In the next section, we will filter entities into only organization entities. We may revisit the person entities later when we have specific targets/companies to investigate.
+
+### 3.3 Exploring the VisNetwork
+
+#### 3.3.1 Select the organization nodes
 
 ```{r}
-# mc3_graph <- tbl_graph(nodes = mc3_nodes_filt,
-# edges = mc3)
+mc3_nodes_select <- mc3_nodes_clean %>%
+  filter(grepl("Entity\\.Organization", type, ignore.case = TRUE))
 ```
 
-### 3.3
+#### 3.3.2 Extract edges related to organization nodes
 
 ```{r}
-# # Load JSON data
-# # Create igraph object
-# nodes <- mc3_data$nodes
-# edges <- mc3_data$links
-# g <- graph_from_data_frame(d = edges, vertices = nodes, directed = TRUE)
-# # Basic network plot
-# plot(g, vertex.label = NA, vertex.size = 5, edge.arrow.size = 0.5)
+mc3_nodes_select <- mc3_nodes_clean %>%
+  filter(grepl("Entity\\.Organization", type, ignore.case = TRUE))
 ```
+
+#### 3.3.3 Extract edges with high connection
+
+```{r}
+mc3_edges_select_high <- mc3_edges_select %>%
+  group_by(from) %>%
+  mutate(count = n()) %>%
+  filter(count >= 40) %>%
+  ungroup()
+```
+
+#### 3.3.4 Distinct source and target
+
+```{r}
+mc3_nodes_source <- mc3_edges_select_high %>%
+  distinct(from) %>%
+  rename(id = from)
+
+mc3_nodes_target <- mc3_edges_select_high %>%
+  distinct(to) %>%
+  rename(id = to)
+```
+
+#### 3.3.5 Build visNetwork
+
+```{r}
+mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target)
+
+# Assign group based on type
+mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$id %in% mc3_nodes_select$id, "Entity Organization", "Entity.Person")
+
+# Visualize with visNetwork
+visNetwork(mc3_nodes_combined, mc3_edges_select) %>%
+  visPhysics(solver = "forceAtlas2Based",
+             forceAtlas2Based = list(gravitationalConstant = -100)) %>%
+  visIgraphLayout(layout = "layout_with_fr") %>%
+  visGroups(groupname = "Entity Organization", color = "yellow") %>%
+  visGroups(groupname = "Entity Person", color = "grey") %>%
+  visLegend() %>%
+  visEdges(arrows = "to") %>%
+  visOptions(
+    highlightNearest = list(enabled = TRUE, degree = 2, hover = TRUE),
+    nodesIdSelection = TRUE,
+    selectedBy = "group",
+    collapse = TRUE
+  ) %>%
+  visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) %>%
+  visEvents(selectNode = "function(properties) {
+    var selectedNodeId = properties.nodes[0];
+    this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
+  }")
+```
+
 
 ## 4. Conclusion
 
