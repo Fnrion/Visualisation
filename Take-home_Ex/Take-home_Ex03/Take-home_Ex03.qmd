@@ -9,6 +9,13 @@ execute:
   warning: false
   freeze: true
 ---
+# Vast Challenge 2024 Mini-Challenge 3
+
+In rhis challenge, I will attempt to do the following:
+
+- 1. Use visual analytics to identify the influence of current fish company 
+
+- 2. Based on the vosialization on Network, pick the most famous conpmay
 
 ## 1 Getting Start
 
@@ -59,6 +66,8 @@ glimpse(mc3_nodes_filt)
 skim(mc3_edges_filt)
 ```
 
+
+
 ```{r}
 p1 <- ggplot(data = mc3_edges_filt, aes(x = type, fill = type)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 60, hjust = 1))
@@ -84,12 +93,14 @@ According to the VAST2024 - MC3 Data Description, the person node include Entity
 Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?
 
 ::: callout-tip
-Based on this task, we need to check the inferences, and how the company changes through time, so the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the "from" and "to".
+Based on this plot, the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the "from" and "to".
 :::
 
 ### 3.1 Relationship
 
 #### 3.1.1 Nodes
+
+The code chunk below will be used to extract the nodes data.frame of mc3_data and save it as a tibble data.frame called mc3_nodes.
 
 ```{r} 
 mc3_nodes_clean <- as_tibble(mc3_data$nodes) %>%
@@ -100,6 +111,8 @@ kable(head(mc3_nodes_clean))
 ```
 
 #### 3.1.2 Edges
+
+The code chunk below will be used to extract the links data.frame of mc3_data and save it as a tibble data.frame called mc3_edges.
 
 ```{r}
 mc3_edges_clean <- as_tibble(mc3_data$links) %>% 

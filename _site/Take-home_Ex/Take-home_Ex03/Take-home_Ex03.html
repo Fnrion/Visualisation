@@ -277,7 +277,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#getting-start" id="toc-getting-start" class="nav-link active" data-scroll-target="#getting-start">1 Getting Start</a>
+  <li><a href="#vast-challenge-2024-mini-challenge-3" id="toc-vast-challenge-2024-mini-challenge-3" class="nav-link active" data-scroll-target="#vast-challenge-2024-mini-challenge-3">Vast Challenge 2024 Mini-Challenge 3</a>
+  <ul class="collapse">
+  <li><a href="#getting-start" id="toc-getting-start" class="nav-link" data-scroll-target="#getting-start">1 Getting Start</a>
   <ul class="collapse">
   <li><a href="#package-preparation" id="toc-package-preparation" class="nav-link" data-scroll-target="#package-preparation">1.1 Package Preparation</a></li>
   </ul></li>
@@ -297,6 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">4. Conclusion</a></li>
   <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">5. Reference</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -334,6 +337,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="vast-challenge-2024-mini-challenge-3" class="level1">
+<h1>Vast Challenge 2024 Mini-Challenge 3</h1>
+<p>In rhis challenge, I will attempt to do the following:</p>
+<ul>
+<li><ol type="1">
+<li>Use visual analytics to identify the influence of current fish company</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Based on the vosialization on Network, pick the most famous conpmay</li>
+</ol></li>
+</ul>
 <section id="getting-start" class="level2">
 <h2 class="anchored" data-anchor-id="getting-start">1 Getting Start</h2>
 <section id="package-preparation" class="level3">
@@ -669,13 +683,14 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Based on this task, we need to check the inferences, and how the company changes through time, so the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the “from” and “to”.</p>
+<p>Based on this plot, the edge types like {Shareholdership, BeneficialOwnership, WorksFor, FamilyRelationship} will be used, and the company name to define company; Meanwhile, the type in node like (Entity.Organization, Entity.Organization.Company, Entity.Organization.FishingCompany, Entity.Organization.LogisticsCompany, Entity.Organization.NewsCompany, Entity.Organization.FinancialCompany, Entity.Organization.NGO) will be used, source and target will be choosed to decide the “from” and “to”.</p>
 </div>
 </div>
 <section id="relationship" class="level3">
 <h3 class="anchored" data-anchor-id="relationship">3.1 Relationship</h3>
 <section id="nodes" class="level4">
 <h4 class="anchored" data-anchor-id="nodes">3.1.1 Nodes</h4>
+<p>The code chunk below will be used to extract the nodes data.frame of mc3_data and save it as a tibble data.frame called mc3_nodes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mc3_nodes_clean <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mc3_data<span class="sc">$</span>nodes) <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">as.character</span>(type),</span>
@@ -722,6 +737,7 @@ Tip
 </section>
 <section id="edges" class="level4">
 <h4 class="anchored" data-anchor-id="edges">3.1.2 Edges</h4>
+<p>The code chunk below will be used to extract the links data.frame of mc3_data and save it as a tibble data.frame called mc3_edges.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mc3_edges_clean <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mc3_data<span class="sc">$</span>links) <span class="sc">%&gt;%</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
@@ -937,6 +953,7 @@ Tip
 <h2 class="anchored" data-anchor-id="reference">5. Reference</h2>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
