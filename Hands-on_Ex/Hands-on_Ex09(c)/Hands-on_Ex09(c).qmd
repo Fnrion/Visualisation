@@ -43,7 +43,7 @@ In the code chunk below, `read_csv()` of **readr** package is used to import
 wh <- read_csv("data/WHData-2018.csv")
 ```
 
-### **4 Plotting Static Parallel Coordinates Plot**
+## **4 Plotting Static Parallel Coordinates Plot**
 
 In this section, you will learn how to plot static parallel coordinates plot by using [`ggparcoord()`](https://ggobi.github.io/ggally/reference/ggparcoord.html) of **GGally** package. Before getting started, it is a good practice to read the function description in detail.
 
@@ -103,7 +103,7 @@ ggparcoord(data = wh,
 
 One of the aesthetic defect of the current design is that some of the variable names overlap on x-axis.
 
-### **15.4.4 Rotating x-axis text label**
+### **4.4 Rotating x-axis text label**
 
 To make the x-axis text label easy to read, let us rotate the labels by 30 degrees. We can rotate axis text labels using `theme()` function in ggplot2 as shown in the code chunk below
 

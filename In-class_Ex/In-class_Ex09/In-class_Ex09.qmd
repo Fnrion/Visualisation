@@ -1,0 +1,30 @@
+---
+title: "In-class_Ex09"
+date: "Jun 14, 2024"
+data-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+```{r}
+pacman::p_load(scatterPlotMatrix, parallelPlot, cluster, factoextra, tidyverse)
+```
+
+```{r}
+wine <- read_csv("data/wine_quality.csv")
+```
+
+```{r}
+ggplot(data = wine,
+       aes(x = type)) +
+  geom_bar()
+```
+
+```{r}
+whitewine <- wine %>%
+  filter(type == "white") %>%
+  select(c(1:11))
+```

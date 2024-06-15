@@ -1,0 +1,17 @@
+{
+  "hash": "66908a1aa7180ca359b778e2c1730a2d",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"In-class_Ex09\"\ndate: \"Jun 14, 2024\"\ndata-modified: \"last-modified\"\nexecute: \n  eval: true\n  echo: true\n  warning: false\n  freeze: true\n---\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(scatterPlotMatrix, parallelPlot, cluster, factoextra, tidyverse)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nwine <- read_csv(\"data/wine_quality.csv\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data = wine,\n       aes(x = type)) +\n  geom_bar()\n```\n\n::: {.cell-output-display}\n![](In-class_Ex09_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nwhitewine <- wine %>%\n  filter(type == \"white\") %>%\n  select(c(1:11))\n```\n:::\n",
+    "supporting": [
+      "In-class_Ex09_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
