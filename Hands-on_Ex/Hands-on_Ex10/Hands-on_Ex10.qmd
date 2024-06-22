@@ -67,7 +67,14 @@ Note: Before running the code chunk, you need to change the R system to 32bit ve
 The code chunk below is used to import *CoffeeChain.rds* into R.
 
 ```{r}
-coffeechain <- read_rds("data/rds/CoffeeChain.rds")
+coffeechain <- read_csv("data/CoffeeChain.csv")
+
+# write.csv(coffeechain, "CoffeeChain.csv", row.names=FALSE)
+# first <- read.csv("CoffeeChain.csv")
+# first
+# 
+# write.csv(coffeechain, "CoffeeChain.csv", fileEncoding = "UTF-8", row.names=FALSE)
+# second <- read.csv("CoffeeChain.csv")
 ```
 
 Note: This step is optional if *coffeechain* is already available in R.
