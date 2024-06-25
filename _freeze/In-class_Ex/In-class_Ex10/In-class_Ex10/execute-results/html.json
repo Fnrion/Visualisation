@@ -1,0 +1,17 @@
+{
+  "hash": "d46cfe6615e23fcb63ba4e55896db658",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"My Second Quarto Dashboard\"\nformat: \n  dashboard:\n    orientation: columns\ndate: \"Jun 22, 2024\"\ndata-modified: \"last-modified\"\nexecute: \n  eval: true\n  echo: true\n  warning: false\n  freeze: true\n---\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(lubridate, ggthemes, reactable,\nreactablefmtr, gt, gtExtras, tidyverse)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\ncoffeechain <- read_csv(\"CoffeeChain.csv\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nproduct <- coffeechain %>%\n  group_by(`Product`) %>%\n  summarise(`target` = sum(`Budget Sales`),\n            `current` = sum(`Sales`)) %>%\n  ungroup()\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nprocuctProfit <- coffeechain %>%\n  group_by(`Product`) %>%\n  summarise(`target` = sum(`Budget Sales`),\n            `current` = sum(`Budget Profit`),\n            `current` = sum(`Profit`)) %>%\n  ungroup\n```\n:::\n\n\n## Column {width=50%}\n\n\n::: {.cell title='Sales by products'}\n\n```{.r .cell-code}\nggplot(product, aes(Product, current)) + \n  geom_col(aes(Product, max(target) * 1.01),\n           fill=\"grey85\", width=0.85) +\n  geom_col(aes(Product, target * 0.75),\n           fill=\"grey60\", width=0.85) +\n  geom_col(aes(Product, target * 0.5),\n           fill=\"grey50\", width=0.85) +\n  geom_col(aes(Product, current), \n           width=0.35,\n           fill = \"black\") + \n  geom_errorbar(aes(y = target,\n                    x = Product, \n                    ymin = target,\n                    ymax= target), \n                width = .4,\n                colour = \"red\",\n                size = 1) +\n  coord_flip()\n```\n\n::: {.cell-output-display}\n![](In-class_Ex10_files/figure-html/unnamed-chunk-5-1.png){width=768}\n:::\n:::\n\n\n## Column {width=50%}\n\n\n::: {.cell title='Profits by products'}\n\n```{.r .cell-code}\nggplot(product, aes(procuctProfit, current)) + \n  geom_col(aes(Product, max(target) * 1.01),\n           fill=\"grey85\", width=0.85) +\n  geom_col(aes(Product, target * 0.75),\n           fill=\"grey60\", width=0.85) +\n  geom_col(aes(Product, target * 0.5),\n           fill=\"grey50\", width=0.85) +\n  geom_col(aes(Product, current), \n           width=0.35,\n           fill = \"black\") + \n  geom_errorbar(aes(y = target,\n                    x = Product, \n                    ymin = target,\n                    ymax= target), \n                width = .4,\n                colour = \"red\",\n                size = 1) +\n  coord_flip()\n```\n\n::: {.cell-output-display}\n![](In-class_Ex10_files/figure-html/unnamed-chunk-6-1.png){width=768}\n:::\n:::",
+    "supporting": [
+      "In-class_Ex10_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
