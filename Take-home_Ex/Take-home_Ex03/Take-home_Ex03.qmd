@@ -70,27 +70,34 @@ glimpse(mc3_nodes)
 ## edges
 
 ```{r}
-mc3_edges_filt <- mc3_edges %>% select(type, source, target, start_date, end_date)
-glimpse(mc3_edges_filt)
-```
-
-```{r}
 # Check all end data is N/A or in 2035 YEAR
-all_end_dates_valid <- mc3_edges_filt %>%
+all_end_dates_valid <- mc3_edges %>%
   mutate(end_date_year = year(as_date(end_date))) %>%
   summarise(all_valid = all(is.na(end_date) | end_date_year == 2035)) %>%
   pull(all_valid)
 
 # Print the result
 print(all_end_dates_valid)
+
+# Convert "NA" strings to NA in end_date
+mc3_edges_add <- mc3_edges %>%
+  mutate(end_date = na_if(end_date, "NA")) %>%
+  mutate(operation = as.character(ifelse(is.na(end_date), 0, 1)))
+
+# Display the modified dataset
+glimpse(mc3_edges_add)
+
 ```
 
-\*\* We can ignore the end_data, since all of them all over 2024 or N/A \*\*
+```{r}
+mc3_edges_filt <- mc3_edges_add %>% select(type, source, target, start_date, end_date, operation)
+glimpse(mc3_edges_filt)
+```
 
 ## nodes
 
 ```{r}
-mc3_nodes_filt <- mc3_nodes %>% select(type, id)
+mc3_nodes_filt <- mc3_nodes %>% select(type, id, country, ProductServices)
 glimpse(mc3_nodes_filt)
 ```
 :::
@@ -143,10 +150,15 @@ Based on this plot, the edge types like {Shareholdership, BeneficialOwnership, W
 The code chunk below will be used to extract the nodes data.frame of mc3_data and save it as a tibble data.frame called mc3_nodes.
 
 ```{r}
-mc3_nodes_clean <- as_tibble(mc3_data$nodes) %>%
-  mutate(type = as.character(type),
-         id = as.character(id)) %>%
-  select(id, type)
+# Clean and select columns from mc3_data$nodes
+mc3_nodes_clean <- as_tibble(mc3_nodes_filt) %>%
+  mutate(type = type,
+         id = id) %>%
+  select(id, type) %>%
+  separate(type, into = c("prefix", "supertype", "subtype"), sep = "\\.", extra = "merge", fill = "right") %>%
+  select(id, supertype, subtype)
+
+# Display the first few rows using kable
 kable(head(mc3_nodes_clean))
 ```
 
@@ -155,14 +167,14 @@ kable(head(mc3_nodes_clean))
 The code chunk below will be used to extract the links data.frame of mc3_data and save it as a tibble data.frame called mc3_edges.
 
 ```{r}
-mc3_edges_clean <- as_tibble(mc3_data$links) %>% 
-  distinct() %>%
-  mutate(source = as.character(source),
-         target = as.character(target),
-         type = as.character(type),
+mc3_edges_clean <- as_tibble(mc3_edges_filt) %>% 
+  mutate(source = source,
+         target = target,
+         type = type,
+         operation = operation,
          start_date = as_datetime(start_date),
          end_date = as_datetime(end_date)) %>%
-  group_by(source, target, type, start_date, end_date) %>%
+  group_by(source, target, type, operation, start_date, end_date) %>%
     summarise(weights = n()) %>%
   filter(source!=target) %>%
   ungroup()
@@ -193,7 +205,7 @@ ggraph(layout = "fr") +
                      alpha=0.5)) +
   geom_node_point(aes(
     size = betweenness_centrality,
-    color = type,
+    color = supertype,
     alpha = 0.3)) +
   geom_node_label(aes(label = id),repel=TRUE, size=2.5, alpha = 0.8) +
   scale_size_continuous(range=c(1,10)) +
@@ -208,25 +220,15 @@ Below is a dataframe showing us the top 10 entities with the highest betweenness
 mc3_graph %>%  activate(nodes) %>%  as_tibble() %>% arrange(desc(betweenness_centrality)) %>% slice(1:10) %>% kable() 
 ```
 
-The top 10 betweenness entities above are not dealing with relationship between fish companies. In the next section, we will filter entities into only organization entities. We may revisit the person entities later when we have specific targets/companies to investigate.
+The top 10 betweenness entities above include 3 persons and 7 companies. In the next section, we will filter entities into only organization entities. We may revisit the person entities later when we have specific targets/companies to investigate.
 
 ### 3.3 Exploring the VisNetwork
-
-#### 3.3.1 Select the organization nodes
-
-```{r}
-mc3_nodes_select <- mc3_nodes_clean %>%
-  filter(grepl("Entity\\.Organization", type, ignore.case = TRUE))
-```
 
 #### 3.3.2 Extract edges related to organization nodes
 
 ```{r}
-start_period <- as.Date("2000-01-01")
-end_period <- as.Date("2025-12-31")
-
-mc3_edges_select <- mc3_edges_clean %>%
-  filter(source %in% mc3_nodes_select$id | target %in% mc3_nodes_select$id) %>%
+ mc3_edges_select <- mc3_edges_clean %>%
+  filter(source %in% mc3_nodes_clean$id | target %in% mc3_nodes_select$id) %>%
   distinct() %>%
   rename(from = source,
          to = target)
@@ -238,7 +240,7 @@ mc3_edges_select <- mc3_edges_clean %>%
 mc3_edges_select_high <- mc3_edges_select %>%
   group_by(from) %>%
   mutate(count = n()) %>%
-  filter(count >= 8) %>%
+  filter(count >= 2) %>%
   ungroup()
 ```
 
@@ -259,16 +261,16 @@ mc3_nodes_target <- mc3_edges_select_high %>%
 ```{r}
 mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target)
   
-# Assign group based on type
-mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$id %in% mc3_nodes_select$id, "Entity Organization", "Entity.Person")
+# Assign group based on supertype
+mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$id %in% mc3_nodes_select$id, "Organization", "Person")
 
 # Visualize with visNetwork
 visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
   visPhysics(solver = "forceAtlas2Based",
              forceAtlas2Based = list(gravitationalConstant = -100)) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
-  visGroups(groupname = "Entity Organization", color = "yellow") %>%
-  visGroups(groupname = "Entity Person", color = "grey") %>%
+  visGroups(groupname = "Organization", color = "yellow") %>%
+  visGroups(groupname = "Person", color = "grey") %>%
   visLegend() %>%
   visEdges(arrows = "to", label = "start_date") %>% # Include start_date as label on edges
   visOptions(
@@ -352,6 +354,7 @@ glimpse(southseafood_edges_bin1)
 glimpse(southseafood_edges_bin2)
 glimpse(southseafood_edges_bin3)
 ```
+
 ```{r}
 
 # Filter nodes for organizations

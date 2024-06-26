@@ -7,7 +7,7 @@ date: "Jun 22, 2024"
 data-modified: "last-modified"
 execute: 
   eval: true
-  echo: true
+  echo: false
   warning: false
   freeze: true
 ---
