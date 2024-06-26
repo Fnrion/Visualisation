@@ -47,13 +47,17 @@ class(mc3_data)
 ```
 
 ### 2.2 Data Check
+
 ::: panel-tabset
 ## edges
+
 ```{r}
 mc3_edges <- as_tibble(mc3_data$link)
 glimpse(mc3_edges)
 ```
+
 ## nodes
+
 ```{r}
 mc3_nodes <- as_tibble(mc3_data$nodes)
 glimpse(mc3_nodes)
@@ -64,6 +68,7 @@ glimpse(mc3_nodes)
 
 ::: panel-tabset
 ## edges
+
 ```{r}
 mc3_edges_filt <- mc3_edges %>% select(type, source, target, start_date, end_date)
 glimpse(mc3_edges_filt)
@@ -80,10 +85,10 @@ all_end_dates_valid <- mc3_edges_filt %>%
 print(all_end_dates_valid)
 ```
 
-** We can ignore the end_data, since all of them all over 2024 or N/A **
-
+\*\* We can ignore the end_data, since all of them all over 2024 or N/A \*\*
 
 ## nodes
+
 ```{r}
 mc3_nodes_filt <- mc3_nodes %>% select(type, id)
 glimpse(mc3_nodes_filt)
@@ -91,8 +96,10 @@ glimpse(mc3_nodes_filt)
 :::
 
 ### 2.4 Edges & Nodes Explore
+
 ::: panel-tabset
 ## edges
+
 ```{r}
 skim(mc3_edges_filt)
 ```
@@ -102,7 +109,9 @@ p1 <- ggplot(data = mc3_edges_filt, aes(x = type, fill = type)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 60, hjust = 1))
 p1
 ```
+
 ## nodes
+
 ```{r}
 skim(mc3_nodes_filt)
 ```
@@ -159,7 +168,6 @@ mc3_edges_clean <- as_tibble(mc3_data$links) %>%
   ungroup()
 kable(head(mc3_edges_clean))
 ```
-
 :::
 
 ### 3.2 Visualising network graph
@@ -280,7 +288,7 @@ It is interesting to find that there is one complicated center which connected e
 
 ## 4. Expand for SouthSeafood Express Corp
 
-:::callout-idea
+::: callout-idea
 To ensure the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior, an expand in timeline of visNetwork of the SouthSeafood is required.
 :::
 
@@ -294,7 +302,8 @@ southseafood_edges <- filtered_edges %>%
   filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
 glimpse(southseafood_edges)
 ```
-:::callout-idea
+
+::: callout-idea
 If the dataset is correct, check the timeline first
 :::
 
@@ -308,12 +317,13 @@ SouthSeafood_edges <- filtered_edges %>%
   filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
 glimpse(southseafood_edges)
 ```
-** It's interesting to find that the event seems happen in future? **
+
+\*\* It's interesting to find that the event seems happen in future? \*\*
 
 so, we bin the time
 
 (1) before 2033-10-29
-(2) between 2033-10-29 and 203d'ce5-05-25
+(2) between 2033-10-29 and 2035-05-25
 (3) after 2035-05-25
 
 ```{r}
@@ -342,62 +352,121 @@ glimpse(southseafood_edges_bin1)
 glimpse(southseafood_edges_bin2)
 glimpse(southseafood_edges_bin3)
 ```
-Make more bins, e.g.,using month as boundry
-
-## 4.1 explore
-
 ```{r}
-# Add a year-month column for binning
-mc3_edges_select <- mc3_edges_select %>%
-  mutate(year_month = floor_date(as.Date(start_date), "month"))
 
-# Define the range of months to create bins
-start_date <- as.Date("2033-10-01")
-end_date <- as.Date("2035-06-01")
-all_months <- seq.Date(start_date, end_date, by = "month")
+# Filter nodes for organizations
+mc3_nodes_select <- mc3_nodes_clean %>%
+  filter(grepl("Entity\\.Organization", type, ignore.case = TRUE))
 
-# Initialize lists to store edges and nodes
-edges_list <- list()
-nodes_list <- list()
+# Define date range for filtering edges
+start_period <- as.Date("2000-01-01")
+end_period <- as.Date("2025-12-31")
 
-# Loop through each month and filter edges
-for (month in all_months) {
-  edges_month <- mc3_edges_select %>%
-    filter(year_month == month) %>%
-    filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
-  
-  # If there are edges, store them
-  if (nrow(edges_month) > 0) {
-    edges_list[[as.character(month)]] <- edges_month
-    nodes_month <- unique(c(edges_month$from, edges_month$to))
-    nodes_list[[as.character(month)]] <- data.frame(id = nodes_month)
-  }
-}
+# Extract edges related to organization nodes
+mc3_edges_select <- mc3_edges_clean %>%
+  filter(source %in% mc3_nodes_select$id | target %in% mc3_nodes_select$id) %>%
+  distinct() %>%
+  rename(from = source, to = target) %>%
+  mutate(start_date = as.Date(start_date))
 
-# Print the edges for each month (to see the results)
-for (month in names(edges_list)) {
-  print(paste("Month:", month))
-  print(edges_list[[month]])
-}
+# Extract edges with high connection
+mc3_edges_select_high <- mc3_edges_select %>%
+  group_by(from) %>%
+  mutate(count = n()) %>%
+  filter(count >= 8) %>%
+  ungroup()
 
-# Plotting the networks for each month
-for (month in names(edges_list)) {
-  nodes <- nodes_list[[month]]
-  edges <- data.frame(from = edges_list[[month]]$from, 
-                      to = edges_list[[month]]$to, 
-                      label = edges_list[[month]]$type, 
-                      title = paste("Start Date:", edges_list[[month]]$start_date, 
-                                    "<br>End Date:", edges_list[[month]]$end_date))
-  
-  visNetwork(nodes, edges, main = paste("Network for month:", month)) %>%
-    visEdges(arrows = "to") %>%
-    visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE)
-}
+# Prepare nodes
+mc3_nodes_source <- mc3_edges_select_high %>%
+  distinct(from) %>%
+  rename(id = from)
+
+mc3_nodes_target <- mc3_edges_select_high %>%
+  distinct(to) %>%
+  rename(id = to)
+
+mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target) %>%
+  distinct(id, .keep_all = TRUE)
+
+# Assign group based on type
+mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$id %in% mc3_nodes_select$id, "Entity Organization", "Entity.Person")
+
+# Filter edges for dates before 2033-10-29
+edges_before_2033 <- mc3_edges_select_high %>%
+  filter(start_date < as.Date("2033-10-29"))
+
+# Filter edges for dates after 2035-05-25
+edges_after_2035 <- mc3_edges_select_high %>%
+  filter(start_date > as.Date("2035-05-25"))
+
+# Prepare nodes for each period
+nodes_before_2033 <- bind_rows(
+  edges_before_2033 %>%
+    select(from) %>%
+    distinct(from) %>%
+    rename(id = from),
+  edges_before_2033 %>%
+    select(to) %>%
+    distinct(to) %>%
+    rename(id = to)
+) %>%
+  distinct(id, .keep_all = TRUE)
+
+nodes_after_2035 <- bind_rows(
+  edges_after_2035 %>%
+    select(from) %>%
+    distinct(from) %>%
+    rename(id = from),
+  edges_after_2035 %>%
+    select(to) %>%
+    distinct(to) %>%
+    rename(id = to)
+) %>%
+  distinct(id, .keep_all = TRUE)
+
+# Assign groups for visualization
+nodes_before_2033$group <- ifelse(nodes_before_2033$id %in% mc3_nodes_select$id, "Entity Organization", "Entity.Person")
+nodes_after_2035$group <- ifelse(nodes_after_2035$id %in% mc3_nodes_select$id, "Entity Organization", "Entity.Person")
+
+# Visualize network for edges before 2033-10-29
+visNetwork(nodes_before_2033, edges_before_2033) %>%
+  visPhysics(solver = "forceAtlas2Based",
+             forceAtlas2Based = list(gravitationalConstant = -100)) %>%
+  visIgraphLayout(layout = "layout_with_fr") %>%
+  visEdges(arrows = "to", label = "start_date") %>%
+  visOptions(
+    highlightNearest = list(enabled = TRUE, degree = 2, hover = TRUE),
+    nodesIdSelection = TRUE,
+    selectedBy = "group",
+    collapse = TRUE
+  ) %>%
+  visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) %>%
+  visLegend() %>%
+  visEvents(selectNode = "function(properties) {
+    var selectedNodeId = properties.nodes[0];
+    this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
+  }")
+
+# Visualize network for edges after 2035-05-25
+visNetwork(nodes_after_2035, edges_after_2035) %>%
+  visPhysics(solver = "forceAtlas2Based",
+             forceAtlas2Based = list(gravitationalConstant = -100)) %>%
+  visIgraphLayout(layout = "layout_with_fr") %>%
+  visEdges(arrows = "to", label = "start_date") %>%
+  visOptions(
+    highlightNearest = list(enabled = TRUE, degree = 2, hover = TRUE),
+    nodesIdSelection = TRUE,
+    selectedBy = "group",
+    collapse = TRUE
+  ) %>%
+  visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) %>%
+  visLegend() %>%
+  visEvents(selectNode = "function(properties) {
+    var selectedNodeId = properties.nodes[0];
+    this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
+  }")
+
 ```
-
-
-
-
 
 ## 5.Conclusion
 
