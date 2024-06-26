@@ -70,34 +70,27 @@ glimpse(mc3_nodes)
 ## edges
 
 ```{r}
-# Check all end data is N/A or in 2035 YEAR
-all_end_dates_valid <- mc3_edges %>%
-  mutate(end_date_year = year(as_date(end_date))) %>%
-  summarise(all_valid = all(is.na(end_date) | end_date_year == 2035)) %>%
-  pull(all_valid)
-
-# Print the result
-print(all_end_dates_valid)
-
-# Convert "NA" strings to NA in end_date
+# Assume the end_data which is NA be filled by 2035-12-12
 mc3_edges_add <- mc3_edges %>%
-  mutate(end_date = na_if(end_date, "NA")) %>%
-  mutate(operation = as.character(ifelse(is.na(end_date), 0, 1)))
+  mutate(
+    start_date = as.Date(start_date, format = "%Y-%m-%d"),
+    end_date = as.Date(ifelse(is.na(end_date), "2035-12-12", as.character(end_date)), format = "%Y-%m-%d")
+  ) %>%
+  filter(!is.na(start_date))
 
 # Display the modified dataset
 glimpse(mc3_edges_add)
-
 ```
 
 ```{r}
-mc3_edges_filt <- mc3_edges_add %>% select(type, source, target, start_date, end_date, operation)
+mc3_edges_filt <- mc3_edges_add %>% select(type, source, target, start_date, end_date)
 glimpse(mc3_edges_filt)
 ```
 
 ## nodes
 
 ```{r}
-mc3_nodes_filt <- mc3_nodes %>% select(type, id, country, ProductServices)
+mc3_nodes_filt <- mc3_nodes %>% select(type, id, country)
 glimpse(mc3_nodes_filt)
 ```
 :::
@@ -172,7 +165,7 @@ mc3_edges_clean <- as_tibble(mc3_edges_filt) %>%
     start_date = as_datetime(start_date),
     end_date = as_datetime(end_date)
     ) %>%
-  group_by(source, target, type, operation, start_date, end_date) %>%
+  group_by(source, target, type, start_date, end_date) %>%
     summarise(weights = n(), .groups = 'drop') %>%
   filter(source != target) %>%
   ungroup()
@@ -302,7 +295,7 @@ mc3_nodes_target <- mc3_edges_select_high %>%
 mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target) %>%
   distinct(id) %>%
   left_join(mc3_nodes_clean, by = "id")
-  
+
 # Assign group based on supertype
 mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$supertype == "Organization", "Organization", "Person")
 
@@ -327,6 +320,100 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
     this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
   }")
 ```
+
+#### 3.3.6 Compare timeline
+
+Since the SouthSeafood Express Corp connect first event from AguaLeska Transit N.V. in 2033-10-29, and turn to connect Tainamarine Fishing Co in 2035-05-25
+
+::: panel-tabset
+## before 2033-10-29
+
+```{r}
+# Clean and select columns from mc3_data$edges
+mc3_edges_clean <- as_tibble(mc3_edges_filt) %>% 
+  mutate(
+    start_date = as_datetime(start_date),
+    end_date = as_datetime(end_date)
+  ) %>%
+  group_by(source, target, type, start_date, end_date) %>%
+  summarise(weights = n(), .groups = 'drop') %>%
+  filter(source != target) %>%
+  ungroup()
+
+# Filter edges based on date criteria
+mc3_edges_filtered_dates <- mc3_edges_clean %>%
+  filter(start_date < as_datetime("2033-10-29") & end_date > as_datetime("2033-10-29"))
+
+# Clean and select columns from mc3_data$nodes
+mc3_nodes_clean <- as_tibble(mc3_nodes_filt) %>%
+  mutate(type = type,
+         id = id) %>%
+  select(id, type) %>%
+  separate(type, into = c("prefix", "supertype", "subtype"), sep = "\\.", extra = "merge", fill = "right") %>%
+  select(id, supertype, subtype)
+
+# Filter nodes to include only Organizations or Persons
+mc3_nodes_select <- mc3_nodes_clean %>%
+  filter(grepl("Organization|Person", supertype, ignore.case = TRUE))
+
+# Extract edges related to selected nodes
+mc3_edges_select <- mc3_edges_filtered_dates %>%
+  filter(source %in% mc3_nodes_select$id | target %in% mc3_nodes_select$id) %>%
+  distinct() %>%
+  rename(from = source,
+         to = target)
+
+# Extract edges with high connection (count >= 20)
+mc3_edges_select_high <- mc3_edges_select %>%
+  group_by(from) %>%
+  mutate(count = n()) %>%
+  filter(count >= 20) %>%
+  ungroup()
+
+# Get distinct source and target nodes
+mc3_nodes_source <- mc3_edges_select_high %>%
+  distinct(from) %>%
+  rename(id = from)
+
+mc3_nodes_target <- mc3_edges_select_high %>%
+  distinct(to) %>%
+  rename(id = to)
+
+# Combine and deduplicate nodes
+mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target) %>%
+  distinct(id) %>%
+  left_join(mc3_nodes_clean, by = "id")
+
+# Assign group based on subtype
+mc3_nodes_combined$group <- mc3_nodes_combined$subtype
+
+# Visualize with visNetwork
+visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
+  visPhysics(solver = "forceAtlas2Based",
+             forceAtlas2Based = list(gravitationalConstant = -100)) %>%
+  visIgraphLayout(layout = "layout_with_fr") %>%
+  visGroups(groupname = "FishingCompany", color = "yellow") %>%
+  visGroups(groupname = "SomeOtherSubtype", color = "grey") %>%
+  visLegend() %>%
+  visEdges(arrows = "to", label = "start_date") %>%
+  visOptions(
+    highlightNearest = list(enabled = TRUE, degree = 2, hover = TRUE),
+    nodesIdSelection = TRUE,
+    selectedBy = "group",
+    collapse = TRUE
+  ) %>%
+  visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) %>%
+  visEvents(selectNode = "function(properties) {
+    var selectedNodeId = properties.nodes[0];
+    this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
+  }")
+```
+
+##
+
+
+:::
+
 
 It is interesting to find that there is one complicated center which connected entities like "Hart Ltd", "Johnson, Morales and Castro", which showed a high cooperation and organiztion between current fish companies. And it might be interested to dig the development based on timeline or the financial situation to define its influence. What's more, even if some points are on the very outside, they still have a sound connection with certain company maybe the supplier or retailer.
 
