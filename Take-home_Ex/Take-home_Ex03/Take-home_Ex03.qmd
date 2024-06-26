@@ -222,60 +222,30 @@ The top 10 betweenness entities above include 3 persons and 7 companies. In the 
 
 ### 3.3 Check the Illegal event timeline
 
-```{r}
-# Filter edges based on start_date before 2023
-filtered_edges <- mc3_edges_select %>%
-  filter(as.Date(start_date) < as.Date("2023-01-01"))
-
-# Filter edges to include any that contain "SouthSeafood"
-southseafood_edges <- filtered_edges %>%
-  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
-glimpse(southseafood_edges)
-```
-
-::: callout-idea
-If the dataset is correct, check the timeline first
-:::
-
-```{r}
-# Filter edges based on start_date before 2023
-filtered_edges <- mc3_edges_select %>%
-  filter(as.Date(start_date) > as.Date("2023-01-01"))
-
-# Filter edges to include any that contain "SouthSeafood"
-SouthSeafood_edges <- filtered_edges %>%
-  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
-glimpse(southseafood_edges)
-```
-
-\*\* It's surprise to find that the illegal event seems happen in future? \*\*
-
-so, we bin the time
-
 (1) before 2033-10-29
 (2) between 2033-10-29 and 2035-05-25
 (3) after 2035-05-25
 
 ```{r}
 # Time bins
-bin1 <- mc3_edges_select %>%
+bin1 <- mc3_edges_clean %>%
   filter(as.Date(start_date) < as.Date("2033-10-29"))
 
-bin2 <- mc3_edges_select %>%
+bin2 <- mc3_edges_clean %>%
   filter(as.Date(start_date) >= as.Date("2033-10-29") & as.Date(start_date) <= as.Date("2035-05-25"))
 
-bin3 <- mc3_edges_select %>%
+bin3 <- mc3_edges_clean %>%
   filter(as.Date(start_date) > as.Date("2035-05-25"))
 
 # Filter edges to include any that contain "SouthSeafood"
 southseafood_edges_bin1 <- bin1 %>%
-  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
+  filter(str_detect(source, "SouthSeafood") | str_detect(target, "SouthSeafood"))
 
 southseafood_edges_bin2 <- bin2 %>%
-  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
+  filter(str_detect(source, "SouthSeafood") | str_detect(target, "SouthSeafood"))
 
 southseafood_edges_bin3 <- bin3 %>%
-  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
+  filter(str_detect(source, "SouthSeafood") | str_detect(target, "SouthSeafood"))
 
 # Glimpse the results
 glimpse(southseafood_edges_bin1)
