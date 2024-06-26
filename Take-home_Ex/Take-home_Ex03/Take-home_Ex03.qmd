@@ -438,6 +438,8 @@ glimpse(southseafood_edges_bin2)
 glimpse(southseafood_edges_bin3)
 ```
 
+We notice that, there are only 2 companies related to the SouthSeafood Express Corp, they might be shell company.
+
 ### 3.4 Exploring the VisNetwork for company influence based on timeline
 
 #### 3.4.1 Filter nodes to include only Organizations
@@ -464,7 +466,7 @@ mc3_edges_select <- mc3_edges_clean %>%
 mc3_edges_select_high <- mc3_edges_select %>%
   group_by(from) %>%
   mutate(count = n()) %>%
-  filter(count >= 5) %>%
+  filter(count >= 92) %>%
   ungroup()
 ```
 
@@ -478,6 +480,10 @@ mc3_nodes_source <- mc3_edges_select_high %>%
 mc3_nodes_target <- mc3_edges_select_high %>%
   distinct(to) %>%
   rename(id = to)
+
+num_edges_left <- nrow(mc3_edges_filtered_dates)
+num_edges_left
+
 ```
 
 #### 3.4.5 Build visNetwork
@@ -527,6 +533,10 @@ Since the SouthSeafood Express Corp connect first event from AguaLeska Transit N
 mc3_edges_filtered_dates <- mc3_edges_clean %>%
   filter(start_date < as_datetime("2033-10-29") & end_date > as_datetime("2033-10-29"))
 
+num_edges_left <- nrow(mc3_edges_filtered_dates)
+num_edges_left
+
+
 # Visualize with visNetwork
 visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
   visPhysics(solver = "forceAtlas2Based",
@@ -555,6 +565,10 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
 mc3_edges_filtered_dates <- mc3_edges_clean %>%
   filter(end_date > as_datetime("2035-05-25"))
 
+num_edges_left <- nrow(mc3_edges_filtered_dates)
+num_edges_left
+
+
 
 # Visualize with visNetwork
 visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
@@ -579,15 +593,9 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
 ```
 :::
 
+We can see from the visNetwork, some person control more than 30 companies at the same time, there will be an obvious control of illegal financial activities.
 
-
-## 5. Expand for SouthSeafood Express Corp
-
-::: callout-idea
-To ensure the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior, an expand in timeline of visNetwork of the SouthSeafood is required.
-:::
-
-## 6.Conclusion
+## 5.Conclusion
 
 Exploring the networks between the various type of nodes or players in the space has been useful to visualising the relationships between the different parties. It has yielded interesting insights on how certain companies may influence the around companies.
 
