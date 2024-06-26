@@ -168,15 +168,13 @@ The code chunk below will be used to extract the links data.frame of mc3_data an
 
 ```{r}
 mc3_edges_clean <- as_tibble(mc3_edges_filt) %>% 
-  mutate(source = source,
-         target = target,
-         type = type,
-         operation = operation,
-         start_date = as_datetime(start_date),
-         end_date = as_datetime(end_date)) %>%
+  mutate(
+    start_date = as_datetime(start_date),
+    end_date = as_datetime(end_date)
+    ) %>%
   group_by(source, target, type, operation, start_date, end_date) %>%
-    summarise(weights = n()) %>%
-  filter(source!=target) %>%
+    summarise(weights = n(), .groups = 'drop') %>%
+  filter(source != target) %>%
   ungroup()
 kable(head(mc3_edges_clean))
 ```
@@ -222,77 +220,7 @@ mc3_graph %>%  activate(nodes) %>%  as_tibble() %>% arrange(desc(betweenness_cen
 
 The top 10 betweenness entities above include 3 persons and 7 companies. In the next section, we will filter entities into only organization entities. We may revisit the person entities later when we have specific targets/companies to investigate.
 
-### 3.3 Exploring the VisNetwork
-
-#### 3.3.2 Extract edges related to organization nodes
-
-```{r}
- mc3_edges_select <- mc3_edges_clean %>%
-  filter(source %in% mc3_nodes_clean$id | target %in% mc3_nodes_select$id) %>%
-  distinct() %>%
-  rename(from = source,
-         to = target)
-```
-
-#### 3.3.3 Extract edges with high connection
-
-```{r}
-mc3_edges_select_high <- mc3_edges_select %>%
-  group_by(from) %>%
-  mutate(count = n()) %>%
-  filter(count >= 2) %>%
-  ungroup()
-```
-
-#### 3.3.4 Distinct source and target
-
-```{r}
-mc3_nodes_source <- mc3_edges_select_high %>%
-  distinct(from) %>%
-  rename(id = from)
-
-mc3_nodes_target <- mc3_edges_select_high %>%
-  distinct(to) %>%
-  rename(id = to)
-```
-
-#### 3.3.5 Build visNetwork
-
-```{r}
-mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target)
-  
-# Assign group based on supertype
-mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$id %in% mc3_nodes_select$id, "Organization", "Person")
-
-# Visualize with visNetwork
-visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
-  visPhysics(solver = "forceAtlas2Based",
-             forceAtlas2Based = list(gravitationalConstant = -100)) %>%
-  visIgraphLayout(layout = "layout_with_fr") %>%
-  visGroups(groupname = "Organization", color = "yellow") %>%
-  visGroups(groupname = "Person", color = "grey") %>%
-  visLegend() %>%
-  visEdges(arrows = "to", label = "start_date") %>% # Include start_date as label on edges
-  visOptions(
-    highlightNearest = list(enabled = TRUE, degree = 2, hover = TRUE),
-    nodesIdSelection = TRUE,
-    selectedBy = "group",
-    collapse = TRUE
-  ) %>%
-  visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) %>%
-  visEvents(selectNode = "function(properties) {
-    var selectedNodeId = properties.nodes[0];
-    this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
-  }")
-```
-
-It is interesting to find that there is one complicated center which connected entities like "Hart Ltd", "Johnson, Morales and Castro", which showed a high cooperation and organiztion between current fish companies. And it might be interested to dig the development based on timeline or the financial situation to define its influence. What's more, even if some points are on the very outside, they still have a sound connection with certain company maybe the supplier or retailer.
-
-## 4. Expand for SouthSeafood Express Corp
-
-::: callout-idea
-To ensure the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior, an expand in timeline of visNetwork of the SouthSeafood is required.
-:::
+### 3.3 Check the Illegal event timeline
 
 ```{r}
 # Filter edges based on start_date before 2023
@@ -320,7 +248,7 @@ SouthSeafood_edges <- filtered_edges %>%
 glimpse(southseafood_edges)
 ```
 
-\*\* It's interesting to find that the event seems happen in future? \*\*
+\*\* It's surprise to find that the illegal event seems happen in future? \*\*
 
 so, we bin the time
 
@@ -355,31 +283,39 @@ glimpse(southseafood_edges_bin2)
 glimpse(southseafood_edges_bin3)
 ```
 
+### 3.4 Exploring the VisNetwork for company influence based on timeline
+
+#### Filter nodes to include only Organizations
+
 ```{r}
-
-# Filter nodes for organizations
+# Filter nodes to include only Organizations or Persons
 mc3_nodes_select <- mc3_nodes_clean %>%
-  filter(grepl("Entity\\.Organization", type, ignore.case = TRUE))
+  filter(grepl("Organization|Person", supertype, ignore.case = TRUE))
+```
 
-# Define date range for filtering edges
-start_period <- as.Date("2000-01-01")
-end_period <- as.Date("2025-12-31")
+#### 3.3.2 Extract edges related to nodes
 
-# Extract edges related to organization nodes
+```{r}
 mc3_edges_select <- mc3_edges_clean %>%
   filter(source %in% mc3_nodes_select$id | target %in% mc3_nodes_select$id) %>%
   distinct() %>%
-  rename(from = source, to = target) %>%
-  mutate(start_date = as.Date(start_date))
+  rename(from = source,
+         to = target)
+```
 
-# Extract edges with high connection
+#### 3.3.3 Extract edges with high connection
+
+```{r}
 mc3_edges_select_high <- mc3_edges_select %>%
   group_by(from) %>%
   mutate(count = n()) %>%
-  filter(count >= 8) %>%
+  filter(count >= 5) %>%
   ungroup()
+```
 
-# Prepare nodes
+#### 3.3.4 Distinct source and target
+
+```{r}
 mc3_nodes_source <- mc3_edges_select_high %>%
   distinct(from) %>%
   rename(id = from)
@@ -387,89 +323,53 @@ mc3_nodes_source <- mc3_edges_select_high %>%
 mc3_nodes_target <- mc3_edges_select_high %>%
   distinct(to) %>%
   rename(id = to)
-
-mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target) %>%
-  distinct(id, .keep_all = TRUE)
-
-# Assign group based on type
-mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$id %in% mc3_nodes_select$id, "Entity Organization", "Entity.Person")
-
-# Filter edges for dates before 2033-10-29
-edges_before_2033 <- mc3_edges_select_high %>%
-  filter(start_date < as.Date("2033-10-29"))
-
-# Filter edges for dates after 2035-05-25
-edges_after_2035 <- mc3_edges_select_high %>%
-  filter(start_date > as.Date("2035-05-25"))
-
-# Prepare nodes for each period
-nodes_before_2033 <- bind_rows(
-  edges_before_2033 %>%
-    select(from) %>%
-    distinct(from) %>%
-    rename(id = from),
-  edges_before_2033 %>%
-    select(to) %>%
-    distinct(to) %>%
-    rename(id = to)
-) %>%
-  distinct(id, .keep_all = TRUE)
-
-nodes_after_2035 <- bind_rows(
-  edges_after_2035 %>%
-    select(from) %>%
-    distinct(from) %>%
-    rename(id = from),
-  edges_after_2035 %>%
-    select(to) %>%
-    distinct(to) %>%
-    rename(id = to)
-) %>%
-  distinct(id, .keep_all = TRUE)
-
-# Assign groups for visualization
-nodes_before_2033$group <- ifelse(nodes_before_2033$id %in% mc3_nodes_select$id, "Entity Organization", "Entity.Person")
-nodes_after_2035$group <- ifelse(nodes_after_2035$id %in% mc3_nodes_select$id, "Entity Organization", "Entity.Person")
-
-# Visualize network for edges before 2033-10-29
-visNetwork(nodes_before_2033, edges_before_2033) %>%
-  visPhysics(solver = "forceAtlas2Based",
-             forceAtlas2Based = list(gravitationalConstant = -100)) %>%
-  visIgraphLayout(layout = "layout_with_fr") %>%
-  visEdges(arrows = "to", label = "start_date") %>%
-  visOptions(
-    highlightNearest = list(enabled = TRUE, degree = 2, hover = TRUE),
-    nodesIdSelection = TRUE,
-    selectedBy = "group",
-    collapse = TRUE
-  ) %>%
-  visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) %>%
-  visLegend() %>%
-  visEvents(selectNode = "function(properties) {
-    var selectedNodeId = properties.nodes[0];
-    this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
-  }")
-
-# Visualize network for edges after 2035-05-25
-visNetwork(nodes_after_2035, edges_after_2035) %>%
-  visPhysics(solver = "forceAtlas2Based",
-             forceAtlas2Based = list(gravitationalConstant = -100)) %>%
-  visIgraphLayout(layout = "layout_with_fr") %>%
-  visEdges(arrows = "to", label = "start_date") %>%
-  visOptions(
-    highlightNearest = list(enabled = TRUE, degree = 2, hover = TRUE),
-    nodesIdSelection = TRUE,
-    selectedBy = "group",
-    collapse = TRUE
-  ) %>%
-  visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) %>%
-  visLegend() %>%
-  visEvents(selectNode = "function(properties) {
-    var selectedNodeId = properties.nodes[0];
-    this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
-  }")
-
 ```
+
+#### 3.3.5 Build visNetwork
+
+```{r}
+# Combine and deduplicate nodes
+mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target) %>%
+  distinct(id) %>%
+  left_join(mc3_nodes_clean, by = "id")
+  
+# Assign group based on supertype
+mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$supertype == "Organization", "Organization", "Person")
+
+# Visualize with visNetwork
+visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
+  visPhysics(solver = "forceAtlas2Based",
+             forceAtlas2Based = list(gravitationalConstant = -100)) %>%
+  visIgraphLayout(layout = "layout_with_fr") %>%
+  visGroups(groupname = "Organization", color = "yellow") %>%
+  visGroups(groupname = "Person", color = "grey") %>%
+  visLegend() %>%
+  visEdges(arrows = "to", label = "start_date") %>%
+  visOptions(
+    highlightNearest = list(enabled = TRUE, degree = 2, hover = TRUE),
+    nodesIdSelection = TRUE,
+    selectedBy = "group",
+    collapse = TRUE
+  ) %>%
+  visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) %>%
+  visEvents(selectNode = "function(properties) {
+    var selectedNodeId = properties.nodes[0];
+    this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
+  }")
+```
+
+It is interesting to find that there is one complicated center which connected entities like "Hart Ltd", "Johnson, Morales and Castro", which showed a high cooperation and organiztion between current fish companies. And it might be interested to dig the development based on timeline or the financial situation to define its influence. What's more, even if some points are on the very outside, they still have a sound connection with certain company maybe the supplier or retailer.
+
+## 4. Expand for SouthSeafood Express Corp
+
+::: callout-idea
+To ensure the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior, an expand in timeline of visNetwork of the SouthSeafood is required.
+:::
+
+
+
+
+
 
 ## 5.Conclusion
 
