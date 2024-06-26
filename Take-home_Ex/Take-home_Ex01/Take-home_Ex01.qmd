@@ -70,7 +70,7 @@ Congratulation, there is no duplicate according to our find!
 ## **1.4 Variable Selection**
 
 | Category                    | Sample Description              | Type | Choose or not |
-|------------------|--------------------|------------------|------------------|
+|------------------|-------------------|------------------|------------------|
 | Project.Name                | "THE REEF AT KING'S DOCK"       | chr  | Not Choose    |
 | Transacted Price (\$)       | "2317000"                       | num  | Choose        |
 | Area (SQFT)                 | "883"                           | num  | Choose        |

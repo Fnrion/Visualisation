@@ -8,14 +8,23 @@ execute:
   echo: true
   warning: false
   freeze: true
+format:
+  html:
+    code-fold: true
+    code-summary: "Click to view code"
 ---
+
 # Vast Challenge 2024 Mini-Challenge 3
 
 In this challenge, I will attempt to do the following:
 
-- 1. Use visual analytics to identify the relationship of current fish companies 
+-   
 
-- 2. Based on the visualization on Network, infer ownership or influence that a network
+    1.  Use visual analytics to identify the relationship of current fish companies
+
+-   
+
+    2.  Based on the visualization on Network, infer ownership or influence that a network
 
 ## 1 Getting Start
 
@@ -24,7 +33,7 @@ In this challenge, I will attempt to do the following:
 ```{r}
 pacman::p_load(tidyverse, readtext, skimr, knitr,
                quanteda, tidytext, jsonlite, dplyr,
-               tidyr, tidygraph, ggraph, igraph,
+               tidyr, tidygraph, ggraph, igraph, lubridate,
                visNetwork, ggplot2, gganimate, gridExtra)
 ```
 
@@ -38,42 +47,62 @@ class(mc3_data)
 ```
 
 ### 2.2 Data Check
-
+::: panel-tabset
+## edges
 ```{r}
 mc3_edges <- as_tibble(mc3_data$link)
 glimpse(mc3_edges)
 ```
-
+## nodes
 ```{r}
 mc3_nodes <- as_tibble(mc3_data$nodes)
 glimpse(mc3_nodes)
 ```
+:::
 
 ### 2.3 Data Filter
 
+::: panel-tabset
+## edges
 ```{r}
-mc3_edges_filt <- mc3_edges %>% select(type, source, target)
+mc3_edges_filt <- mc3_edges %>% select(type, source, target, start_date, end_date)
 glimpse(mc3_edges_filt)
 ```
 
 ```{r}
+# Check all end data is N/A or in 2035 YEAR
+all_end_dates_valid <- mc3_edges_filt %>%
+  mutate(end_date_year = year(as_date(end_date))) %>%
+  summarise(all_valid = all(is.na(end_date) | end_date_year == 2035)) %>%
+  pull(all_valid)
+
+# Print the result
+print(all_end_dates_valid)
+```
+
+** We can ignore the end_data, since all of them all over 2024 or N/A **
+
+
+## nodes
+```{r}
 mc3_nodes_filt <- mc3_nodes %>% select(type, id)
 glimpse(mc3_nodes_filt)
 ```
-### 2.4 Edges & Nodes Explore
+:::
 
+### 2.4 Edges & Nodes Explore
+::: panel-tabset
+## edges
 ```{r}
 skim(mc3_edges_filt)
 ```
-
-
 
 ```{r}
 p1 <- ggplot(data = mc3_edges_filt, aes(x = type, fill = type)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 60, hjust = 1))
 p1
 ```
-
+## nodes
 ```{r}
 skim(mc3_nodes_filt)
 ```
@@ -83,12 +112,13 @@ p2 <- ggplot(data = mc3_nodes_filt, aes(x = type, fill = type)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 60, hjust = 1))
 p2 
 ```
+:::
 
-:::callout-tip
+::: callout-tip
 According to the VAST2024 - MC3 Data Description, the person node include Entity.Person and Entity.Person.CEO, the other were included in the Company.
 :::
 
-## 3 MC3 Task(3) 
+## 3 MC3 Task(3)
 
 Develop a visual approach to examine inferences. Infer how the influence of a company changes through time. Can you infer ownership and influence that a network may have?
 
@@ -98,11 +128,12 @@ Based on this plot, the edge types like {Shareholdership, BeneficialOwnership, W
 
 ### 3.1 Relationship
 
+::: panel-tabset
 #### 3.1.1 Nodes
 
 The code chunk below will be used to extract the nodes data.frame of mc3_data and save it as a tibble data.frame called mc3_nodes.
 
-```{r} 
+```{r}
 mc3_nodes_clean <- as_tibble(mc3_data$nodes) %>%
   mutate(type = as.character(type),
          id = as.character(id)) %>%
@@ -119,13 +150,17 @@ mc3_edges_clean <- as_tibble(mc3_data$links) %>%
   distinct() %>%
   mutate(source = as.character(source),
          target = as.character(target),
-         type = as.character(type)) %>%
-  group_by(source, target, type) %>%
+         type = as.character(type),
+         start_date = as_datetime(start_date),
+         end_date = as_datetime(end_date)) %>%
+  group_by(source, target, type, start_date, end_date) %>%
     summarise(weights = n()) %>%
   filter(source!=target) %>%
   ungroup()
 kable(head(mc3_edges_clean))
 ```
+
+:::
 
 ### 3.2 Visualising network graph
 
@@ -139,7 +174,7 @@ mc3_graph <- tbl_graph(nodes = mc3_nodes_clean,
          closeness_centrality = centrality_closeness())
 ```
 
-We will filter nodes with high betweenness centrality scores (>8,000,000) and visualise them to see the relationships that they have.
+We will filter nodes with high betweenness centrality scores (\>8,000,000) and visualise them to see the relationships that they have.
 
 ```{r}
 set.seed(1234)
@@ -179,6 +214,9 @@ mc3_nodes_select <- mc3_nodes_clean %>%
 #### 3.3.2 Extract edges related to organization nodes
 
 ```{r}
+start_period <- as.Date("2000-01-01")
+end_period <- as.Date("2025-12-31")
+
 mc3_edges_select <- mc3_edges_clean %>%
   filter(source %in% mc3_nodes_select$id | target %in% mc3_nodes_select$id) %>%
   distinct() %>%
@@ -212,19 +250,19 @@ mc3_nodes_target <- mc3_edges_select_high %>%
 
 ```{r}
 mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target)
-
+  
 # Assign group based on type
 mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$id %in% mc3_nodes_select$id, "Entity Organization", "Entity.Person")
 
 # Visualize with visNetwork
-visNetwork(mc3_nodes_combined, mc3_edges_select) %>%
+visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
   visPhysics(solver = "forceAtlas2Based",
              forceAtlas2Based = list(gravitationalConstant = -100)) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
   visGroups(groupname = "Entity Organization", color = "yellow") %>%
   visGroups(groupname = "Entity Person", color = "grey") %>%
   visLegend() %>%
-  visEdges(arrows = "to") %>%
+  visEdges(arrows = "to", label = "start_date") %>% # Include start_date as label on edges
   visOptions(
     highlightNearest = list(enabled = TRUE, degree = 2, hover = TRUE),
     nodesIdSelection = TRUE,
@@ -240,8 +278,128 @@ visNetwork(mc3_nodes_combined, mc3_edges_select) %>%
 
 It is interesting to find that there is one complicated center which connected entities like "Hart Ltd", "Johnson, Morales and Castro", which showed a high cooperation and organiztion between current fish companies. And it might be interested to dig the development based on timeline or the financial situation to define its influence. What's more, even if some points are on the very outside, they still have a sound connection with certain company maybe the supplier or retailer.
 
+## 4. Expand for SouthSeafood Express Corp
 
-## 4. Conclusion
+:::callout-idea
+To ensure the network associated with SouthSeafood Express Corp and visualize how this network and competing businesses change as a result of their illegal fishing behavior, an expand in timeline of visNetwork of the SouthSeafood is required.
+:::
+
+```{r}
+# Filter edges based on start_date before 2023
+filtered_edges <- mc3_edges_select %>%
+  filter(as.Date(start_date) < as.Date("2023-01-01"))
+
+# Filter edges to include any that contain "SouthSeafood"
+southseafood_edges <- filtered_edges %>%
+  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
+glimpse(southseafood_edges)
+```
+:::callout-idea
+If the dataset is correct, check the timeline first
+:::
+
+```{r}
+# Filter edges based on start_date before 2023
+filtered_edges <- mc3_edges_select %>%
+  filter(as.Date(start_date) > as.Date("2023-01-01"))
+
+# Filter edges to include any that contain "SouthSeafood"
+SouthSeafood_edges <- filtered_edges %>%
+  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
+glimpse(southseafood_edges)
+```
+** It's interesting to find that the event seems happen in future? **
+
+so, we bin the time
+
+(1) before 2033-10-29
+(2) between 2033-10-29 and 203d'ce5-05-25
+(3) after 2035-05-25
+
+```{r}
+# Time bins
+bin1 <- mc3_edges_select %>%
+  filter(as.Date(start_date) < as.Date("2033-10-29"))
+
+bin2 <- mc3_edges_select %>%
+  filter(as.Date(start_date) >= as.Date("2033-10-29") & as.Date(start_date) <= as.Date("2035-05-25"))
+
+bin3 <- mc3_edges_select %>%
+  filter(as.Date(start_date) > as.Date("2035-05-25"))
+
+# Filter edges to include any that contain "SouthSeafood"
+southseafood_edges_bin1 <- bin1 %>%
+  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
+
+southseafood_edges_bin2 <- bin2 %>%
+  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
+
+southseafood_edges_bin3 <- bin3 %>%
+  filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
+
+# Glimpse the results
+glimpse(southseafood_edges_bin1)
+glimpse(southseafood_edges_bin2)
+glimpse(southseafood_edges_bin3)
+```
+Make more bins, e.g.,using month as boundry
+
+## 4.1 explore
+
+```{r}
+# Add a year-month column for binning
+mc3_edges_select <- mc3_edges_select %>%
+  mutate(year_month = floor_date(as.Date(start_date), "month"))
+
+# Define the range of months to create bins
+start_date <- as.Date("2033-10-01")
+end_date <- as.Date("2035-06-01")
+all_months <- seq.Date(start_date, end_date, by = "month")
+
+# Initialize lists to store edges and nodes
+edges_list <- list()
+nodes_list <- list()
+
+# Loop through each month and filter edges
+for (month in all_months) {
+  edges_month <- mc3_edges_select %>%
+    filter(year_month == month) %>%
+    filter(str_detect(from, "SouthSeafood") | str_detect(to, "SouthSeafood"))
+  
+  # If there are edges, store them
+  if (nrow(edges_month) > 0) {
+    edges_list[[as.character(month)]] <- edges_month
+    nodes_month <- unique(c(edges_month$from, edges_month$to))
+    nodes_list[[as.character(month)]] <- data.frame(id = nodes_month)
+  }
+}
+
+# Print the edges for each month (to see the results)
+for (month in names(edges_list)) {
+  print(paste("Month:", month))
+  print(edges_list[[month]])
+}
+
+# Plotting the networks for each month
+for (month in names(edges_list)) {
+  nodes <- nodes_list[[month]]
+  edges <- data.frame(from = edges_list[[month]]$from, 
+                      to = edges_list[[month]]$to, 
+                      label = edges_list[[month]]$type, 
+                      title = paste("Start Date:", edges_list[[month]]$start_date, 
+                                    "<br>End Date:", edges_list[[month]]$end_date))
+  
+  visNetwork(nodes, edges, main = paste("Network for month:", month)) %>%
+    visEdges(arrows = "to") %>%
+    visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE)
+}
+```
+
+
+
+
+
+## 5.Conclusion
 
 Exploring the networks between the various type of nodes or players in the space has been useful to visualising the relationships between the different parties. It has yielded interesting insights on how certain companies may influence the around companies.
 
