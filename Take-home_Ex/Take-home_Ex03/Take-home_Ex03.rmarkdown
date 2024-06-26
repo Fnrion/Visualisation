@@ -14,6 +14,7 @@ format:
     code-summary: "Click to view code"
 ---
 
+
 # Vast Challenge 2024 Mini-Challenge 3
 
 In this challenge, I will attempt to do the following:
@@ -30,6 +31,7 @@ In this challenge, I will attempt to do the following:
 
 ### 1.1 Package Preparation
 
+
 ```{r}
 pacman::p_load(tidyverse, readtext, skimr, knitr,
                quanteda, tidytext, jsonlite, dplyr,
@@ -37,37 +39,45 @@ pacman::p_load(tidyverse, readtext, skimr, knitr,
                visNetwork, ggplot2, gganimate, gridExtra)
 ```
 
+
 ## 2 Data Wangling
 
 ### 2.1 Data Import
+
 
 ```{r}
 mc3_data <- fromJSON("data/MC3/mc3 1.json")
 class(mc3_data)
 ```
 
+
 ### 2.2 Data Check
 
 ::: panel-tabset
 ## edges
+
 
 ```{r}
 mc3_edges <- as_tibble(mc3_data$link)
 glimpse(mc3_edges)
 ```
 
+
 ## nodes
+
 
 ```{r}
 mc3_nodes <- as_tibble(mc3_data$nodes)
 glimpse(mc3_nodes)
 ```
+
 :::
 
 ### 2.3 Data Filter
 
 ::: panel-tabset
 ## edges
+
 
 ```{r}
 # Assume the end_data which is NA be filled by 2035-12-12
@@ -87,18 +97,22 @@ mc3_edges_filt <- mc3_edges_add %>% select(type, source, target, start_date, end
 glimpse(mc3_edges_filt)
 ```
 
+
 ## nodes
+
 
 ```{r}
 mc3_nodes_filt <- mc3_nodes %>% select(type, id, country)
 glimpse(mc3_nodes_filt)
 ```
+
 :::
 
 ### 2.4 Edges & Nodes Explore
 
 ::: panel-tabset
 ## edges
+
 
 ```{r}
 skim(mc3_edges_filt)
@@ -110,7 +124,9 @@ p1 <- ggplot(data = mc3_edges_filt, aes(x = type, fill = type)) +
 p1
 ```
 
+
 ## nodes
+
 
 ```{r}
 skim(mc3_nodes_filt)
@@ -121,6 +137,7 @@ p2 <- ggplot(data = mc3_nodes_filt, aes(x = type, fill = type)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 60, hjust = 1))
 p2 
 ```
+
 :::
 
 ::: callout-tip
@@ -142,6 +159,7 @@ Based on this plot, the edge types like {Shareholdership, BeneficialOwnership, W
 
 The code chunk below will be used to extract the nodes data.frame of mc3_data and save it as a tibble data.frame called mc3_nodes.
 
+
 ```{r}
 # Clean and select columns from mc3_data$nodes
 mc3_nodes_clean <- as_tibble(mc3_nodes_filt) %>%
@@ -155,9 +173,11 @@ mc3_nodes_clean <- as_tibble(mc3_nodes_filt) %>%
 kable(head(mc3_nodes_clean))
 ```
 
+
 #### 3.1.2 Edges
 
 The code chunk below will be used to extract the links data.frame of mc3_data and save it as a tibble data.frame called mc3_edges.
+
 
 ```{r}
 mc3_edges_clean <- as_tibble(mc3_edges_filt) %>% 
@@ -171,11 +191,13 @@ mc3_edges_clean <- as_tibble(mc3_edges_filt) %>%
   ungroup()
 kable(head(mc3_edges_clean))
 ```
+
 :::
 
 ### 3.2 Visualising network graph
 
 First, create a graph object using tbl_graph() function. Then calculate betweenness and closeness centrality scores.
+
 
 ```{r}
 mc3_graph <- tbl_graph(nodes = mc3_nodes_clean,
@@ -185,7 +207,9 @@ mc3_graph <- tbl_graph(nodes = mc3_nodes_clean,
          closeness_centrality = centrality_closeness())
 ```
 
+
 We will filter nodes with high betweenness centrality scores (\>8,000,000) and visualise them to see the relationships that they have.
+
 
 ```{r}
 set.seed(1234)
@@ -205,11 +229,14 @@ ggraph(layout = "fr") +
        subtitle = 'Entities with betweenness scores > 8,000,000')
 ```
 
+
 Below is a dataframe showing us the top 10 entities with the highest betweenness scores.
+
 
 ```{r}
 mc3_graph %>%  activate(nodes) %>%  as_tibble() %>% arrange(desc(betweenness_centrality)) %>% slice(1:10) %>% kable() 
 ```
+
 
 The top 10 betweenness entities above include 3 persons and 7 companies. In the next section, we will filter entities into only organization entities. We may revisit the person entities later when we have specific targets/companies to investigate.
 
@@ -218,6 +245,7 @@ The top 10 betweenness entities above include 3 persons and 7 companies. In the 
 (1) before 2033-10-29
 (2) between 2033-10-29 and 2035-05-25
 (3) after 2035-05-25
+
 
 ```{r}
 # Time bins
@@ -246,9 +274,11 @@ glimpse(southseafood_edges_bin2)
 glimpse(southseafood_edges_bin3)
 ```
 
+
 ### 3.4 Exploring the VisNetwork for company influence based on timeline
 
 #### Filter nodes to include only Organizations
+
 
 ```{r}
 # Filter nodes to include only Organizations or Persons
@@ -256,7 +286,9 @@ mc3_nodes_select <- mc3_nodes_clean %>%
   filter(grepl("Organization|Person", supertype, ignore.case = TRUE))
 ```
 
+
 #### 3.3.2 Extract edges related to nodes
+
 
 ```{r}
 mc3_edges_select <- mc3_edges_clean %>%
@@ -266,7 +298,9 @@ mc3_edges_select <- mc3_edges_clean %>%
          to = target)
 ```
 
+
 #### 3.3.3 Extract edges with high connection
+
 
 ```{r}
 mc3_edges_select_high <- mc3_edges_select %>%
@@ -276,7 +310,9 @@ mc3_edges_select_high <- mc3_edges_select %>%
   ungroup()
 ```
 
+
 #### 3.3.4 Distinct source and target
+
 
 ```{r}
 mc3_nodes_source <- mc3_edges_select_high %>%
@@ -288,7 +324,9 @@ mc3_nodes_target <- mc3_edges_select_high %>%
   rename(id = to)
 ```
 
+
 #### 3.3.5 Build visNetwork
+
 
 ```{r}
 # Combine and deduplicate nodes
@@ -321,12 +359,14 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
   }")
 ```
 
+
 #### 3.3.6 Compare timeline
 
 Since the SouthSeafood Express Corp connect first event from AguaLeska Transit N.V. in 2033-10-29, and turn to connect Tainamarine Fishing Co in 2035-05-25
 
 ::: panel-tabset
 ## before 2033-10-29
+
 
 ```{r}
 # Clean and select columns from mc3_data$edges
@@ -417,7 +457,9 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
   }")
 ```
 
+
 ## after 2035-05-25
+
 ```{r}
 # Clean and select columns from mc3_data$edges
 mc3_edges_clean <- as_tibble(mc3_edges_filt) %>% 
@@ -508,6 +550,7 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
 ```
 
 
+
 ## the range data between subscribe
 :::
 
@@ -515,6 +558,7 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
 
 ::: panel-tabset
 ### neighbour
+
 ```{r}
 mc3_nodes_select <- mc3_nodes_clean %>%
   filter(grepl("Organization|Person", supertype, ignore.case = TRUE))
@@ -600,7 +644,9 @@ visNetwork(related_nodes, related_edges) %>%
   }")
 
 ```
+
 ### Sub-direct
+
 
 ```{r}
 mc3_nodes_select <- mc3_nodes_clean %>%
@@ -672,7 +718,9 @@ visNetwork(expanded_nodes_combined, expanded_edges) %>%
   }")
 
 ```
+
 ### Ownership
+
 
 ```{r}
 library(dplyr)
@@ -770,6 +818,7 @@ visNetwork(expanded_nodes_combined, expanded_edges) %>%
   }")
 
 ```
+
 :::
 It is interesting to find that there is one complicated center which connected entities like "Hart Ltd", "Johnson, Morales and Castro", which showed a high cooperation and organiztion between current fish companies. And it might be interested to dig the development based on timeline or the financial situation to define its influence. What's more, even if some points are on the very outside, they still have a sound connection with certain company maybe the supplier or retailer.
 
@@ -789,3 +838,4 @@ To ensure the network associated with SouthSeafood Express Corp and visualize ho
 Exploring the networks between the various type of nodes or players in the space has been useful to visualising the relationships between the different parties. It has yielded interesting insights on how certain companies may influence the around companies.
 
 For future work, the additional column of timeline and financial situation can be used to provide an additional layer of to the overall visualisation of networks and information in this project.
+
