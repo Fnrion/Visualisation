@@ -49,7 +49,6 @@ class(mc3_data)
 ### 2.2 Data Check
 
 ::: panel-tabset
-
 ## Edges
 
 ```{r}
@@ -63,13 +62,11 @@ glimpse(mc3_edges)
 mc3_nodes <- as_tibble(mc3_data$nodes)
 glimpse(mc3_nodes)
 ```
-
 :::
 
 ### 2.3 Data Filter
 
 ::: panel-tabset
-
 ## Edges
 
 ```{r}
@@ -96,13 +93,11 @@ glimpse(mc3_edges_filt)
 mc3_nodes_filt <- mc3_nodes %>% select(type, id, country)
 glimpse(mc3_nodes_filt)
 ```
-
 :::
 
 ### 2.4 Edges & Nodes Explore
 
 ::: panel-tabset
-
 ## Edges
 
 ```{r}
@@ -126,28 +121,21 @@ p2 <- ggplot(data = mc3_nodes_filt, aes(x = type, fill = type)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 60, hjust = 1))
 p2 
 ```
-
 :::
 
 ::: callout-tip
-
 According to the VAST2024 - MC3 Data Description, the person node include Entity.Person and Entity.Person.CEO, the other were included in the Company.
-
 :::
 
 ## 3 MC3 Task
 
-
 ::: callout-tip
-
 Based on this plot, the edge date will be used, and the company name to define company; Meanwhile, the type in node will be used, source and target will be choosed to decide the "from" and "to".
-
 :::
 
 ### 3.1 Relationship
 
 ::: panel-tabset
-
 #### 3.1.1 Nodes
 
 The code chunk below will be used to extract the nodes data.frame of mc3_data and save it as a tibble data.frame called mc3_nodes.
@@ -180,17 +168,14 @@ mc3_edges_clean <- as_tibble(mc3_edges_filt) %>%
   ungroup()
 kable(head(mc3_edges_clean))
 ```
-
 :::
 
 Let's focuse on the SouthSeafood Express Corp
 
 ::: panel-tabset
-
 ### neighbour
 
 ```{r}
-
 # Define the target node
 target_node <- "SouthSeafood Express Corp"
 
@@ -205,7 +190,7 @@ related_nodes <- mc3_nodes_clean %>%
 
 
 # Create the visNetwork plot
-visNetwork(related_nodes, related_edges) %>%
+q1 <- visNetwork(related_nodes, related_edges) %>%
   visPhysics(solver = "forceAtlas2Based",
              forceAtlas2Based = list(gravitationalConstant = -100)) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
@@ -224,7 +209,7 @@ visNetwork(related_nodes, related_edges) %>%
     var selectedNodeId = properties.nodes[0];
     this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
   }")
-
+q1
 ```
 
 ### Sub-direct
@@ -264,7 +249,7 @@ expanded_nodes_combined$group <- ifelse(expanded_nodes_combined$supertype == "Or
 
 
 # Create the visNetwork plot
-visNetwork(expanded_nodes_combined, expanded_edges) %>%
+q2 <- visNetwork(expanded_nodes_combined, expanded_edges) %>%
   visPhysics(solver = "forceAtlas2Based",
              forceAtlas2Based = list(gravitationalConstant = -100)) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
@@ -283,13 +268,12 @@ visNetwork(expanded_nodes_combined, expanded_edges) %>%
     var selectedNodeId = properties.nodes[0];
     this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
   }")
-
+q2
 ```
 
 ### Ownership
 
 ```{r}
-
 # Identify nodes directly connected to the target node
 connected_nodes <- mc3_nodes_clean %>%
   filter(id %in% c(initial_edges$from, initial_edges$to))
@@ -344,7 +328,7 @@ expanded_nodes_combined$group <- ifelse(expanded_nodes_combined$supertype == "Or
 
 ```{r}
 # Create the visNetwork plot
-visNetwork(expanded_nodes_combined, expanded_edges) %>%
+q3 <- visNetwork(expanded_nodes_combined, expanded_edges) %>%
   visPhysics(solver = "forceAtlas2Based",
              forceAtlas2Based = list(gravitationalConstant = -100)) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
@@ -364,6 +348,7 @@ visNetwork(expanded_nodes_combined, expanded_edges) %>%
     this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
   }")
 
+q3
 ```
 :::
 
@@ -379,7 +364,7 @@ mc3_graph <- tbl_graph(nodes = mc3_nodes_clean,
          closeness_centrality = centrality_closeness())
 ```
 
-We will filter nodes with high betweeness centrality scores (>8,000,000) and visualise them to see the relationships that they have.
+We will filter nodes with high betweeness centrality scores (\>8,000,000) and visualise them to see the relationships that they have.
 
 ```{r}
 set.seed(1234)
@@ -481,9 +466,6 @@ mc3_nodes_target <- mc3_edges_select_high %>%
   distinct(to) %>%
   rename(id = to)
 
-num_edges_left <- nrow(mc3_edges_filtered_dates)
-num_edges_left
-
 ```
 
 #### 3.4.5 Build visNetwork
@@ -498,7 +480,7 @@ mc3_nodes_combined <- bind_rows(mc3_nodes_source, mc3_nodes_target) %>%
 mc3_nodes_combined$group <- ifelse(mc3_nodes_combined$supertype == "Organization", "Organization", "Person")
 
 # Visualize with visNetwork
-visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
+V1 <- visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
   visPhysics(solver = "forceAtlas2Based",
              forceAtlas2Based = list(gravitationalConstant = -100)) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
@@ -517,6 +499,7 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
     var selectedNodeId = properties.nodes[0];
     this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
   }")
+V1
 ```
 
 #### 3.4.6 Compare timeline
@@ -524,21 +507,18 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
 Since the SouthSeafood Express Corp connect first event from AguaLeska Transit N.V. in 2033-10-29, and turn to connect Tainamarine Fishing Co in 2035-05-25
 
 ::: panel-tabset
-
 ## before 2033-10-29
 
 ```{r}
 
 # Filter edges based on date criteria
-mc3_edges_filtered_dates <- mc3_edges_clean %>%
+mc3_edges_filtered_dates_1 <- mc3_edges_select_high %>%
   filter(start_date < as_datetime("2033-10-29") & end_date > as_datetime("2033-10-29"))
+```
 
-num_edges_left <- nrow(mc3_edges_filtered_dates)
-num_edges_left
-
-
+```{r}
 # Visualize with visNetwork
-visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
+V2 <- visNetwork(mc3_nodes_combined, mc3_edges_filtered_dates_1) %>%
   visPhysics(solver = "forceAtlas2Based",
              forceAtlas2Based = list(gravitationalConstant = -100)) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
@@ -557,21 +537,18 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
     var selectedNodeId = properties.nodes[0];
     this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
   }")
+V2
 ```
 
 ## after 2035-05-25
 
 ```{r}
-mc3_edges_filtered_dates <- mc3_edges_clean %>%
+mc3_edges_filtered_dates_2 <- mc3_edges_select_high %>%
   filter(end_date > as_datetime("2035-05-25"))
-
-num_edges_left <- nrow(mc3_edges_filtered_dates)
-num_edges_left
-
 
 
 # Visualize with visNetwork
-visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
+V3 <- visNetwork(mc3_nodes_combined, mc3_edges_filtered_dates_2) %>%
   visPhysics(solver = "forceAtlas2Based",
              forceAtlas2Based = list(gravitationalConstant = -100)) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
@@ -590,6 +567,7 @@ visNetwork(mc3_nodes_combined, mc3_edges_select_high) %>%
     var selectedNodeId = properties.nodes[0];
     this.body.data.nodes.update({id: selectedNodeId, color: {background: 'red', border: 'black'}});
   }")
+V3
 ```
 :::
 
@@ -600,3 +578,5 @@ We can see from the visNetwork, some person control more than 30 companies at th
 Exploring the networks between the various type of nodes or players in the space has been useful to visualising the relationships between the different parties. It has yielded interesting insights on how certain companies may influence the around companies.
 
 For future work, the additional column of timeline and financial situation can be used to provide an additional layer of to the overall visualisation of networks and information in this project.
+
+
