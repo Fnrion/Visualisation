@@ -578,5 +578,3 @@ We can see from the visNetwork, some person control more than 30 companies at th
 Exploring the networks between the various type of nodes or players in the space has been useful to visualising the relationships between the different parties. It has yielded interesting insights on how certain companies may influence the around companies.
 
 For future work, the additional column of timeline and financial situation can be used to provide an additional layer of to the overall visualisation of networks and information in this project.
-
-

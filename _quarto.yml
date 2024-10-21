@@ -94,7 +94,7 @@ format:
       light: Journal
       dark: cosmo
     toc: true
-    fontsize: 0.9em
+    fontsize: 1 em
     linestretch: 1.6
     backgroundcolor: Ivory
     light: flatly
